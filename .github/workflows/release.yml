@@ -1,0 +1,109 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number (e.g. 1.2.3)'
+        required: true
+        type: string
+      description:
+        description: 'Release notes / description (optional)'
+        required: false
+        type: string
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Set up Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Rust build artifacts
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Bump version in package.json and package-lock.json
+        run: npm version ${{ inputs.version }} --no-git-tag-version
+
+      - name: Bump version in src-tauri/Cargo.toml
+        shell: pwsh
+        run: |
+          $content = Get-Content src-tauri/Cargo.toml -Raw
+          # Replace only the version in the [package] section (first occurrence)
+          $content = $content -replace '(?m)^(version\s*=\s*)"[^"]+"', "`$1`"${{ inputs.version }}`""
+          Set-Content src-tauri/Cargo.toml $content -NoNewline
+
+      - name: Bump version in src-tauri/tauri.conf.json
+        shell: pwsh
+        run: |
+          $json = Get-Content src-tauri/tauri.conf.json -Raw | ConvertFrom-Json
+          $json.version = '${{ inputs.version }}'
+          $json | ConvertTo-Json -Depth 10 | Set-Content src-tauri/tauri.conf.json
+
+      - name: Build Windows MSI
+        run: npm run tauri -- build --bundles msi
+
+      - name: Find MSI file
+        id: msi
+        shell: pwsh
+        run: |
+          $msiFile = Get-ChildItem -Path "src-tauri/target/release/bundle/msi" -Filter "*.msi" | Select-Object -First 1
+          if (-not $msiFile) { Write-Error "No MSI found"; exit 1 }
+          echo "path=$($msiFile.FullName)" >> $env:GITHUB_OUTPUT
+          echo "name=$($msiFile.Name)" >> $env:GITHUB_OUTPUT
+
+      - name: Compute SHA256
+        id: sha256
+        shell: pwsh
+        run: |
+          $hash = (Get-FileHash "${{ steps.msi.outputs.path }}" -Algorithm SHA256).Hash.ToUpper()
+          $checksumFile = "${{ steps.msi.outputs.path }}.sha256.txt"
+          "$hash  ${{ steps.msi.outputs.name }}" | Out-File -FilePath $checksumFile -Encoding utf8 -NoNewline
+          echo "hash=$hash" >> $env:GITHUB_OUTPUT
+          echo "checksum_path=$checksumFile" >> $env:GITHUB_OUTPUT
+
+      - name: Commit version bump and push tag
+        shell: pwsh
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add package.json package-lock.json src-tauri/Cargo.toml src-tauri/Cargo.lock src-tauri/tauri.conf.json
+          git commit -m "chore: release v${{ inputs.version }}"
+          git tag "v${{ inputs.version }}"
+          git push origin HEAD --tags
+
+      - name: Create GitHub Release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $body = @"
+          ${{ inputs.description }}
+
+          **SHA256:** ``${{ steps.sha256.outputs.hash }}``
+          "@
+          gh release create "v${{ inputs.version }}" `
+            --title "v${{ inputs.version }}" `
+            --notes $body `
+            "${{ steps.msi.outputs.path }}" `
+            "${{ steps.sha256.outputs.checksum_path }}"
