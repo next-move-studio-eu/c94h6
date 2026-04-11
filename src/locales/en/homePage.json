@@ -1,0 +1,33 @@
+{
+  "editor": {
+    "home": {
+      "headlinePrefix": "Reference editor for the free format ",
+      "bullet1": "Easy to read for humans and machines",
+      "bullet2": "Independent of specific software",
+      "capabilitiesLink": "What we are and what we're not",
+      "freeAndOpenSource": "Free and open source, including commercial use. Licensed under EUPL v1.2.",
+      "independentPublishingTitle": "Independent Publishing",
+      "independentPublishingCategoryLLM": "Specifications for LLM",
+      "specFormatForLLM": "How to write an article",
+      "copied": "Copied",
+      "translationRulesForLLM": "Translation rules",
+      "independentPublishingCategoryScripts": "Bash scripts",
+      "independentPublishingCategoryExamples": "Examples by LLMs",
+      "whyButton": "Why...?",
+      "byline": "Created by Next Move Studio s.r.o.",
+      "helpWithSites": "We're happy to help you use our format for your needs.",
+      "exampleHistory": "History",
+      "exampleCook": "Cook",
+      "exampleBiology": "Biology",
+      "exampleTech": "Tech",
+      "exampleLanguage": "Language",
+      "exampleStork": "Stork",
+      "exampleChess": "Chess"
+    },
+    "nav": {
+      "asIs": "Disclaimer",
+      "credits": "Credits",
+      "gdpr": "GDPR"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "editor": {
+    "nav": {
+      "article": "Článek",
+      "video": "Šachové video"
+    },
+    "placeholder": {
+      "article": "Editor článků – nápověda může být doplněna.",
+      "video": "Editor videa – bude doplněn."
+    }
+  }
+}

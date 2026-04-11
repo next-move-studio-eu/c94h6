@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>c94h6</title>
+    <script src="https://unpkg.com/@rdkit/rdkit@2024.3.5-1.0.0/dist/RDKit_minimal.js"></script>
+    <script>
+      (function () {
+        try {
+          const saved = localStorage.getItem('editorThemeMode');
+          document.documentElement.setAttribute('data-mode', (saved === 'dark' || saved === 'light') ? saved : 'light');
+        } catch (_) {
+          document.documentElement.setAttribute('data-mode', 'light');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

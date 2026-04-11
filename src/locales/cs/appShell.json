@@ -1,0 +1,17 @@
+{
+  "editor": {
+    "title": "c94h6",
+    "nav": {
+      "home": "Přehled",
+      "article": "Článek",
+      "audio": "Nahrát audio",
+      "slideshow": "Obrázková prezentace",
+      "video": "Šachové video"
+    }
+  },
+  "downloadSuccessModal": {
+    "videoDownloaded": "Video bylo úspěšně staženo.",
+    "slideshowDownloaded": "Slideshow bylo úspěšně staženo.",
+    "audioDownloaded": "Audio bylo uloženo. Přidejte ho v editoru článku v sekci Assety."
+  }
+}

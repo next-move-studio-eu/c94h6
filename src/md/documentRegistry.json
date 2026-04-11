@@ -1,0 +1,14 @@
+[
+  { "id": "as-is", "lang": "cs", "filename": "as-is.cs.md" },
+  { "id": "as-is", "lang": "en", "filename": "as-is.en.md" },
+  { "id": "credits", "lang": "cs", "filename": "credits.cs.md" },
+  { "id": "credits", "lang": "en", "filename": "credits.en.md" },
+  { "id": "our-format", "lang": "cs", "filename": "our-format-cs.md" },
+  { "id": "our-format", "lang": "en", "filename": "our-format-en.md" },
+  { "id": "why", "lang": "cs", "filename": "why.cs.md" },
+  { "id": "why", "lang": "en", "filename": "why.en.md" },
+  { "id": "capabilities", "lang": "cs", "filename": "capabilities.cs.md" },
+  { "id": "capabilities", "lang": "en", "filename": "capabilities.en.md" },
+  { "id": "gdpr", "lang": "cs", "filename": "gdpr.cs.md" },
+  { "id": "gdpr", "lang": "en", "filename": "gdpr.en.md" }
+]

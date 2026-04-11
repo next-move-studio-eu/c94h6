@@ -1,0 +1,10 @@
+{
+  "editor": {
+    "document": {
+      "notFound": "Dokument nenalezen.",
+      "contentNotFound": "Obsah nenalezen: {{filename}}",
+      "downloadMd": "Stáhnout MD",
+      "printToPdf": "Tisknout / PDF"
+    }
+  }
+}

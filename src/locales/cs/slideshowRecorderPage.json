@@ -1,0 +1,31 @@
+{
+  "slideshowRecorderPage": {
+    "imagesTitle": "Obrázky",
+    "selectFilesLabel": "Vyberte soubory (pouze AVIF)",
+    "imagePreviewTitle": "Náhled obrázku",
+    "noImage": "Žádný obrázek",
+    "imageAlt": "Obrázek {{number}}",
+    "selectedImage": "Vybraný obrázek: {{number}}.avif",
+    "recordingTitle": "Nahrávání...",
+    "recordButton": "Nahrávat",
+    "pauseButton": "Pozastavit",
+    "stopButton": "Zastavit",
+    "resumeButton": "Pokračovat",
+    "recordingStatus": "● Nahrávání...",
+    "pausedStatus": "⏸ Pozastaveno",
+    "idleStatus": "Nenahrává se",
+    "unsupportedBrowser": "⚠️ Nepodporovaný prohlížeč",
+    "webmNotSupported": "WebM formát není podporován v tomto prohlížeči.",
+    "webmNotSupportedTitle": "WebM není podporován",
+    "mustUploadImagesFirst": "Nejdříve musíte nahrát obrázky",
+    "mustSelectImageFirst": "Nejdříve musíte vybrat obrázek",
+    "failedToStartRecording": "Failed to start recording.",
+    "fileNotAvif": "Soubor \"{{fileName}}\" není ve formátu AVIF.",
+    "invalidFileName": "Soubor \"{{fileName}}\" má neplatný název.",
+    "invalidFileNumber": "Soubor \"{{fileName}}\" má neplatné číslo.",
+    "duplicateFileNumber": "Soubor s číslem {{number}} je duplicitní.",
+    "noTimestampsRecorded": "No timestamps recorded.",
+    "failedToSaveRecording": "Failed to save recording: {{error}}",
+    "unknownError": "Unknown error"
+  }
+}

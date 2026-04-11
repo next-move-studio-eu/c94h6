@@ -1,0 +1,81 @@
+{
+  "examples": {
+    "sectionTitle": "Příklady článků",
+    "view": "Zobrazit",
+    "modelLabel": "Model",
+    "promptLabel": "Prompt",
+    "promptInfoTooltip": "K promptu byl vždy připojen text specifikace našeho formátu pro LLM. Můžete ji zkopírovat na úvodní obrazovce v sekci pro LLM.",
+    "languagesInfoTooltip": "České a anglické verze vznikly na podobných promptech, ale s různými modely—stejný příklad tedy můžete zkontrolovat v obou jazycích. Upozornění: po otevření článku v editoru tlačítko jazyka článek nepřeloží, mění jen jazyk rozhraní.",
+    "manualWorkLabel": "Manuální úpravy",
+    "gradeLabel": "Hodnocení",
+    "evaluationLabel": "Evaluace",
+    "loadingExample": "Načítám příklad…",
+    "fileNameLabel": "Soubor",
+    "loadFailed": "Nepodařilo se načíst příklad.",
+    "items": [
+      {
+        "fileName": "history",
+        "title": "Karel IV.",
+        "model": "Mistral",
+        "prompt": "Připrav mi lekci z historie pro šestou třídu ZŠ na téma Karel IV, doba, co se stavělo, souvislosti ve světě. Minimum textu, stejně to nikdo nečte, dej tam seřazovačky a přiřazovačky, zábavnej vědomostní test, bez obrázků.",
+        "manualWork": "Žádná",
+        "grade": "3",
+        "evaluation": "Trochu strohé a poněkud naivní hádanky. Na první prompt s minimem kontextu ujde."
+      },
+      {
+        "fileName": "cook",
+        "title": "Špagety Aglio Olio",
+        "model": "Claude",
+        "prompt": "Napíšeš mi recept na špagety Aglio Olio? Dej na závěr nějaký cvičení, co dělat, co nedělat.",
+        "manualWork": "Specifikaci si přidal jako soubor a v prvním kroku ji z nějakého důvodu ignoroval a dal mi jen recept. Musel jsem ho repromptnout: 'Já to ale potřeboval podle přiložené specifikace.'",
+        "grade": "4",
+        "evaluation": "Specifikaci dodržel a smysl to dává."
+      },
+      {
+        "fileName": "biology",
+        "title": "Fotosyntéza",
+        "model": "ChatGPT",
+        "prompt": "Prosím napiš studijní materiál pro žáky sedmé třídy, který vysvětluje hravým a interaktivním způsobem fotosyntézu. Prosím ukaž diagram, jak to probíhá.",
+        "manualWork": "Žádná",
+        "grade": "5",
+        "evaluation": "Perfektní."
+      },
+      {
+        "fileName": "tech",
+        "title": "Ring Learning With Errors",
+        "model": "Claude",
+        "prompt": "Napiš vědecko populární, velice stručný a jednoduchý, studijní materiál, na půl hodinovou venkovní výuku, o RLWE a o aplikaci homomorfní kryptografie. Kdy ji můžeme očekávat ostře v běžném provozu a co jsou její hlavní výzvy. Porovnej se současnými algoritmy, přidej poznámku pro zvědavce na Shorův algoritmus. Jestli tě napadnou nějaké diagramy, klidně je tam přidej. Pochopit se to moc nedá, ale zkus to udělat aspoň zajímavé, aby u toho studenti po pěti minutách neusnuli.",
+        "manualWork": "Vrátil nevalidní JSON s chybně escapovanými uvozovkami z citací v markdownu. Vyžadovalo 5 minut v Notepad++ v json vieweru. Tato chyba byla pro mě známá z minulosti, ale ani opravný prompt její existenci nezabránil, proto jsem šel tak trochu najisto a oprava byla snadná.",
+        "grade": "5",
+        "evaluation": "Až na chybu s escapováním uvozek vypadá článek špičkově."
+      },
+      {
+        "fileName": "language",
+        "title": "Výuka barev v angličtině",
+        "model": "Gemini",
+        "prompt": "Napiš mi krátký článek na výuku barev v angličtině pro děti druhé třídy základní školy a ať si můžou vyzkoušet i jejich výslovnost. Podle specifikace níže.",
+        "manualWork": "Prompt 2: 'Super, vygeneruj mi teda ještě ten obrázek :D' a 2 minuty konverze do 1920 avif",
+        "grade": "5",
+        "evaluation": "Od zadání jednou větou moc víc člověk čekat nemůže, iniciativa s obrázkem není na škodu."
+      },
+      {
+        "fileName": "stork",
+        "title": "Populace čápů bílých v Evropě",
+        "model": "Claude",
+        "prompt": "Napiš krátký článek o populaci čápů bílých v Evropě. Ukaž na grafech, jak se mění jejich populace v Litvě za posledních 20 let a porovnej jejich aktuální počty s dalšími evropskými zeměmi. Přidej krátkou analýzu, jaké chemické látky je přitahují a co je pro ně ve stravě důležité. Napiš vzoreček předpokládaného vývoje jejich populace pro další desetiletí. Článek kratší délky, vědecko populární, využij grafické prvky místo textu kde to jen bude možné. Podle přiložené specifikace.",
+        "manualWork": "Nic",
+        "grade": "5",
+        "evaluation": "Článek vypadá velmi dobře."
+      },
+      {
+        "fileName": "chess",
+        "title": "Nejznámější šachová koncovka",
+        "model": "Claude",
+        "prompt": "Napíšeš mi krátký článek o Richardu Rétim a přidáš tam diagram s bílým na tahu, kde stojí figurky:\n\nBílý: král h8, pěšec c6\nČerný: král a6, pěšec h5\n\nDej žlutou šipku z h8 na e5, z e5 na d6 a z e5 na g3. Taky žlutě zvýrazni políčko e5. Je to jeho nejslavnější studie, dej možnost si to bílými zahrát proti PC.\n\nPiš podle přiložené specifikace.",
+        "manualWork": "FEN byl velmi blízko realitě, ale bílý král stál na h1 místo na h8, tak jsem ho v kódu přehodil.",
+        "grade": "4",
+        "evaluation": "Dobrý pomocník se syntaxí a obsahem, i když FEN v době promptu je ještě pro LLMs oříšek obecně."
+      }
+    ]
+  }
+}

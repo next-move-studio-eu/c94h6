@@ -1,0 +1,19 @@
+{
+  "audioRecorderPage": {
+    "recordingTitle": "Record audio",
+    "description": "Record sound (microphone). After stopping, a .webm file is saved. Add it in the article editor under Assets.",
+    "recordButton": "Record",
+    "pauseButton": "Pause",
+    "stopButton": "Stop",
+    "resumeButton": "Resume",
+    "recordingStatus": "● Recording...",
+    "pausedStatus": "⏸ Paused",
+    "idleStatus": "Not recording",
+    "unsupportedBrowser": "⚠️ Unsupported browser",
+    "webmNotSupported": "WebM format is not supported in this browser.",
+    "webmNotSupportedTitle": "WebM is not supported",
+    "failedToStartRecording": "Failed to start recording.",
+    "failedToSaveRecording": "Failed to save recording: {{error}}",
+    "unknownError": "Unknown error"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "editor": {
+    "nav": {
+      "article": "Article",
+      "video": "Chess video"
+    },
+    "placeholder": {
+      "article": "Article editor – help content can be added here.",
+      "video": "Video editor – coming soon."
+    }
+  }
+}

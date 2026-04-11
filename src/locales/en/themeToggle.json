@@ -1,0 +1,16 @@
+{
+  "themeToggle": {
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode",
+    "paletteCycleAriaLabel": "Color theme: {{current}}. Activate to switch to the next palette.",
+    "palette": {
+      "default": "Amber",
+      "wine": "Wine",
+      "sage": "Sage",
+      "forest": "Forest",
+      "ocean": "Ocean",
+      "lavender": "Lavender",
+      "rose": "Rose"
+    }
+  }
+}

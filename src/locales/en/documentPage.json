@@ -1,0 +1,10 @@
+{
+  "editor": {
+    "document": {
+      "notFound": "Document not found.",
+      "contentNotFound": "Content not found: {{filename}}",
+      "downloadMd": "Download MD",
+      "printToPdf": "Print / PDF"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "themeToggle": {
+    "switchToLight": "Přepnout na světlý režim",
+    "switchToDark": "Přepnout na tmavý režim",
+    "paletteCycleAriaLabel": "Barevné téma: {{current}}. Aktivujte pro přepnutí na další paletu.",
+    "palette": {
+      "default": "Jantar",
+      "wine": "Víno",
+      "sage": "Šalvěj",
+      "forest": "Les",
+      "ocean": "Oceán",
+      "lavender": "Levandule",
+      "rose": "Růže"
+    }
+  }
+}

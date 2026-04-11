@@ -1,0 +1,19 @@
+{
+  "audioRecorderPage": {
+    "recordingTitle": "Nahrávání audia",
+    "description": "Nahrajte zvuk (mikrofon). Po zastavení se uloží soubor .webm. Přidejte ho v editoru článku v sekci Assety.",
+    "recordButton": "Nahrávat",
+    "pauseButton": "Pozastavit",
+    "stopButton": "Zastavit",
+    "resumeButton": "Pokračovat",
+    "recordingStatus": "● Nahrávání...",
+    "pausedStatus": "⏸ Pozastaveno",
+    "idleStatus": "Nenahrává se",
+    "unsupportedBrowser": "⚠️ Nepodporovaný prohlížeč",
+    "webmNotSupported": "WebM formát není podporován v tomto prohlížeči.",
+    "webmNotSupportedTitle": "WebM není podporován",
+    "failedToStartRecording": "Nepodařilo se spustit nahrávání.",
+    "failedToSaveRecording": "Nepodařilo se uložit nahrávku: {{error}}",
+    "unknownError": "Unknown error"
+  }
+}

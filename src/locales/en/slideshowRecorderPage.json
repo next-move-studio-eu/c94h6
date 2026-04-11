@@ -1,0 +1,31 @@
+{
+  "slideshowRecorderPage": {
+    "imagesTitle": "Images",
+    "selectFilesLabel": "Select files (AVIF only)",
+    "imagePreviewTitle": "Image preview",
+    "noImage": "No image",
+    "imageAlt": "Image {{number}}",
+    "selectedImage": "Selected image: {{number}}.avif",
+    "recordingTitle": "Recording...",
+    "recordButton": "Record",
+    "pauseButton": "Pause",
+    "stopButton": "Stop",
+    "resumeButton": "Resume",
+    "recordingStatus": "● Recording...",
+    "pausedStatus": "⏸ Paused",
+    "idleStatus": "Not recording",
+    "unsupportedBrowser": "⚠️ Unsupported browser",
+    "webmNotSupported": "WebM format is not supported in this browser.",
+    "webmNotSupportedTitle": "WebM is not supported",
+    "mustUploadImagesFirst": "You must upload images first",
+    "mustSelectImageFirst": "You must select an image first",
+    "failedToStartRecording": "Failed to start recording.",
+    "fileNotAvif": "File \"{{fileName}}\" is not in AVIF format.",
+    "invalidFileName": "File \"{{fileName}}\" has invalid name.",
+    "invalidFileNumber": "File \"{{fileName}}\" has invalid number.",
+    "duplicateFileNumber": "File with number {{number}} is duplicate.",
+    "noTimestampsRecorded": "No timestamps recorded.",
+    "failedToSaveRecording": "Failed to save recording: {{error}}",
+    "unknownError": "Unknown error"
+  }
+}

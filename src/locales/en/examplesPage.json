@@ -1,0 +1,81 @@
+{
+  "examples": {
+    "sectionTitle": "Article examples",
+    "view": "View",
+    "modelLabel": "Model",
+    "promptLabel": "Prompt",
+    "promptInfoTooltip": "The prompt was always postfixed with our format specification for LLMs. You can copy-paste it on the home screen in the LLM section.",
+    "languagesInfoTooltip": "Czech and English versions were generated from similar prompts but with different models, so you can check the same example in both languages. Warning: once you open the article in the editor, the language button does not translate the article; it only changes the UI language.",
+    "manualWorkLabel": "Manual work",
+    "gradeLabel": "Grade",
+    "evaluationLabel": "Evaluation",
+    "loadingExample": "Loading example…",
+    "fileNameLabel": "File",
+    "loadFailed": "Failed to load example.",
+    "items": [
+      {
+        "fileName": "history",
+        "title": "Charles IV.",
+        "model": "ChatGPT",
+        "prompt": "Prepare a history lesson for 6th-grade elementary school students about Charles IV: the era, major construction projects, and global context. Keep text to a minimum, include ordering and matching exercises, and a fun trivia quiz. No images.",
+        "manualWork": "None",
+        "grade": "4",
+        "evaluation": "I didn't check fatual side but looks very good overall. Sorting quiz containing born of Charles is a bit naive but other quizes make sense."
+      },
+      {
+        "fileName": "cook",
+        "title": "Spaghetti Aglio e Olio",
+        "model": "Gemini",
+        "prompt": "Can you write me a recipe for Spaghetti Aglio e Olio? At the end, add some dos and don'ts.",
+        "manualWork": "None",
+        "grade": "4",
+        "evaluation": "A bit minimalistic but makes sense and passed our specification."
+      },
+      {
+        "fileName": "biology",
+        "title": "Photosynthesis",
+        "model": "Gemini",
+        "prompt": "Please create a study material for seventh-grade students that explains photosynthesis in a fun and interactive way. Please include a diagram showing how the process works.",
+        "manualWork": "None",
+        "grade": "4",
+        "evaluation": "Quite minimalistic, but compliant with specification and very good looking."
+      },
+      {
+        "fileName": "tech",
+        "title": "Ring Learning With Errors",
+        "model": "Mistral",
+        "prompt": "Write a popular-science, very concise and simple study material for a half-hour outdoor lesson about RLWE and the applications of homomorphic cryptography. Explain when we can expect it to be widely used in everyday operation and what its main challenges are. Compare it with current algorithms and add a note for the curious about Shor's algorithm. If any diagrams come to mind, feel free to include them. It's not really something that can be easily understood, but try to make it at least interesting so that the students don't fall asleep after five minutes.",
+        "manualWork": "",
+        "grade": "5",
+        "evaluation": "Exceptionally good!"
+      },
+      {
+        "fileName": "language",
+        "title": "Color lesson from German to English",
+        "model": "Mistral",
+        "prompt": "Schreibe mir einen kurzen deutschen Artikel über das Unterrichten von Farben auf Englisch für Kinder in der zweiten Klasse der Grundschule, bei dem sie auch ihre Aussprache üben können. Gemäß der untenstehenden Spezifikation.",
+        "manualWork": "Nothing",
+        "grade": "4",
+        "evaluation": "Looks a bit dry, but overall acceptable result for such a short prompt. Didn't shuffle the quiz."
+      },
+      {
+        "fileName": "stork",
+        "title": "Population of white storks in Europe",
+        "model": "ChatGPT",
+        "prompt": "Write a short article about the white stork population in Europe. Use charts to show how their population in Lithuania has changed over the last 20 years and compare their current numbers with other European countries. Include a short analysis of which chemical substances attract them and what is important for their diet. Write a formula for the projected population trend for the next decade. The article should be short, popular science style, utilizing graphic elements instead of text wherever possible, according to the attached specification.",
+        "manualWork": "Nothing",
+        "grade": "5",
+        "evaluation": "Looks very good and +1 for chemistry included!"
+      },
+      {
+        "fileName": "chess",
+        "title": "Famous chess endgame",
+        "model": "Gemini",
+        "prompt": "Write a short article in english about Richard Réti and include a diagram with white to move, where the pieces are positioned as follows:\n\nWhite: King h8, pawn c6\n\nBlack: King a6, pawn h5\n\nAdd a yellow arrow from h8 to e5, from e5 to d6, and from e5 to g3. Also, highlight square e5 in yellow. It is his most famous study; provide an option to play it as white against the computer.\n\nWrite according to the attached specification.",
+        "manualWork": "Had to fix FEN, correct piece places but 2x black king.",
+        "grade": "4",
+        "evaluation": "Overall solid result."
+      }
+    ]
+  }
+}

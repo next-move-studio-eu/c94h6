@@ -1,0 +1,17 @@
+{
+  "editor": {
+    "title": "c94h6",
+    "nav": {
+      "home": "Dashboard",
+      "article": "Article",
+      "audio": "Record audio",
+      "slideshow": "Slideshow",
+      "video": "Chess video"
+    }
+  },
+  "downloadSuccessModal": {
+    "videoDownloaded": "Video was successfully downloaded.",
+    "slideshowDownloaded": "Slideshow was successfully downloaded.",
+    "audioDownloaded": "Audio saved. Add it in the article editor under Assets."
+  }
+}

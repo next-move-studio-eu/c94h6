@@ -1,0 +1,33 @@
+{
+  "editor": {
+    "home": {
+      "headlinePrefix": "Referenční editor volného formátu ",
+      "bullet1": "Snadná čitelnost člověkem i strojem",
+      "bullet2": "Nezávislost na konkrétním softwaru",
+      "capabilitiesLink": "Co jsme a co nejsme",
+      "freeAndOpenSource": "Svobodný a otevřený software včetně komerčního využití. Licence EUPL v1.2.",
+      "independentPublishingTitle": "Nezávislé publikování",
+      "independentPublishingCategoryLLM": "Specifikace pro LLM",
+      "specFormatForLLM": "Jak napsat článek",
+      "copied": "Zkopírováno",
+      "translationRulesForLLM": "Pravidla překladu",
+      "independentPublishingCategoryScripts": "Bash skripty",
+      "independentPublishingCategoryExamples": "Ukázky psané LLM",
+      "whyButton": "Proč...?",
+      "byline": "Vytvořeno společností Next Move Studio s.r.o.",
+      "helpWithSites": "Rádi vám pomůžeme využít náš formát dle vašich potřeb.",
+      "exampleHistory": "Historie",
+      "exampleCook": "Vaření",
+      "exampleBiology": "Biologie",
+      "exampleTech": "Tech",
+      "exampleLanguage": "Jazyk",
+      "exampleStork": "Čáp",
+      "exampleChess": "Šachy"
+    },
+    "nav": {
+      "asIs": "Právní upozornění",
+      "credits": "Zdroje",
+      "gdpr": "GDPR"
+    }
+  }
+}
