@@ -367,6 +367,7 @@ export default function ArticleContentRenderer({
             key={index}
             id={String(p.imageId)}
             caption={p.caption}
+            variant={variant}
           />
         );
       }
