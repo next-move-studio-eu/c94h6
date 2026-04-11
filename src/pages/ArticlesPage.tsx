@@ -675,8 +675,9 @@ export default function ArticlesPage() {
                     {diskDirty ? ` ${t('articlesPage.unsavedMarker')}` : ''}
                   </span>
                 )}
+                <div className="ml-auto flex flex-wrap items-center gap-2">
                 {lastSavedAt && (
-                  <span className="ml-auto self-center text-xs text-[var(--textSecondary)]" role="status">
+                  <span className="self-center text-xs text-[var(--textSecondary)]" role="status">
                     {t('articlesPage.draftSavedAt', {
                       time: new Date(lastSavedAt).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' }),
                     })}
@@ -716,6 +717,7 @@ export default function ArticlesPage() {
                   {showPreview ? <Edit3 className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   {showPreview ? t('articlesPage.edit') : t('articlesPage.preview')}
                 </button>
+                </div>
               </div>
               {loadErrors.length > 0 && (
                 <div className="mt-3 rounded-lg border border-[var(--error)] bg-[var(--errorSubtle)] p-3 text-sm text-[var(--error)]">
