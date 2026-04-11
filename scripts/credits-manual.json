@@ -1,0 +1,16 @@
+{
+  "_licensePolicySkipIds_comment": "Optional: exact name@version keys to omit from the copyleft SPDX gate (dual-license crates where the project uses the permissive option). Prefer replacing the dependency when possible.",
+  "licensePolicySkipIds": ["jszip@3.10.1"],
+  "entries": [
+    {
+      "linkText": "Chess piece SVGs (User:Cburnett, Wikimedia Commons)",
+      "url": "https://commons.wikimedia.org/wiki/File:Chess_pdt45.svg",
+      "license": "Creative Commons Attribution-ShareAlike 3.0 Unported"
+    },
+    {
+      "linkText": "IBM Plex Sans & IBM Plex Mono (typefaces)",
+      "url": "https://github.com/googlefonts/plex",
+      "license": "SIL Open Font License 1.1"
+    }
+  ]
+}

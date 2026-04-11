@@ -15,7 +15,8 @@
     "preview": "vite preview",
     "tauri": "tauri",
     "icon": "tauri icon public/favicon.svg",
-    "test:normalize-pgn": "npx tsx scripts/test-normalize-pgn.ts"
+    "test:normalize-pgn": "npx tsx scripts/test-normalize-pgn.ts",
+    "credits:gen": "node scripts/generate-credits.mjs"
   },
   "dependencies": {
     "culori": "^4.0.2",

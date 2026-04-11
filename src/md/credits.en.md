@@ -43,25 +43,26 @@ This application uses the following open source components. Listed are name, lin
 - [@rollup/rollup-win32-x64-gnu@4.59.0](https://github.com/rollup/rollup) — MIT License
 - [@rollup/rollup-win32-x64-msvc@4.59.0](https://github.com/rollup/rollup) — MIT License
 - [@tauri-apps/api@2.10.1](https://github.com/tauri-apps/tauri) — Apache-2.0 OR MIT
-- [@tauri-apps/cli@2.10.0](https://github.com/tauri-apps/tauri) — Apache-2.0 OR MIT
 - [@tauri-apps/cli-win32-x64-msvc@2.10.0](https://github.com/tauri-apps/tauri) — Apache-2.0 OR MIT
+- [@tauri-apps/cli@2.10.0](https://github.com/tauri-apps/tauri) — Apache-2.0 OR MIT
 - [@tauri-apps/plugin-dialog@2.6.0](https://github.com/tauri-apps/plugins-workspace) — MIT OR Apache-2.0
 - [@tauri-apps/plugin-opener@2.5.3](https://github.com/tauri-apps/plugins-workspace) — MIT OR Apache-2.0
 - [@types/babel__core@7.20.5](https://github.com/DefinitelyTyped/DefinitelyTyped) — MIT License
 - [@types/babel__generator@7.27.0](https://github.com/DefinitelyTyped/DefinitelyTyped) — MIT License
 - [@types/babel__template@7.4.4](https://github.com/DefinitelyTyped/DefinitelyTyped) — MIT License
 - [@types/babel__traverse@7.28.0](https://github.com/DefinitelyTyped/DefinitelyTyped) — MIT License
+- [@types/culori@4.0.1](https://github.com/DefinitelyTyped/DefinitelyTyped) — MIT License
 - [@types/debug@4.1.12](https://github.com/DefinitelyTyped/DefinitelyTyped) — MIT License
-- [@types/estree@1.0.8](https://github.com/DefinitelyTyped/DefinitelyTyped) — MIT License
 - [@types/estree-jsx@1.0.5](https://github.com/DefinitelyTyped/DefinitelyTyped) — MIT License
+- [@types/estree@1.0.8](https://github.com/DefinitelyTyped/DefinitelyTyped) — MIT License
 - [@types/hast@3.0.4](https://github.com/DefinitelyTyped/DefinitelyTyped) — MIT License
 - [@types/mdast@4.0.4](https://github.com/DefinitelyTyped/DefinitelyTyped) — MIT License
 - [@types/ms@2.1.0](https://github.com/DefinitelyTyped/DefinitelyTyped) — MIT License
 - [@types/prismjs@1.26.6](https://github.com/DefinitelyTyped/DefinitelyTyped) — MIT License
 - [@types/prop-types@15.7.15](https://github.com/DefinitelyTyped/DefinitelyTyped) — MIT License
-- [@types/react@18.3.28](https://github.com/DefinitelyTyped/DefinitelyTyped) — MIT License
 - [@types/react-dom@18.3.7](https://github.com/DefinitelyTyped/DefinitelyTyped) — MIT License
 - [@types/react-syntax-highlighter@15.5.13](https://github.com/DefinitelyTyped/DefinitelyTyped) — MIT License
+- [@types/react@18.3.28](https://github.com/DefinitelyTyped/DefinitelyTyped) — MIT License
 - [@types/unist@2.0.11](https://github.com/DefinitelyTyped/DefinitelyTyped) — MIT License
 - [@types/unist@3.0.3](https://github.com/DefinitelyTyped/DefinitelyTyped) — MIT License
 - [@ungap/structured-clone@1.3.0](https://github.com/ungap/structured-clone) — ISC License
@@ -80,9 +81,9 @@ This application uses the following open source components. Listed are name, lin
 - [camelcase-css@2.0.1](https://github.com/stevenvachon/camelcase-css) — MIT License
 - [caniuse-lite@1.0.30001776](https://github.com/browserslist/caniuse-lite) — CC-BY-4.0
 - [ccount@2.0.1](https://github.com/wooorm/ccount) — MIT License
-- [character-entities@2.0.2](https://github.com/wooorm/character-entities) — MIT License
 - [character-entities-html4@2.1.0](https://github.com/wooorm/character-entities-html4) — MIT License
 - [character-entities-legacy@3.0.0](https://github.com/wooorm/character-entities-legacy) — MIT License
+- [character-entities@2.0.2](https://github.com/wooorm/character-entities) — MIT License
 - [character-reference-invalid@2.0.1](https://github.com/wooorm/character-reference-invalid) — MIT License
 - [chess.js@1.4.0](https://github.com/jhlywa/chess.js) — BSD 2-Clause
 - [chokidar@3.6.0](https://github.com/paulmillr/chokidar) — MIT License
@@ -94,6 +95,7 @@ This application uses the following open source components. Listed are name, lin
 - [core-util-is@1.0.3](https://github.com/isaacs/core-util-is) — MIT License
 - [cssesc@3.0.0](https://github.com/mathiasbynens/cssesc) — MIT License
 - [csstype@3.2.3](https://github.com/frenic/csstype) — MIT License
+- [culori@4.0.2](https://github.com/Evercoder/culori) — MIT License
 - [debug@4.4.3](https://github.com/debug-js/debug) — MIT License
 - [decode-named-character-reference@1.3.0](https://github.com/wooorm/decode-named-character-reference) — MIT License
 - [dequal@2.0.3](https://github.com/lukeed/dequal) — MIT License
@@ -127,7 +129,7 @@ This application uses the following open source components. Listed are name, lin
 - [hast-util-whitespace@3.0.0](https://github.com/syntax-tree/hast-util-whitespace) — MIT License
 - [hastscript@9.0.1](https://github.com/syntax-tree/hastscript) — MIT License
 - [highlight.js@10.7.3](https://github.com/highlightjs/highlight.js) — BSD 3-Clause
-- [highlightjs-vue@1.0.0](https://github.com/highlightjs/highlightjs-vue) — CC0 1.0
+- [highlightjs-vue@1.0.0](https://github.com/highlightjs/highlightjs-vue) — CC0-1.0
 - [html-parse-stringify@3.0.1](https://github.com/henrikjoreteg/html-parse-stringify) — MIT License
 - [html-url-attributes@3.0.1](https://github.com/rehypejs/rehype-minify/tree/main/packages/html-url-attributes) — MIT License
 - [i18next@25.10.9](https://github.com/i18next/i18next) — MIT License
@@ -149,7 +151,7 @@ This application uses the following open source components. Listed are name, lin
 - [js-tokens@4.0.0](https://github.com/lydell/js-tokens) — MIT License
 - [jsesc@3.1.0](https://github.com/mathiasbynens/jsesc) — MIT License
 - [json5@2.2.3](https://github.com/json5/json5) — MIT License
-- [jszip@3.10.1](https://github.com/Stuk/jszip) — (MIT OR GPL-3.0-or-later)
+- [jszip@3.10.1](https://github.com/Stuk/jszip) — MIT OR GPL-3.0-or-later
 - [katex@0.16.37](https://github.com/KaTeX/KaTeX) — MIT License
 - [lie@3.3.0](https://github.com/calvinmetcalf/lie) — MIT License
 - [lilconfig@3.1.3](https://github.com/antonk52/lilconfig) — MIT License
@@ -162,12 +164,12 @@ This application uses the following open source components. Listed are name, lin
 - [markdown-table@3.0.4](https://github.com/wooorm/markdown-table) — MIT License
 - [mdast-util-find-and-replace@3.0.2](https://github.com/syntax-tree/mdast-util-find-and-replace) — MIT License
 - [mdast-util-from-markdown@2.0.3](https://github.com/syntax-tree/mdast-util-from-markdown) — MIT License
-- [mdast-util-gfm@3.1.0](https://github.com/syntax-tree/mdast-util-gfm) — MIT License
 - [mdast-util-gfm-autolink-literal@2.0.1](https://github.com/syntax-tree/mdast-util-gfm-autolink-literal) — MIT License
 - [mdast-util-gfm-footnote@2.1.0](https://github.com/syntax-tree/mdast-util-gfm-footnote) — MIT License
 - [mdast-util-gfm-strikethrough@2.0.0](https://github.com/syntax-tree/mdast-util-gfm-strikethrough) — MIT License
 - [mdast-util-gfm-table@2.0.0](https://github.com/syntax-tree/mdast-util-gfm-table) — MIT License
 - [mdast-util-gfm-task-list-item@2.0.0](https://github.com/syntax-tree/mdast-util-gfm-task-list-item) — MIT License
+- [mdast-util-gfm@3.1.0](https://github.com/syntax-tree/mdast-util-gfm) — MIT License
 - [mdast-util-mdx-expression@2.0.1](https://github.com/syntax-tree/mdast-util-mdx-expression) — MIT License
 - [mdast-util-mdx-jsx@3.2.0](https://github.com/syntax-tree/mdast-util-mdx-jsx) — MIT License
 - [mdast-util-mdxjs-esm@2.0.1](https://github.com/syntax-tree/mdast-util-mdxjs-esm) — MIT License
@@ -176,15 +178,14 @@ This application uses the following open source components. Listed are name, lin
 - [mdast-util-to-markdown@2.1.2](https://github.com/syntax-tree/mdast-util-to-markdown) — MIT License
 - [mdast-util-to-string@4.0.0](https://github.com/syntax-tree/mdast-util-to-string) — MIT License
 - [merge2@1.4.1](https://github.com/teambition/merge2) — MIT License
-- [micromark@4.0.2](https://github.com/micromark/micromark/tree/main/packages/micromark) — MIT License
 - [micromark-core-commonmark@2.0.3](https://github.com/micromark/micromark/tree/main/packages/micromark-core-commonmark) — MIT License
-- [micromark-extension-gfm@3.0.0](https://github.com/micromark/micromark-extension-gfm) — MIT License
 - [micromark-extension-gfm-autolink-literal@2.1.0](https://github.com/micromark/micromark-extension-gfm-autolink-literal) — MIT License
 - [micromark-extension-gfm-footnote@2.1.0](https://github.com/micromark/micromark-extension-gfm-footnote) — MIT License
 - [micromark-extension-gfm-strikethrough@2.1.0](https://github.com/micromark/micromark-extension-gfm-strikethrough) — MIT License
 - [micromark-extension-gfm-table@2.1.1](https://github.com/micromark/micromark-extension-gfm-table) — MIT License
 - [micromark-extension-gfm-tagfilter@2.0.0](https://github.com/micromark/micromark-extension-gfm-tagfilter) — MIT License
 - [micromark-extension-gfm-task-list-item@2.1.0](https://github.com/micromark/micromark-extension-gfm-task-list-item) — MIT License
+- [micromark-extension-gfm@3.0.0](https://github.com/micromark/micromark-extension-gfm) — MIT License
 - [micromark-factory-destination@2.0.1](https://github.com/micromark/micromark/tree/main/packages/micromark-factory-destination) — MIT License
 - [micromark-factory-label@2.0.1](https://github.com/micromark/micromark/tree/main/packages/micromark-factory-label) — MIT License
 - [micromark-factory-space@2.0.1](https://github.com/micromark/micromark/tree/main/packages/micromark-factory-space) — MIT License
@@ -204,6 +205,7 @@ This application uses the following open source components. Listed are name, lin
 - [micromark-util-subtokenize@2.1.0](https://github.com/micromark/micromark/tree/main/packages/micromark-util-subtokenize) — MIT License
 - [micromark-util-symbol@2.0.1](https://github.com/micromark/micromark/tree/main/packages/micromark-util-symbol) — MIT License
 - [micromark-util-types@2.0.2](https://github.com/micromark/micromark/tree/main/packages/micromark-util-types) — MIT License
+- [micromark@4.0.2](https://github.com/micromark/micromark/tree/main/packages/micromark) — MIT License
 - [micromatch@4.0.8](https://github.com/micromatch/micromatch) — MIT License
 - [motion-dom@12.34.5](https://github.com/motiondivision/motion) — MIT License
 - [motion-utils@12.29.2](https://github.com/motiondivision/motion) — MIT License
@@ -214,7 +216,7 @@ This application uses the following open source components. Listed are name, lin
 - [normalize-path@3.0.0](https://github.com/jonschlinkert/normalize-path) — MIT License
 - [object-assign@4.1.1](https://github.com/sindresorhus/object-assign) — MIT License
 - [object-hash@3.0.0](https://github.com/puleos/object-hash) — MIT License
-- [pako@1.0.11](https://github.com/nodeca/pako) — (MIT AND Zlib)
+- [pako@1.0.11](https://github.com/nodeca/pako) — MIT AND Zlib
 - [parse-entities@4.0.2](https://github.com/wooorm/parse-entities) — MIT License
 - [path-parse@1.0.7](https://github.com/jbgutierrez/path-parse) — MIT License
 - [picocolors@1.1.1](https://github.com/alexeyraspopov/picocolors) — ISC License
@@ -222,25 +224,25 @@ This application uses the following open source components. Listed are name, lin
 - [picomatch@4.0.3](https://github.com/micromatch/picomatch) — MIT License
 - [pify@2.3.0](https://github.com/sindresorhus/pify) — MIT License
 - [pirates@4.0.7](https://github.com/danez/pirates) — MIT License
-- [postcss@8.5.8](https://github.com/postcss/postcss) — MIT License
 - [postcss-import@15.1.0](https://github.com/postcss/postcss-import) — MIT License
 - [postcss-js@4.1.0](https://github.com/postcss/postcss-js) — MIT License
 - [postcss-load-config@6.0.1](https://github.com/postcss/postcss-load-config) — MIT License
 - [postcss-nested@6.2.0](https://github.com/postcss/postcss-nested) — MIT License
 - [postcss-selector-parser@6.1.2](https://github.com/postcss/postcss-selector-parser) — MIT License
 - [postcss-value-parser@4.2.0](https://github.com/TrySound/postcss-value-parser) — MIT License
+- [postcss@8.5.8](https://github.com/postcss/postcss) — MIT License
 - [prismjs@1.30.0](https://github.com/PrismJS/prism) — MIT License
 - [process-nextick-args@2.0.1](https://github.com/calvinmetcalf/process-nextick-args) — MIT License
 - [property-information@7.1.0](https://github.com/wooorm/property-information) — MIT License
 - [queue-microtask@1.2.3](https://github.com/feross/queue-microtask) — MIT License
-- [react@18.3.1](https://github.com/facebook/react) — MIT License
 - [react-dom@18.3.1](https://github.com/facebook/react) — MIT License
 - [react-i18next@15.7.4](https://github.com/i18next/react-i18next) — MIT License
 - [react-markdown@10.1.0](https://github.com/remarkjs/react-markdown) — MIT License
 - [react-refresh@0.18.0](https://github.com/facebook/react) — MIT License
-- [react-router@6.30.3](https://github.com/remix-run/react-router) — MIT License
 - [react-router-dom@6.30.3](https://github.com/remix-run/react-router) — MIT License
+- [react-router@6.30.3](https://github.com/remix-run/react-router) — MIT License
 - [react-syntax-highlighter@16.1.1](https://github.com/react-syntax-highlighter/react-syntax-highlighter) — MIT License
+- [react@18.3.1](https://github.com/facebook/react) — MIT License
 - [read-cache@1.0.0](https://github.com/TrySound/read-cache) — MIT License
 - [readable-stream@2.3.8](https://github.com/nodejs/readable-stream) — MIT License
 - [readdirp@3.6.0](https://github.com/paulmillr/readdirp) — MIT License
@@ -267,31 +269,566 @@ This application uses the following open source components. Listed are name, lin
 - [style-to-object@1.0.14](https://github.com/remarkablemark/style-to-object) — MIT License
 - [sucrase@3.35.1](https://github.com/alangpierce/sucrase) — MIT License
 - [supports-preserve-symlinks-flag@1.0.0](https://github.com/inspect-js/node-supports-preserve-symlinks-flag) — MIT License
-- [tailwindcss@3.4.19](https://github.com/tailwindlabs/tailwindcss.git#v3) — MIT License
-- [thenify@3.3.1](https://github.com/thenables/thenify) — MIT License
+- [tailwindcss@3.4.19](https://github.com/tailwindlabs/tailwindcss) — MIT License
 - [thenify-all@1.6.0](https://github.com/thenables/thenify-all) — MIT License
+- [thenify@3.3.1](https://github.com/thenables/thenify) — MIT License
 - [tinyglobby@0.2.15](https://github.com/SuperchupuDev/tinyglobby) — MIT License
 - [to-regex-range@5.0.1](https://github.com/micromatch/to-regex-range) — MIT License
 - [trim-lines@3.0.1](https://github.com/wooorm/trim-lines) — MIT License
 - [trough@2.2.0](https://github.com/wooorm/trough) — MIT License
 - [ts-interface-checker@0.1.13](https://github.com/gristlabs/ts-interface-checker) — Apache License 2.0
-- [tslib@2.8.1](https://github.com/Microsoft/tslib) — BSD Zero Clause
+- [tslib@2.8.1](https://github.com/Microsoft/tslib) — 0BSD
 - [typescript@5.9.3](https://github.com/microsoft/TypeScript) — Apache License 2.0
 - [unified@11.0.5](https://github.com/unifiedjs/unified) — MIT License
 - [unist-util-is@6.0.1](https://github.com/syntax-tree/unist-util-is) — MIT License
 - [unist-util-position@5.0.0](https://github.com/syntax-tree/unist-util-position) — MIT License
 - [unist-util-stringify-position@4.0.0](https://github.com/syntax-tree/unist-util-stringify-position) — MIT License
-- [unist-util-visit@5.1.0](https://github.com/syntax-tree/unist-util-visit) — MIT License
 - [unist-util-visit-parents@6.0.2](https://github.com/syntax-tree/unist-util-visit-parents) — MIT License
+- [unist-util-visit@5.1.0](https://github.com/syntax-tree/unist-util-visit) — MIT License
 - [update-browserslist-db@1.2.3](https://github.com/browserslist/update-db) — MIT License
 - [util-deprecate@1.0.2](https://github.com/TooTallNate/util-deprecate) — MIT License
-- [vfile@6.0.3](https://github.com/vfile/vfile) — MIT License
 - [vfile-message@4.0.3](https://github.com/vfile/vfile-message) — MIT License
+- [vfile@6.0.3](https://github.com/vfile/vfile) — MIT License
 - [vite@6.4.1](https://github.com/vitejs/vite) — MIT License
 - [void-elements@3.1.0](https://github.com/pugjs/void-elements) — MIT License
 - [wrap-ansi@9.0.2](https://github.com/chalk/wrap-ansi) — MIT License
 - [y18n@5.0.8](https://github.com/yargs/y18n) — ISC License
 - [yallist@3.1.1](https://github.com/isaacs/yallist) — ISC License
-- [yargs@18.0.0](https://github.com/yargs/yargs) — MIT License
 - [yargs-parser@22.0.0](https://github.com/yargs/yargs-parser) — ISC License
+- [yargs@18.0.0](https://github.com/yargs/yargs) — MIT License
 - [zwitch@2.0.4](https://github.com/wooorm/zwitch) — MIT License
+- [adler2@2.0.1](https://github.com/oyvindln/adler2) — 0BSD OR MIT OR Apache-2.0
+- [ahash@0.7.8](https://github.com/tkaitchuck/ahash) — MIT OR Apache-2.0
+- [aho-corasick@1.1.4](https://github.com/BurntSushi/aho-corasick) — Unlicense OR MIT
+- [alloc-no-stdlib@2.0.4](https://github.com/dropbox/rust-alloc-no-stdlib) — BSD 3-Clause
+- [alloc-stdlib@0.2.2](https://github.com/dropbox/rust-alloc-no-stdlib) — BSD 3-Clause
+- [android_log-sys@0.3.2](https://github.com/rust-mobile/android_log-sys-rs) — MIT OR Apache-2.0
+- [android_logger@0.15.1](https://github.com/rust-mobile/android_logger-rs) — MIT OR Apache-2.0
+- [android_system_properties@0.1.5](https://github.com/nical/android_system_properties) — MIT/Apache-2.0
+- [anyhow@1.0.102](https://github.com/dtolnay/anyhow) — MIT OR Apache-2.0
+- [arrayvec@0.7.6](https://github.com/bluss/arrayvec) — MIT OR Apache-2.0
+- [async-broadcast@0.7.2](https://github.com/smol-rs/async-broadcast) — MIT OR Apache-2.0
+- [async-channel@2.5.0](https://github.com/smol-rs/async-channel) — Apache-2.0 OR MIT
+- [async-executor@1.14.0](https://github.com/smol-rs/async-executor) — Apache-2.0 OR MIT
+- [async-io@2.6.0](https://github.com/smol-rs/async-io) — Apache-2.0 OR MIT
+- [async-lock@3.4.2](https://github.com/smol-rs/async-lock) — Apache-2.0 OR MIT
+- [async-process@2.5.0](https://github.com/smol-rs/async-process) — Apache-2.0 OR MIT
+- [async-recursion@1.1.1](https://github.com/dcchut/async-recursion) — MIT OR Apache-2.0
+- [async-signal@0.2.13](https://github.com/smol-rs/async-signal) — Apache-2.0 OR MIT
+- [async-task@4.7.1](https://github.com/smol-rs/async-task) — Apache-2.0 OR MIT
+- [async-trait@0.1.89](https://github.com/dtolnay/async-trait) — MIT OR Apache-2.0
+- [atk-sys@0.18.2](https://github.com/gtk-rs/gtk3-rs) — MIT License
+- [atk@0.18.2](https://github.com/gtk-rs/gtk3-rs) — MIT License
+- [atomic-waker@1.1.2](https://github.com/smol-rs/atomic-waker) — Apache-2.0 OR MIT
+- [autocfg@1.5.0](https://github.com/cuviper/autocfg) — Apache-2.0 OR MIT
+- [base64@0.21.7](https://github.com/marshallpierce/rust-base64) — MIT OR Apache-2.0
+- [base64@0.22.1](https://github.com/marshallpierce/rust-base64) — MIT OR Apache-2.0
+- [bitflags@1.3.2](https://github.com/bitflags/bitflags) — MIT/Apache-2.0
+- [bitflags@2.11.0](https://github.com/bitflags/bitflags) — MIT OR Apache-2.0
+- [bitvec@1.0.1](https://github.com/bitvecto-rs/bitvec) — MIT License
+- [block-buffer@0.10.4](https://github.com/RustCrypto/utils) — MIT OR Apache-2.0
+- [block2@0.6.2](https://github.com/madsmtm/objc2) — MIT License
+- [blocking@1.6.2](https://github.com/smol-rs/blocking) — Apache-2.0 OR MIT
+- [borsh-derive@1.6.0](https://github.com/near/borsh-rs) — Apache License 2.0
+- [borsh@1.6.0](https://github.com/near/borsh-rs) — MIT OR Apache-2.0
+- [brotli-decompressor@5.0.0](https://github.com/dropbox/rust-brotli-decompressor) — BSD-3-Clause/MIT
+- [brotli@8.0.2](https://github.com/dropbox/rust-brotli) — BSD-3-Clause AND MIT
+- [bumpalo@3.20.2](https://github.com/fitzgen/bumpalo) — MIT OR Apache-2.0
+- [byte-unit@5.2.0](https://github.com/magiclen/byte-unit) — MIT License
+- [bytecheck@0.6.12](https://github.com/djkoloski/bytecheck) — MIT License
+- [bytecheck_derive@0.6.12](https://github.com/djkoloski/bytecheck) — MIT License
+- [bytemuck@1.25.0](https://github.com/Lokathor/bytemuck) — Zlib OR Apache-2.0 OR MIT
+- [byteorder@1.5.0](https://github.com/BurntSushi/byteorder) — Unlicense OR MIT
+- [bytes@1.11.1](https://github.com/tokio-rs/bytes) — MIT License
+- [cairo-rs@0.18.5](https://github.com/gtk-rs/gtk-rs-core) — MIT License
+- [cairo-sys-rs@0.18.2](https://github.com/gtk-rs/gtk-rs-core) — MIT License
+- [camino@1.2.2](https://github.com/camino-rs/camino) — MIT OR Apache-2.0
+- [cargo-platform@0.1.9](https://github.com/rust-lang/cargo) — MIT OR Apache-2.0
+- [cargo_metadata@0.19.2](https://github.com/oli-obk/cargo_metadata) — MIT License
+- [cargo_toml@0.22.3](https://gitlab.com/lib.rs/cargo_toml) — Apache-2.0 OR MIT
+- [cc@1.2.56](https://github.com/rust-lang/cc-rs) — MIT OR Apache-2.0
+- [cesu8@1.1.0](https://github.com/emk/cesu8-rs) — Apache-2.0/MIT
+- [cfb@0.7.3](https://github.com/mdsteele/rust-cfb) — MIT License
+- [cfg-expr@0.15.8](https://github.com/EmbarkStudios/cfg-expr) — MIT OR Apache-2.0
+- [cfg-if@1.0.4](https://github.com/rust-lang/cfg-if) — MIT OR Apache-2.0
+- [cfg_aliases@0.2.1](https://github.com/katharostech/cfg_aliases) — MIT License
+- [chrono@0.4.44](https://github.com/chronotope/chrono) — MIT OR Apache-2.0
+- [combine@4.6.7](https://github.com/Marwes/combine) — MIT License
+- [concurrent-queue@2.5.0](https://github.com/smol-rs/concurrent-queue) — Apache-2.0 OR MIT
+- [convert_case@0.4.0](https://github.com/rutrum/convert-case) — MIT License
+- [cookie@0.18.1](https://github.com/SergioBenitez/cookie-rs) — MIT OR Apache-2.0
+- [core-foundation-sys@0.8.7](https://github.com/servo/core-foundation-rs) — MIT OR Apache-2.0
+- [core-foundation@0.10.1](https://github.com/servo/core-foundation-rs) — MIT OR Apache-2.0
+- [core-graphics-types@0.2.0](https://github.com/servo/core-foundation-rs) — MIT OR Apache-2.0
+- [core-graphics@0.24.0](https://github.com/servo/core-foundation-rs) — MIT OR Apache-2.0
+- [cpufeatures@0.2.17](https://github.com/RustCrypto/utils) — MIT OR Apache-2.0
+- [crc32fast@1.5.0](https://github.com/srijs/rust-crc32fast) — MIT OR Apache-2.0
+- [crossbeam-channel@0.5.15](https://github.com/crossbeam-rs/crossbeam) — MIT OR Apache-2.0
+- [crossbeam-utils@0.8.21](https://github.com/crossbeam-rs/crossbeam) — MIT OR Apache-2.0
+- [crypto-common@0.1.7](https://github.com/RustCrypto/traits) — MIT OR Apache-2.0
+- [cssparser-macros@0.6.1](https://github.com/servo/rust-cssparser) — MPL-2.0
+- [cssparser@0.29.6](https://github.com/servo/rust-cssparser) — MPL-2.0
+- [ctor@0.2.9](https://github.com/mmastrac/rust-ctor) — Apache-2.0 OR MIT
+- [darling@0.21.3](https://github.com/TedDriggs/darling) — MIT License
+- [darling_core@0.21.3](https://github.com/TedDriggs/darling) — MIT License
+- [darling_macro@0.21.3](https://github.com/TedDriggs/darling) — MIT License
+- [deranged@0.5.8](https://github.com/jhpratt/deranged) — MIT OR Apache-2.0
+- [derive_more@0.99.20](https://github.com/JelteF/derive_more) — MIT License
+- [digest@0.10.7](https://github.com/RustCrypto/traits) — MIT OR Apache-2.0
+- [dirs-sys@0.5.0](https://github.com/dirs-dev/dirs-sys-rs) — MIT OR Apache-2.0
+- [dirs@6.0.0](https://github.com/soc/dirs-rs) — MIT OR Apache-2.0
+- [dispatch2@0.3.1](https://github.com/madsmtm/objc2) — Zlib OR Apache-2.0 OR MIT
+- [dispatch@0.2.0](http://github.com/SSheldon/rust-dispatch) — MIT License
+- [displaydoc@0.2.5](https://github.com/yaahc/displaydoc) — MIT OR Apache-2.0
+- [dlopen2@0.8.2](https://github.com/OpenByteDev/dlopen2) — MIT License
+- [dlopen2_derive@0.4.3](https://github.com/OpenByteDev/dlopen2) — MIT License
+- [dpi@0.1.2](https://github.com/rust-windowing/winit) — Apache-2.0 AND MIT
+- [dtoa-short@0.3.5](https://github.com/upsuper/dtoa-short) — MPL-2.0
+- [dtoa@1.0.11](https://github.com/dtolnay/dtoa) — MIT OR Apache-2.0
+- [dunce@1.0.5](https://gitlab.com/kornelski/dunce) — CC0-1.0 OR MIT-0 OR Apache-2.0
+- [dyn-clone@1.0.20](https://github.com/dtolnay/dyn-clone) — MIT OR Apache-2.0
+- [embed-resource@3.0.6](https://github.com/nabijaczleweli/rust-embed-resource) — MIT License
+- [embed_plist@1.2.2](https://github.com/nvzqz/embed-plist-rs) — MIT OR Apache-2.0
+- [endi@1.1.1](https://github.com/zeenix/endi) — MIT License
+- [enumflags2@0.7.12](https://github.com/meithecatte/enumflags2) — MIT OR Apache-2.0
+- [enumflags2_derive@0.7.12](https://github.com/meithecatte/enumflags2) — MIT OR Apache-2.0
+- [env_filter@0.1.4](https://github.com/rust-cli/env_logger) — MIT OR Apache-2.0
+- [equivalent@1.0.2](https://github.com/indexmap-rs/equivalent) — Apache-2.0 OR MIT
+- [erased-serde@0.4.10](https://github.com/dtolnay/erased-serde) — MIT OR Apache-2.0
+- [errno@0.3.14](https://github.com/lambda-fairy/rust-errno) — MIT OR Apache-2.0
+- [event-listener-strategy@0.5.4](https://github.com/smol-rs/event-listener-strategy) — Apache-2.0 OR MIT
+- [event-listener@5.4.1](https://github.com/smol-rs/event-listener) — Apache-2.0 OR MIT
+- [fastrand@2.3.0](https://github.com/smol-rs/fastrand) — Apache-2.0 OR MIT
+- [fdeflate@0.3.7](https://github.com/image-rs/fdeflate) — MIT OR Apache-2.0
+- [fern@0.7.1](https://github.com/daboross/fern) — MIT License
+- [field-offset@0.3.6](https://github.com/Diggsey/rust-field-offset) — MIT OR Apache-2.0
+- [find-msvc-tools@0.1.9](https://github.com/rust-lang/cc-rs) — MIT OR Apache-2.0
+- [flate2@1.1.9](https://github.com/rust-lang/flate2-rs) — MIT OR Apache-2.0
+- [fnv@1.0.7](https://github.com/servo/rust-fnv) — Apache-2.0 / MIT
+- [foldhash@0.1.5](https://github.com/orlp/foldhash) — Zlib
+- [foreign-types-macros@0.2.3](https://github.com/sfackler/foreign-types) — MIT/Apache-2.0
+- [foreign-types-shared@0.3.1](https://github.com/sfackler/foreign-types) — MIT/Apache-2.0
+- [foreign-types@0.5.0](https://github.com/sfackler/foreign-types) — MIT/Apache-2.0
+- [form_urlencoded@1.2.2](https://github.com/servo/rust-url) — MIT OR Apache-2.0
+- [funty@2.0.0](https://github.com/myrrlyn/funty) — MIT License
+- [futf@0.1.5](https://github.com/servo/futf) — MIT / Apache-2.0
+- [futures-channel@0.3.32](https://github.com/rust-lang/futures-rs) — MIT OR Apache-2.0
+- [futures-core@0.3.32](https://github.com/rust-lang/futures-rs) — MIT OR Apache-2.0
+- [futures-executor@0.3.32](https://github.com/rust-lang/futures-rs) — MIT OR Apache-2.0
+- [futures-io@0.3.32](https://github.com/rust-lang/futures-rs) — MIT OR Apache-2.0
+- [futures-lite@2.6.1](https://github.com/smol-rs/futures-lite) — Apache-2.0 OR MIT
+- [futures-macro@0.3.32](https://github.com/rust-lang/futures-rs) — MIT OR Apache-2.0
+- [futures-sink@0.3.32](https://github.com/rust-lang/futures-rs) — MIT OR Apache-2.0
+- [futures-task@0.3.32](https://github.com/rust-lang/futures-rs) — MIT OR Apache-2.0
+- [futures-util@0.3.32](https://github.com/rust-lang/futures-rs) — MIT OR Apache-2.0
+- [fxhash@0.2.1](https://github.com/cbreeden/fxhash) — Apache-2.0/MIT
+- [gdk-pixbuf-sys@0.18.0](https://github.com/gtk-rs/gtk-rs-core) — MIT License
+- [gdk-pixbuf@0.18.5](https://github.com/gtk-rs/gtk-rs-core) — MIT License
+- [gdk-sys@0.18.2](https://github.com/gtk-rs/gtk3-rs) — MIT License
+- [gdk@0.18.2](https://github.com/gtk-rs/gtk3-rs) — MIT License
+- [gdkwayland-sys@0.18.2](https://github.com/gtk-rs/gtk3-rs) — MIT License
+- [gdkx11-sys@0.18.2](https://github.com/gtk-rs/gtk3-rs) — MIT License
+- [gdkx11@0.18.2](https://github.com/gtk-rs/gtk3-rs) — MIT License
+- [generic-array@0.14.7](https://github.com/fizyk20/generic-array) — MIT License
+- [getrandom@0.1.16](https://github.com/rust-random/getrandom) — MIT OR Apache-2.0
+- [getrandom@0.2.17](https://github.com/rust-random/getrandom) — MIT OR Apache-2.0
+- [getrandom@0.3.4](https://github.com/rust-random/getrandom) — MIT OR Apache-2.0
+- [getrandom@0.4.2](https://github.com/rust-random/getrandom) — MIT OR Apache-2.0
+- [gio-sys@0.18.1](https://github.com/gtk-rs/gtk-rs-core) — MIT License
+- [gio@0.18.4](https://github.com/gtk-rs/gtk-rs-core) — MIT License
+- [glib-macros@0.18.5](https://github.com/gtk-rs/gtk-rs-core) — MIT License
+- [glib-sys@0.18.1](https://github.com/gtk-rs/gtk-rs-core) — MIT License
+- [glib@0.18.5](https://github.com/gtk-rs/gtk-rs-core) — MIT License
+- [glob@0.3.3](https://github.com/rust-lang/glob) — MIT OR Apache-2.0
+- [gobject-sys@0.18.0](https://github.com/gtk-rs/gtk-rs-core) — MIT License
+- [gtk-sys@0.18.2](https://github.com/gtk-rs/gtk3-rs) — MIT License
+- [gtk3-macros@0.18.2](https://github.com/gtk-rs/gtk3-rs) — MIT License
+- [gtk@0.18.2](https://github.com/gtk-rs/gtk3-rs) — MIT License
+- [hashbrown@0.12.3](https://github.com/rust-lang/hashbrown) — MIT OR Apache-2.0
+- [hashbrown@0.15.5](https://github.com/rust-lang/hashbrown) — MIT OR Apache-2.0
+- [hashbrown@0.16.1](https://github.com/rust-lang/hashbrown) — MIT OR Apache-2.0
+- [heck@0.4.1](https://github.com/withoutboats/heck) — MIT OR Apache-2.0
+- [heck@0.5.0](https://github.com/withoutboats/heck) — MIT OR Apache-2.0
+- [hermit-abi@0.5.2](https://github.com/hermit-os/hermit-rs) — MIT OR Apache-2.0
+- [hex@0.4.3](https://github.com/KokaKiwi/rust-hex) — MIT OR Apache-2.0
+- [html5ever@0.29.1](https://github.com/servo/html5ever) — MIT OR Apache-2.0
+- [http-body-util@0.1.3](https://github.com/hyperium/http-body) — MIT License
+- [http-body@1.0.1](https://github.com/hyperium/http-body) — MIT License
+- [http@1.4.0](https://github.com/hyperium/http) — MIT OR Apache-2.0
+- [httparse@1.10.1](https://github.com/seanmonstar/httparse) — MIT OR Apache-2.0
+- [hyper-util@0.1.20](https://github.com/hyperium/hyper-util) — MIT License
+- [hyper@1.8.1](https://github.com/hyperium/hyper) — MIT License
+- [iana-time-zone-haiku@0.1.2](https://github.com/strawlab/iana-time-zone) — MIT OR Apache-2.0
+- [iana-time-zone@0.1.65](https://github.com/strawlab/iana-time-zone) — MIT OR Apache-2.0
+- [ico@0.5.0](https://github.com/mdsteele/rust-ico) — MIT License
+- [icu_collections@2.1.1](https://github.com/unicode-org/icu4x) — Unicode-3.0
+- [icu_locale_core@2.1.1](https://github.com/unicode-org/icu4x) — Unicode-3.0
+- [icu_normalizer@2.1.1](https://github.com/unicode-org/icu4x) — Unicode-3.0
+- [icu_normalizer_data@2.1.1](https://github.com/unicode-org/icu4x) — Unicode-3.0
+- [icu_properties@2.1.2](https://github.com/unicode-org/icu4x) — Unicode-3.0
+- [icu_properties_data@2.1.2](https://github.com/unicode-org/icu4x) — Unicode-3.0
+- [icu_provider@2.1.1](https://github.com/unicode-org/icu4x) — Unicode-3.0
+- [id-arena@2.3.0](https://github.com/fitzgen/id-arena) — MIT/Apache-2.0
+- [ident_case@1.0.1](https://github.com/TedDriggs/ident_case) — MIT/Apache-2.0
+- [idna@1.1.0](https://github.com/servo/rust-url/) — MIT OR Apache-2.0
+- [idna_adapter@1.2.1](https://github.com/hsivonen/idna_adapter) — Apache-2.0 OR MIT
+- [indexmap@1.9.3](https://github.com/bluss/indexmap) — Apache-2.0 OR MIT
+- [indexmap@2.13.0](https://github.com/indexmap-rs/indexmap) — Apache-2.0 OR MIT
+- [infer@0.19.0](https://github.com/bojand/infer) — MIT License
+- [ipnet@2.12.0](https://github.com/krisprice/ipnet) — MIT OR Apache-2.0
+- [iri-string@0.7.10](https://github.com/lo48576/iri-string) — MIT OR Apache-2.0
+- [is-docker@0.2.0](https://github.com/TheLarkInn/is-docker) — MIT License
+- [is-wsl@0.4.0](https://github.com/TheLarkInn/is-wsl) — MIT License
+- [itoa@1.0.17](https://github.com/dtolnay/itoa) — MIT OR Apache-2.0
+- [javascriptcore-rs-sys@1.1.1](https://github.com/tauri-apps/javascriptcore-rs) — MIT License
+- [javascriptcore-rs@1.1.2](https://github.com/tauri-apps/javascriptcore-rs) — MIT License
+- [jni-sys@0.3.0](https://github.com/sfackler/rust-jni-sys) — MIT/Apache-2.0
+- [jni@0.21.1](https://github.com/jni-rs/jni-rs) — MIT/Apache-2.0
+- [js-sys@0.3.91](https://github.com/wasm-bindgen/wasm-bindgen/tree/master/crates/js-sys) — MIT OR Apache-2.0
+- [json-patch@3.0.1](https://github.com/idubrov/json-patch) — MIT/Apache-2.0
+- [jsonptr@0.6.3](https://github.com/chanced/jsonptr) — MIT OR Apache-2.0
+- [keyboard-types@0.7.0](https://github.com/pyfisch/keyboard-types) — MIT OR Apache-2.0
+- [kuchikiki@0.8.8-speedreader](https://github.com/brave/kuchikiki) — MIT License
+- [lazy_static@1.5.0](https://github.com/rust-lang-nursery/lazy-static.rs) — MIT OR Apache-2.0
+- [leb128fmt@0.1.0](https://github.com/bluk/leb128fmt) — MIT OR Apache-2.0
+- [libappindicator-sys@0.9.0](https://crates.io/crates/libappindicator-sys) — Apache-2.0 OR MIT
+- [libappindicator@0.9.0](https://crates.io/crates/libappindicator) — Apache-2.0 OR MIT
+- [libc@0.2.182](https://github.com/rust-lang/libc) — MIT OR Apache-2.0
+- [libloading@0.7.4](https://github.com/nagisa/rust_libloading/) — ISC License
+- [libredox@0.1.14](https://gitlab.redox-os.org/redox-os/libredox) — MIT License
+- [linux-raw-sys@0.12.1](https://github.com/sunfishcode/linux-raw-sys) — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+- [litemap@0.8.1](https://github.com/unicode-org/icu4x) — Unicode-3.0
+- [lock_api@0.4.14](https://github.com/Amanieu/parking_lot) — MIT OR Apache-2.0
+- [log@0.4.29](https://github.com/rust-lang/log) — MIT OR Apache-2.0
+- [mac@0.1.1](https://github.com/reem/rust-mac) — MIT/Apache-2.0
+- [markup5ever@0.14.1](https://github.com/servo/html5ever) — MIT OR Apache-2.0
+- [match_token@0.1.0](https://github.com/servo/html5ever) — MIT OR Apache-2.0
+- [matches@0.1.10](https://github.com/SimonSapin/rust-std-candidates) — MIT License
+- [memchr@2.8.0](https://github.com/BurntSushi/memchr) — Unlicense OR MIT
+- [memoffset@0.9.1](https://github.com/Gilnaa/memoffset) — MIT License
+- [mime@0.3.17](https://github.com/hyperium/mime) — MIT OR Apache-2.0
+- [miniz_oxide@0.8.9](https://github.com/Frommi/miniz_oxide/tree/master/miniz_oxide) — MIT OR Zlib OR Apache-2.0
+- [mio@1.1.1](https://github.com/tokio-rs/mio) — MIT License
+- [muda@0.17.1](https://github.com/amrbashir/muda) — Apache-2.0 OR MIT
+- [ndk-context@0.1.1](https://github.com/rust-windowing/android-ndk-rs) — MIT OR Apache-2.0
+- [ndk-sys@0.6.0+11769913](https://github.com/rust-mobile/ndk) — MIT OR Apache-2.0
+- [ndk@0.9.0](https://github.com/rust-mobile/ndk) — MIT OR Apache-2.0
+- [new_debug_unreachable@1.0.6](https://github.com/mbrubeck/rust-debug-unreachable) — MIT License
+- [nodrop@0.1.14](https://github.com/bluss/arrayvec) — MIT/Apache-2.0
+- [num-conv@0.2.0](https://github.com/jhpratt/num-conv) — MIT OR Apache-2.0
+- [num-traits@0.2.19](https://github.com/rust-num/num-traits) — MIT OR Apache-2.0
+- [num_enum@0.7.5](https://github.com/illicitonion/num_enum) — BSD-3-Clause OR MIT OR Apache-2.0
+- [num_enum_derive@0.7.5](https://github.com/illicitonion/num_enum) — BSD-3-Clause OR MIT OR Apache-2.0
+- [num_threads@0.1.7](https://github.com/jhpratt/num_threads) — MIT OR Apache-2.0
+- [objc2-app-kit@0.3.2](https://github.com/madsmtm/objc2) — Zlib OR Apache-2.0 OR MIT
+- [objc2-cloud-kit@0.3.2](https://github.com/madsmtm/objc2) — Zlib OR Apache-2.0 OR MIT
+- [objc2-core-data@0.3.2](https://github.com/madsmtm/objc2) — Zlib OR Apache-2.0 OR MIT
+- [objc2-core-foundation@0.3.2](https://github.com/madsmtm/objc2) — Zlib OR Apache-2.0 OR MIT
+- [objc2-core-graphics@0.3.2](https://github.com/madsmtm/objc2) — Zlib OR Apache-2.0 OR MIT
+- [objc2-core-image@0.3.2](https://github.com/madsmtm/objc2) — Zlib OR Apache-2.0 OR MIT
+- [objc2-core-text@0.3.2](https://github.com/madsmtm/objc2) — Zlib OR Apache-2.0 OR MIT
+- [objc2-core-video@0.3.2](https://github.com/madsmtm/objc2) — Zlib OR Apache-2.0 OR MIT
+- [objc2-encode@4.1.0](https://github.com/madsmtm/objc2) — MIT License
+- [objc2-exception-helper@0.1.1](https://github.com/madsmtm/objc2) — Zlib OR Apache-2.0 OR MIT
+- [objc2-foundation@0.3.2](https://github.com/madsmtm/objc2) — MIT License
+- [objc2-io-surface@0.3.2](https://github.com/madsmtm/objc2) — Zlib OR Apache-2.0 OR MIT
+- [objc2-javascript-core@0.3.2](https://github.com/madsmtm/objc2) — Zlib OR Apache-2.0 OR MIT
+- [objc2-quartz-core@0.3.2](https://github.com/madsmtm/objc2) — Zlib OR Apache-2.0 OR MIT
+- [objc2-security@0.3.2](https://github.com/madsmtm/objc2) — Zlib OR Apache-2.0 OR MIT
+- [objc2-ui-kit@0.3.2](https://github.com/madsmtm/objc2) — Zlib OR Apache-2.0 OR MIT
+- [objc2-web-kit@0.3.2](https://github.com/madsmtm/objc2) — Zlib OR Apache-2.0 OR MIT
+- [objc2@0.6.4](https://github.com/madsmtm/objc2) — MIT License
+- [once_cell@1.21.3](https://github.com/matklad/once_cell) — MIT OR Apache-2.0
+- [open@5.3.3](https://github.com/Byron/open-rs) — MIT License
+- [option-ext@0.2.0](https://github.com/soc/option-ext) — MPL-2.0
+- [ordered-stream@0.2.0](https://github.com/danieldg/ordered-stream) — MIT OR Apache-2.0
+- [pango-sys@0.18.0](https://github.com/gtk-rs/gtk-rs-core) — MIT License
+- [pango@0.18.3](https://github.com/gtk-rs/gtk-rs-core) — MIT License
+- [parking@2.2.1](https://github.com/smol-rs/parking) — Apache-2.0 OR MIT
+- [parking_lot@0.12.5](https://github.com/Amanieu/parking_lot) — MIT OR Apache-2.0
+- [parking_lot_core@0.9.12](https://github.com/Amanieu/parking_lot) — MIT OR Apache-2.0
+- [pathdiff@0.2.3](https://github.com/Manishearth/pathdiff) — MIT/Apache-2.0
+- [percent-encoding@2.3.2](https://github.com/servo/rust-url/) — MIT OR Apache-2.0
+- [phf@0.10.1](https://github.com/sfackler/rust-phf) — MIT License
+- [phf@0.11.3](https://github.com/rust-phf/rust-phf) — MIT License
+- [phf@0.8.0](https://github.com/sfackler/rust-phf) — MIT License
+- [phf_codegen@0.11.3](https://github.com/rust-phf/rust-phf) — MIT License
+- [phf_codegen@0.8.0](https://github.com/sfackler/rust-phf) — MIT License
+- [phf_generator@0.10.0](https://github.com/sfackler/rust-phf) — MIT License
+- [phf_generator@0.11.3](https://github.com/rust-phf/rust-phf) — MIT License
+- [phf_generator@0.8.0](https://github.com/sfackler/rust-phf) — MIT License
+- [phf_macros@0.10.0](https://github.com/sfackler/rust-phf) — MIT License
+- [phf_macros@0.11.3](https://github.com/rust-phf/rust-phf) — MIT License
+- [phf_shared@0.10.0](https://github.com/sfackler/rust-phf) — MIT License
+- [phf_shared@0.11.3](https://github.com/rust-phf/rust-phf) — MIT License
+- [phf_shared@0.8.0](https://github.com/sfackler/rust-phf) — MIT License
+- [pin-project-lite@0.2.17](https://github.com/taiki-e/pin-project-lite) — Apache-2.0 OR MIT
+- [pin-utils@0.1.0](https://github.com/rust-lang-nursery/pin-utils) — MIT OR Apache-2.0
+- [piper@0.2.5](https://github.com/smol-rs/piper) — MIT OR Apache-2.0
+- [pkg-config@0.3.32](https://github.com/rust-lang/pkg-config-rs) — MIT OR Apache-2.0
+- [plist@1.8.0](https://github.com/ebarnard/rust-plist/) — MIT License
+- [png@0.17.16](https://github.com/image-rs/image-png) — MIT OR Apache-2.0
+- [polling@3.11.0](https://github.com/smol-rs/polling) — Apache-2.0 OR MIT
+- [potential_utf@0.1.4](https://github.com/unicode-org/icu4x) — Unicode-3.0
+- [powerfmt@0.2.0](https://github.com/jhpratt/powerfmt) — MIT OR Apache-2.0
+- [ppv-lite86@0.2.21](https://github.com/cryptocorrosion/cryptocorrosion) — MIT OR Apache-2.0
+- [precomputed-hash@0.1.1](https://github.com/emilio/precomputed-hash) — MIT License
+- [prettyplease@0.2.37](https://github.com/dtolnay/prettyplease) — MIT OR Apache-2.0
+- [proc-macro-crate@1.3.1](https://github.com/bkchr/proc-macro-crate) — MIT OR Apache-2.0
+- [proc-macro-crate@2.0.2](https://github.com/bkchr/proc-macro-crate) — MIT OR Apache-2.0
+- [proc-macro-crate@3.4.0](https://github.com/bkchr/proc-macro-crate) — MIT OR Apache-2.0
+- [proc-macro-error-attr@1.0.4](https://gitlab.com/CreepySkeleton/proc-macro-error) — MIT OR Apache-2.0
+- [proc-macro-error@1.0.4](https://gitlab.com/CreepySkeleton/proc-macro-error) — MIT OR Apache-2.0
+- [proc-macro-hack@0.5.20+deprecated](https://github.com/dtolnay/proc-macro-hack) — MIT OR Apache-2.0
+- [proc-macro2@1.0.106](https://github.com/dtolnay/proc-macro2) — MIT OR Apache-2.0
+- [ptr_meta@0.1.4](https://github.com/djkoloski/ptr_meta) — MIT License
+- [ptr_meta_derive@0.1.4](https://github.com/djkoloski/ptr_meta) — MIT License
+- [quick-xml@0.38.4](https://github.com/tafia/quick-xml) — MIT License
+- [quote@1.0.45](https://github.com/dtolnay/quote) — MIT OR Apache-2.0
+- [r-efi@5.3.0](https://github.com/r-efi/r-efi) — MIT OR Apache-2.0 OR LGPL-2.1-or-later
+- [r-efi@6.0.0](https://github.com/r-efi/r-efi) — MIT OR Apache-2.0 OR LGPL-2.1-or-later
+- [radium@0.7.0](https://github.com/bitvecto-rs/radium) — MIT License
+- [rand@0.7.3](https://github.com/rust-random/rand) — MIT OR Apache-2.0
+- [rand@0.8.5](https://github.com/rust-random/rand) — MIT OR Apache-2.0
+- [rand_chacha@0.2.2](https://github.com/rust-random/rand) — MIT OR Apache-2.0
+- [rand_chacha@0.3.1](https://github.com/rust-random/rand) — MIT OR Apache-2.0
+- [rand_core@0.5.1](https://github.com/rust-random/rand) — MIT OR Apache-2.0
+- [rand_core@0.6.4](https://github.com/rust-random/rand) — MIT OR Apache-2.0
+- [rand_hc@0.2.0](https://github.com/rust-random/rand) — MIT/Apache-2.0
+- [rand_pcg@0.2.1](https://github.com/rust-random/rand) — MIT OR Apache-2.0
+- [raw-window-handle@0.6.2](https://github.com/rust-windowing/raw-window-handle) — MIT OR Apache-2.0 OR Zlib
+- [redox_syscall@0.5.18](https://gitlab.redox-os.org/redox-os/syscall) — MIT License
+- [redox_users@0.5.2](https://gitlab.redox-os.org/redox-os/users) — MIT License
+- [ref-cast-impl@1.0.25](https://github.com/dtolnay/ref-cast) — MIT OR Apache-2.0
+- [ref-cast@1.0.25](https://github.com/dtolnay/ref-cast) — MIT OR Apache-2.0
+- [regex-automata@0.4.14](https://github.com/rust-lang/regex) — MIT OR Apache-2.0
+- [regex-syntax@0.8.10](https://github.com/rust-lang/regex) — MIT OR Apache-2.0
+- [regex@1.12.3](https://github.com/rust-lang/regex) — MIT OR Apache-2.0
+- [rend@0.4.2](https://github.com/djkoloski/rend) — MIT License
+- [reqwest@0.13.2](https://github.com/seanmonstar/reqwest) — MIT OR Apache-2.0
+- [rfd@0.16.0](https://github.com/PolyMeilex/rfd) — MIT License
+- [rkyv@0.7.46](https://github.com/rkyv/rkyv) — MIT License
+- [rkyv_derive@0.7.46](https://github.com/rkyv/rkyv) — MIT License
+- [rust_decimal@1.40.0](https://github.com/paupino/rust-decimal) — MIT License
+- [rustc_version@0.4.1](https://github.com/djc/rustc-version-rs) — MIT OR Apache-2.0
+- [rustix@1.1.4](https://github.com/bytecodealliance/rustix) — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+- [rustversion@1.0.22](https://github.com/dtolnay/rustversion) — MIT OR Apache-2.0
+- [same-file@1.0.6](https://github.com/BurntSushi/same-file) — Unlicense/MIT
+- [schemars@0.8.22](https://github.com/GREsau/schemars) — MIT License
+- [schemars@0.9.0](https://github.com/GREsau/schemars) — MIT License
+- [schemars@1.2.1](https://github.com/GREsau/schemars) — MIT License
+- [schemars_derive@0.8.22](https://github.com/GREsau/schemars) — MIT License
+- [scopeguard@1.2.0](https://github.com/bluss/scopeguard) — MIT OR Apache-2.0
+- [seahash@4.1.0](https://gitlab.redox-os.org/redox-os/seahash) — MIT License
+- [selectors@0.24.0](https://github.com/servo/servo) — MPL-2.0
+- [semver@1.0.27](https://github.com/dtolnay/semver) — MIT OR Apache-2.0
+- [serde-untagged@0.1.9](https://github.com/dtolnay/serde-untagged) — MIT OR Apache-2.0
+- [serde@1.0.228](https://github.com/serde-rs/serde) — MIT OR Apache-2.0
+- [serde_core@1.0.228](https://github.com/serde-rs/serde) — MIT OR Apache-2.0
+- [serde_derive@1.0.228](https://github.com/serde-rs/serde) — MIT OR Apache-2.0
+- [serde_derive_internals@0.29.1](https://github.com/serde-rs/serde) — MIT OR Apache-2.0
+- [serde_json@1.0.149](https://github.com/serde-rs/json) — MIT OR Apache-2.0
+- [serde_repr@0.1.20](https://github.com/dtolnay/serde-repr) — MIT OR Apache-2.0
+- [serde_spanned@0.6.9](https://github.com/toml-rs/toml) — MIT OR Apache-2.0
+- [serde_spanned@1.0.4](https://github.com/toml-rs/toml) — MIT OR Apache-2.0
+- [serde_with@3.17.0](https://github.com/jonasbb/serde_with/) — MIT OR Apache-2.0
+- [serde_with_macros@3.17.0](https://github.com/jonasbb/serde_with/) — MIT OR Apache-2.0
+- [serialize-to-javascript-impl@0.1.2](https://github.com/chippers/serialize-to-javascript) — MIT OR Apache-2.0
+- [serialize-to-javascript@0.1.2](https://github.com/chippers/serialize-to-javascript) — MIT OR Apache-2.0
+- [servo_arc@0.2.0](https://github.com/servo/servo) — MIT OR Apache-2.0
+- [sha2@0.10.9](https://github.com/RustCrypto/hashes) — MIT OR Apache-2.0
+- [shlex@1.3.0](https://github.com/comex/rust-shlex) — MIT OR Apache-2.0
+- [signal-hook-registry@1.4.8](https://github.com/vorner/signal-hook) — MIT OR Apache-2.0
+- [simd-adler32@0.3.8](https://github.com/mcountryman/simd-adler32) — MIT License
+- [simdutf8@0.1.5](https://github.com/rusticstuff/simdutf8) — MIT OR Apache-2.0
+- [siphasher@0.3.11](https://github.com/jedisct1/rust-siphash) — MIT/Apache-2.0
+- [siphasher@1.0.2](https://github.com/jedisct1/rust-siphash) — MIT/Apache-2.0
+- [slab@0.4.12](https://github.com/tokio-rs/slab) — MIT License
+- [smallvec@1.15.1](https://github.com/servo/rust-smallvec) — MIT OR Apache-2.0
+- [socket2@0.6.2](https://github.com/rust-lang/socket2) — MIT OR Apache-2.0
+- [softbuffer@0.4.8](https://github.com/rust-windowing/softbuffer) — MIT OR Apache-2.0
+- [soup3-sys@0.5.0](https://gitlab.gnome.org/World/Rust/soup3-rs) — MIT License
+- [soup3@0.5.0](https://gitlab.gnome.org/World/Rust/soup3-rs) — MIT License
+- [stable_deref_trait@1.2.1](https://github.com/storyyeller/stable_deref_trait) — MIT OR Apache-2.0
+- [string_cache@0.8.9](https://github.com/servo/string-cache) — MIT OR Apache-2.0
+- [string_cache_codegen@0.5.4](https://github.com/servo/string-cache) — MIT OR Apache-2.0
+- [strsim@0.11.1](https://github.com/rapidfuzz/strsim-rs) — MIT License
+- [swift-rs@1.0.7](https://github.com/Brendonovich/swift-rs) — MIT OR Apache-2.0
+- [syn@1.0.109](https://github.com/dtolnay/syn) — MIT OR Apache-2.0
+- [syn@2.0.117](https://github.com/dtolnay/syn) — MIT OR Apache-2.0
+- [sync_wrapper@1.0.2](https://github.com/Actyx/sync_wrapper) — Apache License 2.0
+- [synstructure@0.13.2](https://github.com/mystor/synstructure) — MIT License
+- [system-deps@6.2.2](https://github.com/gdesmott/system-deps) — MIT OR Apache-2.0
+- [tao-macros@0.1.3](https://github.com/tauri-apps/tao) — MIT OR Apache-2.0
+- [tao@0.34.5](https://github.com/tauri-apps/tao) — Apache License 2.0
+- [tap@1.0.1](https://github.com/myrrlyn/tap) — MIT License
+- [target-lexicon@0.12.16](https://github.com/bytecodealliance/target-lexicon) — Apache-2.0 WITH LLVM-exception
+- [tauri-build@2.5.5](https://github.com/tauri-apps/tauri) — Apache-2.0 OR MIT
+- [tauri-codegen@2.5.4](https://github.com/tauri-apps/tauri) — Apache-2.0 OR MIT
+- [tauri-macros@2.5.4](https://github.com/tauri-apps/tauri) — Apache-2.0 OR MIT
+- [tauri-plugin-dialog@2.6.0](https://github.com/tauri-apps/plugins-workspace) — Apache-2.0 OR MIT
+- [tauri-plugin-fs@2.4.5](https://github.com/tauri-apps/plugins-workspace) — Apache-2.0 OR MIT
+- [tauri-plugin-log@2.8.0](https://github.com/tauri-apps/plugins-workspace) — Apache-2.0 OR MIT
+- [tauri-plugin-opener@2.5.3](https://github.com/tauri-apps/plugins-workspace) — Apache-2.0 OR MIT
+- [tauri-plugin@2.5.3](https://github.com/tauri-apps/tauri) — Apache-2.0 OR MIT
+- [tauri-runtime-wry@2.10.0](https://github.com/tauri-apps/tauri) — Apache-2.0 OR MIT
+- [tauri-runtime@2.10.0](https://github.com/tauri-apps/tauri) — Apache-2.0 OR MIT
+- [tauri-utils@2.8.2](https://github.com/tauri-apps/tauri) — Apache-2.0 OR MIT
+- [tauri-winres@0.3.5](https://github.com/tauri-apps/winres) — MIT License
+- [tauri@2.10.2](https://github.com/tauri-apps/tauri) — Apache-2.0 OR MIT
+- [tempfile@3.26.0](https://github.com/Stebalien/tempfile) — MIT OR Apache-2.0
+- [tendril@0.4.3](https://github.com/servo/tendril) — MIT/Apache-2.0
+- [thiserror-impl@1.0.69](https://github.com/dtolnay/thiserror) — MIT OR Apache-2.0
+- [thiserror-impl@2.0.18](https://github.com/dtolnay/thiserror) — MIT OR Apache-2.0
+- [thiserror@1.0.69](https://github.com/dtolnay/thiserror) — MIT OR Apache-2.0
+- [thiserror@2.0.18](https://github.com/dtolnay/thiserror) — MIT OR Apache-2.0
+- [time-core@0.1.8](https://github.com/time-rs/time) — MIT OR Apache-2.0
+- [time-macros@0.2.27](https://github.com/time-rs/time) — MIT OR Apache-2.0
+- [time@0.3.47](https://github.com/time-rs/time) — MIT OR Apache-2.0
+- [tinystr@0.8.2](https://github.com/unicode-org/icu4x) — Unicode-3.0
+- [tinyvec@1.10.0](https://github.com/Lokathor/tinyvec) — Zlib OR Apache-2.0 OR MIT
+- [tinyvec_macros@0.1.1](https://github.com/Soveu/tinyvec_macros) — MIT OR Apache-2.0 OR Zlib
+- [tokio-util@0.7.18](https://github.com/tokio-rs/tokio) — MIT License
+- [tokio@1.50.0](https://github.com/tokio-rs/tokio) — MIT License
+- [toml@0.8.2](https://github.com/toml-rs/toml) — MIT OR Apache-2.0
+- [toml@0.9.12+spec-1.1.0](https://github.com/toml-rs/toml) — MIT OR Apache-2.0
+- [toml_datetime@0.6.3](https://github.com/toml-rs/toml) — MIT OR Apache-2.0
+- [toml_datetime@0.7.5+spec-1.1.0](https://github.com/toml-rs/toml) — MIT OR Apache-2.0
+- [toml_edit@0.19.15](https://github.com/toml-rs/toml) — MIT OR Apache-2.0
+- [toml_edit@0.20.2](https://github.com/toml-rs/toml) — MIT OR Apache-2.0
+- [toml_edit@0.23.10+spec-1.0.0](https://github.com/toml-rs/toml) — MIT OR Apache-2.0
+- [toml_parser@1.0.9+spec-1.1.0](https://github.com/toml-rs/toml) — MIT OR Apache-2.0
+- [toml_writer@1.0.6+spec-1.1.0](https://github.com/toml-rs/toml) — MIT OR Apache-2.0
+- [tower-http@0.6.8](https://github.com/tower-rs/tower-http) — MIT License
+- [tower-layer@0.3.3](https://github.com/tower-rs/tower) — MIT License
+- [tower-service@0.3.3](https://github.com/tower-rs/tower) — MIT License
+- [tower@0.5.3](https://github.com/tower-rs/tower) — MIT License
+- [tracing-attributes@0.1.31](https://github.com/tokio-rs/tracing) — MIT License
+- [tracing-core@0.1.36](https://github.com/tokio-rs/tracing) — MIT License
+- [tracing@0.1.44](https://github.com/tokio-rs/tracing) — MIT License
+- [tray-icon@0.21.3](https://github.com/tauri-apps/tray-icon) — MIT OR Apache-2.0
+- [try-lock@0.2.5](https://github.com/seanmonstar/try-lock) — MIT License
+- [typeid@1.0.3](https://github.com/dtolnay/typeid) — MIT OR Apache-2.0
+- [typenum@1.19.0](https://github.com/paholg/typenum) — MIT OR Apache-2.0
+- [uds_windows@1.2.0](https://github.com/haraldh/rust_uds_windows) — MIT License
+- [unic-char-property@0.9.0](https://github.com/open-i18n/rust-unic/) — MIT/Apache-2.0
+- [unic-char-range@0.9.0](https://github.com/open-i18n/rust-unic/) — MIT/Apache-2.0
+- [unic-common@0.9.0](https://github.com/open-i18n/rust-unic/) — MIT/Apache-2.0
+- [unic-ucd-ident@0.9.0](https://github.com/open-i18n/rust-unic/) — MIT/Apache-2.0
+- [unic-ucd-version@0.9.0](https://github.com/open-i18n/rust-unic/) — MIT/Apache-2.0
+- [unicode-ident@1.0.24](https://github.com/dtolnay/unicode-ident) — MIT OR Apache-2.0 AND Unicode-3.0
+- [unicode-segmentation@1.12.0](https://github.com/unicode-rs/unicode-segmentation) — MIT OR Apache-2.0
+- [unicode-xid@0.2.6](https://github.com/unicode-rs/unicode-xid) — MIT OR Apache-2.0
+- [url@2.5.8](https://github.com/servo/rust-url) — MIT OR Apache-2.0
+- [urlpattern@0.3.0](https://github.com/denoland/rust-urlpattern) — MIT License
+- [utf-8@0.7.6](https://github.com/SimonSapin/rust-utf8) — MIT OR Apache-2.0
+- [utf8-width@0.1.8](https://github.com/magiclen/utf8-width) — MIT License
+- [utf8_iter@1.0.4](https://github.com/hsivonen/utf8_iter) — Apache-2.0 OR MIT
+- [uuid@1.21.0](https://github.com/uuid-rs/uuid) — Apache-2.0 OR MIT
+- [value-bag@1.12.0](https://github.com/sval-rs/value-bag) — Apache-2.0 OR MIT
+- [version-compare@0.2.1](https://gitlab.com/timvisee/version-compare) — MIT License
+- [version_check@0.9.5](https://github.com/SergioBenitez/version_check) — MIT/Apache-2.0
+- [vswhom-sys@0.1.3](https://github.com/nabijaczleweli/vswhom-sys.rs) — MIT License
+- [vswhom@0.1.0](https://github.com/nabijaczleweli/vswhom.rs) — MIT License
+- [walkdir@2.5.0](https://github.com/BurntSushi/walkdir) — Unlicense/MIT
+- [want@0.3.1](https://github.com/seanmonstar/want) — MIT License
+- [wasi@0.11.1+wasi-snapshot-preview1](https://github.com/bytecodealliance/wasi) — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+- [wasi@0.9.0+wasi-snapshot-preview1](https://github.com/bytecodealliance/wasi) — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+- [wasip2@1.0.2+wasi-0.2.9](https://github.com/bytecodealliance/wasi-rs) — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+- [wasip3@0.4.0+wasi-0.3.0-rc-2026-01-06](https://github.com/bytecodealliance/wasi-rs) — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+- [wasm-bindgen-futures@0.4.64](https://github.com/wasm-bindgen/wasm-bindgen/tree/master/crates/futures) — MIT OR Apache-2.0
+- [wasm-bindgen-macro-support@0.2.114](https://github.com/wasm-bindgen/wasm-bindgen/tree/master/crates/macro-support) — MIT OR Apache-2.0
+- [wasm-bindgen-macro@0.2.114](https://github.com/wasm-bindgen/wasm-bindgen/tree/master/crates/macro) — MIT OR Apache-2.0
+- [wasm-bindgen-shared@0.2.114](https://github.com/wasm-bindgen/wasm-bindgen/tree/master/crates/shared) — MIT OR Apache-2.0
+- [wasm-bindgen@0.2.114](https://github.com/wasm-bindgen/wasm-bindgen) — MIT OR Apache-2.0
+- [wasm-encoder@0.244.0](https://github.com/bytecodealliance/wasm-tools/tree/main/crates/wasm-encoder) — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+- [wasm-metadata@0.244.0](https://github.com/bytecodealliance/wasm-tools/tree/main/crates/wasm-metadata) — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+- [wasm-streams@0.5.0](https://github.com/MattiasBuelens/wasm-streams/) — MIT OR Apache-2.0
+- [wasmparser@0.244.0](https://github.com/bytecodealliance/wasm-tools/tree/main/crates/wasmparser) — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+- [web-sys@0.3.91](https://github.com/wasm-bindgen/wasm-bindgen/tree/master/crates/web-sys) — MIT OR Apache-2.0
+- [webkit2gtk-sys@2.0.2](https://github.com/tauri-apps/webkit2gtk-rs) — MIT License
+- [webkit2gtk@2.0.2](https://github.com/tauri-apps/webkit2gtk-rs) — MIT License
+- [webview2-com-macros@0.8.1](https://github.com/wravery/webview2-rs) — MIT License
+- [webview2-com-sys@0.38.2](https://github.com/wravery/webview2-rs) — MIT License
+- [webview2-com@0.38.2](https://github.com/wravery/webview2-rs) — MIT License
+- [winapi-i686-pc-windows-gnu@0.4.0](https://github.com/retep998/winapi-rs) — MIT/Apache-2.0
+- [winapi-util@0.1.11](https://github.com/BurntSushi/winapi-util) — Unlicense OR MIT
+- [winapi-x86_64-pc-windows-gnu@0.4.0](https://github.com/retep998/winapi-rs) — MIT/Apache-2.0
+- [winapi@0.3.9](https://github.com/retep998/winapi-rs) — MIT/Apache-2.0
+- [window-vibrancy@0.6.0](https://github.com/tauri-apps/tauri-plugin-vibrancy) — Apache-2.0 OR MIT
+- [windows-collections@0.2.0](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows-core@0.61.2](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows-core@0.62.2](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows-future@0.2.1](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows-implement@0.60.2](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows-interface@0.59.3](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows-link@0.1.3](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows-link@0.2.1](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows-numerics@0.2.0](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows-result@0.3.4](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows-result@0.4.1](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows-strings@0.4.2](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows-strings@0.5.1](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows-sys@0.45.0](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows-sys@0.59.0](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows-sys@0.60.2](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows-sys@0.61.2](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows-targets@0.42.2](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows-targets@0.52.6](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows-targets@0.53.5](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows-threading@0.1.0](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows-version@0.1.7](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows@0.61.3](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows_aarch64_gnullvm@0.42.2](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows_aarch64_gnullvm@0.52.6](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows_aarch64_gnullvm@0.53.1](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows_aarch64_msvc@0.42.2](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows_aarch64_msvc@0.52.6](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows_aarch64_msvc@0.53.1](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows_i686_gnu@0.42.2](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows_i686_gnu@0.52.6](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows_i686_gnu@0.53.1](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows_i686_gnullvm@0.52.6](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows_i686_gnullvm@0.53.1](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows_i686_msvc@0.42.2](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows_i686_msvc@0.52.6](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows_i686_msvc@0.53.1](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows_x86_64_gnu@0.42.2](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows_x86_64_gnu@0.52.6](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows_x86_64_gnu@0.53.1](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows_x86_64_gnullvm@0.42.2](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows_x86_64_gnullvm@0.52.6](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows_x86_64_gnullvm@0.53.1](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows_x86_64_msvc@0.42.2](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows_x86_64_msvc@0.52.6](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [windows_x86_64_msvc@0.53.1](https://github.com/microsoft/windows-rs) — MIT OR Apache-2.0
+- [winnow@0.5.40](https://github.com/winnow-rs/winnow) — MIT License
+- [winnow@0.7.14](https://github.com/winnow-rs/winnow) — MIT License
+- [winreg@0.55.0](https://github.com/gentoo90/winreg-rs) — MIT License
+- [wit-bindgen-core@0.51.0](https://github.com/bytecodealliance/wit-bindgen) — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+- [wit-bindgen-rust-macro@0.51.0](https://github.com/bytecodealliance/wit-bindgen) — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+- [wit-bindgen-rust@0.51.0](https://github.com/bytecodealliance/wit-bindgen) — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+- [wit-bindgen@0.51.0](https://github.com/bytecodealliance/wit-bindgen) — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+- [wit-component@0.244.0](https://github.com/bytecodealliance/wasm-tools/tree/main/crates/wit-component) — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+- [wit-parser@0.244.0](https://github.com/bytecodealliance/wasm-tools/tree/main/crates/wit-parser) — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+- [writeable@0.6.2](https://github.com/unicode-org/icu4x) — Unicode-3.0
+- [wry@0.54.2](https://github.com/tauri-apps/wry) — Apache-2.0 OR MIT
+- [wyz@0.5.1](https://github.com/myrrlyn/wyz) — MIT License
+- [x11-dl@2.21.0](https://github.com/AltF02/x11-rs) — MIT License
+- [x11@2.21.0](https://github.com/AltF02/x11-rs) — MIT License
+- [yoke-derive@0.8.1](https://github.com/unicode-org/icu4x) — Unicode-3.0
+- [yoke@0.8.1](https://github.com/unicode-org/icu4x) — Unicode-3.0
+- [zbus@5.14.0](https://github.com/z-galaxy/zbus/) — MIT License
+- [zbus_macros@5.14.0](https://github.com/z-galaxy/zbus/) — MIT License
+- [zbus_names@4.3.1](https://github.com/z-galaxy/zbus/) — MIT License
+- [zerocopy-derive@0.8.40](https://github.com/google/zerocopy) — BSD-2-Clause OR Apache-2.0 OR MIT
+- [zerocopy@0.8.40](https://github.com/google/zerocopy) — BSD-2-Clause OR Apache-2.0 OR MIT
+- [zerofrom-derive@0.1.6](https://github.com/unicode-org/icu4x) — Unicode-3.0
+- [zerofrom@0.1.6](https://github.com/unicode-org/icu4x) — Unicode-3.0
+- [zerotrie@0.2.3](https://github.com/unicode-org/icu4x) — Unicode-3.0
+- [zerovec-derive@0.11.2](https://github.com/unicode-org/icu4x) — Unicode-3.0
+- [zerovec@0.11.5](https://github.com/unicode-org/icu4x) — Unicode-3.0
+- [zmij@1.0.21](https://github.com/dtolnay/zmij) — MIT License
+- [zvariant@5.10.0](https://github.com/z-galaxy/zbus/) — MIT License
+- [zvariant_derive@5.10.0](https://github.com/z-galaxy/zbus/) — MIT License
+- [zvariant_utils@3.3.0](https://github.com/z-galaxy/zbus/) — MIT License
