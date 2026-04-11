@@ -13,7 +13,7 @@ import PhotoArticleInline from './PhotoArticleInline';
 import type { PhotoArticleProps, PhotoArticleViewProps } from './types';
 import { idToFileName } from './utils';
 
-export default function PhotoArticle({ id, caption }: PhotoArticleProps) {
+export default function PhotoArticle({ id, caption, variant }: PhotoArticleProps) {
   const { t } = useTranslation('articleBlocks');
   const articleContent = useArticleContent();
   const editorArticle = useEditorArticle();
@@ -126,6 +126,7 @@ export default function PhotoArticle({ id, caption }: PhotoArticleProps) {
   }, [isFullscreen]);
 
   const viewProps: PhotoArticleViewProps = {
+    variant,
     caption,
     imageUrl,
     loading,

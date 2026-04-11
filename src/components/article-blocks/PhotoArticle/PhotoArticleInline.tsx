@@ -1,6 +1,7 @@
 import type { PhotoArticleViewProps } from './types';
 
 export default function PhotoArticleInline({
+  variant,
   caption,
   imageUrl,
   loading,
@@ -15,15 +16,21 @@ export default function PhotoArticleInline({
   onImageError,
   t,
 }: PhotoArticleViewProps) {
+  const isPreview = variant === 'preview';
+
   return (
-    <figure className="my-12">
+    <figure className={isPreview ? 'my-4' : 'my-12'}>
       <div
         ref={imageContainerRef}
-        className="relative w-[80%] min-w-0 mx-auto rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.02]"
+        className={
+          isPreview
+            ? 'relative w-full max-w-xs min-w-0 mx-auto rounded-xl overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.01]'
+            : 'relative w-[80%] min-w-0 mx-auto rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.02]'
+        }
         style={{
           boxShadow: `var(--shadowSm)`,
           aspectRatio: '16/9',
-          minHeight: '200px',
+          minHeight: isPreview ? '120px' : '200px',
         }}
         onMouseEnter={onInlineMouseEnter}
         onMouseLeave={onInlineMouseLeave}
@@ -80,7 +87,9 @@ export default function PhotoArticleInline({
 
         {imageUrl && imageLoaded && !error && (
           <div
-            className={`absolute top-4 right-4 z-10 transition-all duration-300 ${
+            className={`absolute z-10 transition-all duration-300 ${
+              isPreview ? 'top-2 right-2' : 'top-4 right-4'
+            } ${
               showFullscreenIcon ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'
             }`}
             onClick={(e) => {
@@ -89,7 +98,9 @@ export default function PhotoArticleInline({
             }}
           >
             <button
-              className="backdrop-blur-sm rounded-lg p-2.5 transition-all duration-200 hover:scale-110 active:scale-95"
+              className={`backdrop-blur-sm rounded-lg transition-all duration-200 hover:scale-110 active:scale-95 ${
+                isPreview ? 'p-1.5' : 'p-2.5'
+              }`}
               style={{ backgroundColor: 'rgba(0,0,0,0.45)' }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.65)';
@@ -100,7 +111,11 @@ export default function PhotoArticleInline({
               title={t('videoPlayer.enterFullscreen')}
               aria-label={t('videoPlayer.enterFullscreen')}
             >
-              <svg className={`w-6 h-6 text-[var(--onPrimary)]`} fill="currentColor" viewBox="0 0 24 24">
+              <svg
+                className={`text-[var(--onPrimary)] ${isPreview ? 'w-4 h-4' : 'w-6 h-6'}`}
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z" />
               </svg>
             </button>
@@ -110,7 +125,11 @@ export default function PhotoArticleInline({
 
       {caption && (
         <figcaption
-          className="mt-4 text-sm text-center px-4 font-medium"
+          className={
+            isPreview
+              ? 'mt-2 text-xs text-center px-2 font-medium'
+              : 'mt-4 text-sm text-center px-4 font-medium'
+          }
           style={{ color: `var(--textSecondary)` }}
         >
           {caption}
