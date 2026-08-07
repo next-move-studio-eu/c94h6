@@ -1,6 +1,6 @@
 [package]
 name = "app"
-version = "1.0.0"
+version = "1.0.1"
 description = "c94h6 — article content editor (Tauri + React)"
 authors = ["Next Move Studio s.r.o."]
 license = "EUPL-1.2"
