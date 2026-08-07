@@ -25,10 +25,10 @@ export default function SlideshowRecorderRecordingControls({
 }: SlideshowRecorderControlsProps) {
   return (
     <div
-      className="flex-shrink-0 w-[22rem] flex flex-col gap-4 overflow-y-auto min-h-0 scrollbar-theme"
+      className="flex-shrink-0 w-[22rem] flex flex-col gap-4 overflow-y-auto min-h-0 self-stretch scrollbar-theme"
       style={previewColumnHeight ? { maxHeight: previewColumnHeight } : undefined}
     >
-      <div className="flex-1 flex flex-col min-h-0 rounded-2xl p-4" style={{ backgroundColor: 'var(--surface)' }}>
+      <div className="flex flex-col rounded-2xl p-4" style={{ backgroundColor: 'var(--surface)' }}>
         <div className="flex-shrink-0 w-full space-y-3">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-lg font-semibold text-text flex items-center gap-2">
@@ -110,7 +110,6 @@ export default function SlideshowRecorderRecordingControls({
             </div>
           </div>
         ) : null}
-        <div className="flex-1 min-h-4" />
       </div>
     </div>
   );
