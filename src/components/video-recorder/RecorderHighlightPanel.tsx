@@ -1,4 +1,6 @@
+import { Fragment } from 'react';
 import { motion } from 'framer-motion';
+import { Square, ArrowRight } from 'lucide-react';
 import type { BoardMode, HighlightColor } from './types';
 import { HIGHLIGHT_COLORS } from './utils';
 
@@ -34,35 +36,64 @@ export default function RecorderHighlightPanel({
       className={`flex flex-col rounded-lg p-3 ${isFullscreen ? 'flex-shrink-0' : 'w-48'}`}
       style={{ backgroundColor: 'var(--surfaceHigh)' }}
     >
-      <div className={isFullscreen ? 'grid grid-cols-6 gap-1.5' : 'grid grid-cols-2 gap-1.5'}>
-        {HIGHLIGHT_COLORS.map((color) => (
-          <HighlightButton
-            key={`${layout}-square-${color}`}
-            kind="square"
-            color={color}
-            label={colorNames[color]}
-            colorValue={colorValues[color]}
-            active={boardMode === `square-${color}`}
-            compact={isFullscreen}
-            onClick={() => onHighlightClick(`square-${color}`)}
-          />
-        ))}
-      </div>
+      {isFullscreen ? (
+        <>
+          <div className="grid grid-cols-6 gap-1.5">
+            {HIGHLIGHT_COLORS.map((color) => (
+              <HighlightButton
+                key={`${layout}-square-${color}`}
+                kind="square"
+                color={color}
+                label={colorNames[color]}
+                colorValue={colorValues[color]}
+                active={boardMode === `square-${color}`}
+                compact
+                onClick={() => onHighlightClick(`square-${color}`)}
+              />
+            ))}
+          </div>
 
-      <div className={isFullscreen ? 'grid grid-cols-6 gap-1.5 mt-1.5' : 'grid grid-cols-2 gap-1.5 mt-1.5'}>
-        {HIGHLIGHT_COLORS.map((color) => (
-          <HighlightButton
-            key={`${layout}-arrow-${color}`}
-            kind="arrow"
-            color={color}
-            label={colorNames[color]}
-            colorValue={colorValues[color]}
-            active={boardMode === `arrow-${color}`}
-            compact={isFullscreen}
-            onClick={() => onHighlightClick(`arrow-${color}`)}
-          />
-        ))}
-      </div>
+          <div className="grid grid-cols-6 gap-1.5 mt-1.5">
+            {HIGHLIGHT_COLORS.map((color) => (
+              <HighlightButton
+                key={`${layout}-arrow-${color}`}
+                kind="arrow"
+                color={color}
+                label={colorNames[color]}
+                colorValue={colorValues[color]}
+                active={boardMode === `arrow-${color}`}
+                compact
+                onClick={() => onHighlightClick(`arrow-${color}`)}
+              />
+            ))}
+          </div>
+        </>
+      ) : (
+        <div className="grid grid-cols-2 gap-1.5">
+          {HIGHLIGHT_COLORS.map((color) => (
+            <Fragment key={`${layout}-${color}`}>
+              <HighlightButton
+                kind="square"
+                color={color}
+                label={colorNames[color]}
+                colorValue={colorValues[color]}
+                active={boardMode === `square-${color}`}
+                compact={false}
+                onClick={() => onHighlightClick(`square-${color}`)}
+              />
+              <HighlightButton
+                kind="arrow"
+                color={color}
+                label={colorNames[color]}
+                colorValue={colorValues[color]}
+                active={boardMode === `arrow-${color}`}
+                compact={false}
+                onClick={() => onHighlightClick(`arrow-${color}`)}
+              />
+            </Fragment>
+          ))}
+        </div>
+      )}
 
       <div
         className={`pt-2 mt-2 ${isFullscreen ? 'border-t border-[var(--primaryBorder)] flex flex-wrap items-center gap-2' : 'mb-3 border-t space-y-1.5'}`}
@@ -149,23 +180,17 @@ function HighlightButton({ kind, label, colorValue, active, compact, onClick }: 
       whileTap={{ scale: 0.98 }}
     >
       {kind === 'square' ? (
-        <div
-          className={compact ? 'w-4 h-4 rounded border-2 shrink-0' : 'w-5 h-5 rounded mb-0.5'}
-          style={{
-            backgroundColor: colorValue,
-            borderColor: compact ? colorValue : undefined,
-          }}
+        <Square
+          className={compact ? 'w-4 h-4 shrink-0' : 'w-5 h-5 mb-0.5'}
+          strokeWidth={2}
+          color={colorValue}
         />
       ) : (
-        <svg width={compact ? '16' : '20'} height={compact ? '16' : '20'} viewBox="0 0 24 24" fill="none" className={compact ? 'shrink-0' : 'mb-0.5'}>
-          <path
-            d="M4 12L20 12M20 12L14 6M20 12L14 18"
-            stroke={colorValue}
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        <ArrowRight
+          className={compact ? 'w-4 h-4 shrink-0' : 'w-5 h-5 mb-0.5'}
+          strokeWidth={2}
+          color={colorValue}
+        />
       )}
       <span className={compact ? 'text-[9px] text-text leading-tight truncate w-full text-center' : 'text-[10px] text-text leading-tight'}>
         {label}

@@ -73,12 +73,12 @@ export default function VideoRecorderPage() {
   );
 
   const colorValues: Record<HighlightColor, string> = {
-    G: 'var(--highlightGreen)',
-    R: 'var(--highlightRed)',
-    Y: 'var(--highlightYellow)',
-    B: 'var(--highlightBlue)',
-    O: 'var(--highlightOrange)',
-    P: 'var(--highlightPurple)',
+    G: 'var(--highlightGreenArrow)',
+    R: 'var(--highlightRedArrow)',
+    Y: 'var(--highlightYellowArrow)',
+    B: 'var(--highlightBlueArrow)',
+    O: 'var(--highlightOrangeArrow)',
+    P: 'var(--highlightPurpleArrow)',
   };
 
   const pgnViewerTexts = useMemo(

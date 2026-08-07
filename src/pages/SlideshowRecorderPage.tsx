@@ -331,7 +331,12 @@ export default function SlideshowRecorderPage() {
   );
 
   const isFullscreenActive = useCallback(() => {
-    return getFullscreenElement() === fullscreenRef.current;
+    const el = fullscreenRef.current;
+    // Fullscreen overlay mounts only in preview mode; both sides are null while recording
+    // and `null === getFullscreenElement()` would wrongly treat that as fullscreen active,
+    // which unmounts SlideshowRecorderStage (`{!isFullscreen ? ...}`).
+    if (!el) return false;
+    return getFullscreenElement() === el;
   }, []);
 
   const handleFullscreen = useCallback(() => {
@@ -424,23 +429,22 @@ export default function SlideshowRecorderPage() {
 
   return (
     <div
-      className="h-full overflow-hidden flex flex-col"
-      style={{ backgroundColor: 'var(--bg)' }}
+      className="flex flex-col overflow-hidden"
+      style={{ height: 'calc(100vh - 4rem)', backgroundColor: 'var(--bg)' }}
     >
       <motion.div
-        className={`flex gap-4 p-4 ${!isFullscreen ? 'flex-1 min-h-0 items-start justify-center' : 'flex-1 min-h-0'}`}
+        className="flex flex-1 min-h-0 min-w-0 p-4"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3 }}
       >
         <div
-          className={`flex gap-0 rounded-xl overflow-hidden ${isFullscreen ? 'flex-1 min-h-0' : 'flex-shrink-0 w-fit max-w-full'}`}
+          className="flex flex-1 min-h-0 min-w-0 gap-4 p-4 rounded-xl"
           style={{
             backgroundColor: 'var(--surface)',
             boxShadow: 'var(--shadowSm)',
           }}
         >
-          <div className={`flex gap-4 p-4 ${isFullscreen ? 'flex-1 min-h-0' : ''}`}>
             {appMode === 'recording' ? (
               <SlideshowRecorderImageSelector
                 images={images}
@@ -493,7 +497,6 @@ export default function SlideshowRecorderPage() {
                 webmNotSupportedTitle={t('slideshowRecorderPage.webmNotSupportedTitle')}
               />
             ) : null}
-          </div>
         </div>
       </motion.div>
 

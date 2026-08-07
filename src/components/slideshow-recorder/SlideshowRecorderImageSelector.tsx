@@ -15,7 +15,7 @@ export default function SlideshowRecorderImageSelector({
 }: SlideshowRecorderImageSelectorProps) {
   return (
     <div
-      className="flex-shrink-0 w-80 flex flex-col min-h-0 rounded-lg p-3"
+      className="flex-shrink-0 w-80 flex flex-col min-h-0 self-stretch rounded-lg p-3"
       style={{
         backgroundColor: 'var(--bg)',
         ...(previewColumnHeight ? { maxHeight: previewColumnHeight } : {}),
