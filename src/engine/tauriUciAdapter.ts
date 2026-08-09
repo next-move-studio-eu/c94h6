@@ -52,6 +52,7 @@ export async function tauriUciEngineStatus(): Promise<boolean> {
 
 /**
  * Analyze position. multiPv 1 or 5. Returns same shape as the engine API.
+ * Throws with message containing "cancelled" when interrupted via stopTauriUciAnalysis.
  */
 export async function analyzePositionTauri(fen: string, multiPv: 1 | 5): Promise<AnalysisRow[]> {
   if (!isTauri()) {
@@ -62,4 +63,21 @@ export async function analyzePositionTauri(fen: string, multiPv: 1 | 5): Promise
     multiPv: multiPv as number,
   });
   return Array.isArray(rows) ? rows : [];
+}
+
+/**
+ * Signal in-flight analysis to stop so a newer position can be analyzed.
+ */
+export async function stopTauriUciAnalysis(): Promise<void> {
+  if (!isTauri()) return;
+  try {
+    await invoke('uci_stop');
+  } catch {
+    // Ignore — engine may not be loaded yet.
+  }
+}
+
+export function isUciAnalysisCancelled(err: unknown): boolean {
+  const message = err instanceof Error ? err.message : String(err);
+  return message.toLowerCase().includes('cancelled');
 }

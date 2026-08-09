@@ -137,6 +137,7 @@ export default function VideoRecorderPage() {
   const [videoPlayerHeight, setVideoPlayerHeight] = useState(0);
   const [boardColumnHeight, setBoardColumnHeight] = useState(0);
   const [analysisLoading, setAnalysisLoading] = useState(false);
+  const [analysisMode, setAnalysisMode] = useState<1 | 5 | null>(null);
   const [analysisConnectionReady, setAnalysisConnectionReady] = useState(false);
   const [loadUciPending, setLoadUciPending] = useState(false);
   const [uciReadyOptimistic, setUciReadyOptimistic] = useState(false);
@@ -209,10 +210,13 @@ export default function VideoRecorderPage() {
 
   useEffect(() => {
     const interval = window.setInterval(() => {
-      if (analysisOutputRef.current) {
-        setAnalysisLoading(analysisOutputRef.current.isLoading);
-        setAnalysisConnectionReady(analysisOutputRef.current.isConnectionReady);
-      }
+      const api = analysisOutputRef.current;
+      if (!api) return;
+      setAnalysisLoading((prev) => (prev === api.isLoading ? prev : api.isLoading));
+      setAnalysisMode((prev) => (prev === api.analysisMode ? prev : api.analysisMode));
+      setAnalysisConnectionReady((prev) =>
+        prev === api.isConnectionReady ? prev : api.isConnectionReady
+      );
     }, 100);
     return () => window.clearInterval(interval);
   }, []);
@@ -741,6 +745,7 @@ export default function VideoRecorderPage() {
     uciEngineReady,
     loadUciPending,
     analysisLoading,
+    analysisMode,
     analysisConnectionReady,
     recordingState,
     elapsedTime,
@@ -801,7 +806,7 @@ export default function VideoRecorderPage() {
               lookingOnWhite={lookingOnWhite}
               boardMode={boardMode}
               appMode={appMode}
-              isFullscreen={false}
+              isFullscreen={isFullscreen}
               handleMove={handleMove}
               handleSquareClick={handleSquareClick}
             />
@@ -828,6 +833,7 @@ export default function VideoRecorderPage() {
                 recordingTitle={t('videoRecorderPage.recordingTitle')}
                 analysisButtonLabel={t('videoRecorderPage.analysisButton')}
                 contextButtonLabel={t('videoRecorderPage.contextButton')}
+                analysisOffButtonLabel={t('videoRecorderPage.analysisOffButton')}
                 loadUciLabel={t('videoRecorderPage.loadUciButton')}
                 replaceUciLabel={t('videoRecorderPage.replaceUciButton')}
                 recordButtonLabel={t('videoRecorderPage.recordButton')}
@@ -976,6 +982,7 @@ export default function VideoRecorderPage() {
                 recordingTitle={t('videoRecorderPage.recordingTitle')}
                 analysisButtonLabel={t('videoRecorderPage.analysisButton')}
                 contextButtonLabel={t('videoRecorderPage.contextButton')}
+                analysisOffButtonLabel={t('videoRecorderPage.analysisOffButton')}
                 loadUciLabel={t('videoRecorderPage.loadUciButton')}
                 replaceUciLabel={t('videoRecorderPage.replaceUciButton')}
                 recordButtonLabel={t('videoRecorderPage.recordButton')}

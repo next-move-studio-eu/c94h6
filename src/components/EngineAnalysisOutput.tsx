@@ -1,11 +1,22 @@
 import { useState, useEffect, useRef, useCallback, useImperativeHandle, forwardRef } from 'react';
 import { Chess } from 'chess.js';
-import { tauriUciEngineStatus, analyzePositionTauri, isTauri } from '../engine/tauriUciAdapter';
+import {
+  tauriUciEngineStatus,
+  analyzePositionTauri,
+  stopTauriUciAnalysis,
+  isUciAnalysisCancelled,
+  isTauri,
+} from '../engine/tauriUciAdapter';
+
+export type AnalysisMode = 1 | 5;
 
 export interface EngineAnalysisOutputRef {
   clear: () => void;
   fill: (message: string) => void;
-  requestAnalysis: (pv: 1 | 5) => Promise<void>;
+  /** Set analysis mode: 1 / 5 to run, null for OFF (no auto-analysis). */
+  setAnalysisMode: (pv: AnalysisMode | null) => void;
+  requestAnalysis: (pv: AnalysisMode) => void;
+  analysisMode: AnalysisMode | null;
   isLoading: boolean;
   isConnectionReady: boolean;
   initFailed: boolean;
@@ -78,16 +89,9 @@ const EngineAnalysisOutput = forwardRef<EngineAnalysisOutputRef, EngineAnalysisO
     const [isLoading, setIsLoading] = useState(false);
     const [isConnectionReady, setIsConnectionReady] = useState(false);
     const [initFailed, setInitFailed] = useState(false);
-    const [currentPvMode, setCurrentPvMode] = useState<1 | 5 | null>(null);
-    const [lastOffSkeletonLines, setLastOffSkeletonLines] = useState<1 | 5>(5);
-    const currentFenRef = useRef<string>(fen);
-
-    useEffect(() => {
-      if (currentFenRef.current !== fen) {
-        currentFenRef.current = fen;
-        setAnalysisRows([]);
-      }
-    }, [fen]);
+    const [analysisMode, setAnalysisMode] = useState<AnalysisMode | null>(null);
+    const [lastOffSkeletonLines, setLastOffSkeletonLines] = useState<AnalysisMode>(5);
+    const requestIdRef = useRef(0);
 
     // In Tauri: poll until UCI engine is loaded. Outside Tauri: mark init failed (no UI message; Load UCI is the only cue).
     useEffect(() => {
@@ -111,20 +115,56 @@ const EngineAnalysisOutput = forwardRef<EngineAnalysisOutputRef, EngineAnalysisO
       };
     }, []);
 
-    const requestAnalysis = useCallback(async (pv: 1 | 5) => {
-      if (!isConnectionReady) return;
-      setIsLoading(true);
-      setAnalysisRows([]);
-      setCurrentPvMode(pv);
-      try {
-        const rows = await analyzePositionTauri(fen, pv);
-        setAnalysisRows(rows);
-      } catch (err) {
-        console.error('Engine analysis error:', err);
-      } finally {
-        setIsLoading(false);
+    // Auto-analyze on FEN / mode change. Cancels in-flight search when superseded.
+    useEffect(() => {
+      if (!analysisMode || !isConnectionReady) {
+        if (!analysisMode) {
+          setIsLoading(false);
+          setAnalysisRows([]);
+        }
+        return;
       }
-    }, [fen, isConnectionReady]);
+
+      const requestId = ++requestIdRef.current;
+      const fenAtStart = fen;
+      let cancelled = false;
+
+      setAnalysisRows([]);
+      setIsLoading(true);
+
+      const run = async () => {
+        await stopTauriUciAnalysis();
+        if (cancelled || requestId !== requestIdRef.current) return;
+        try {
+          const rows = await analyzePositionTauri(fenAtStart, analysisMode);
+          if (cancelled || requestId !== requestIdRef.current) return;
+          setAnalysisRows(rows);
+        } catch (err) {
+          if (isUciAnalysisCancelled(err) || cancelled || requestId !== requestIdRef.current) return;
+          console.error('Engine analysis error:', err);
+        } finally {
+          if (!cancelled && requestId === requestIdRef.current) {
+            setIsLoading(false);
+          }
+        }
+      };
+
+      void run();
+
+      return () => {
+        cancelled = true;
+        void stopTauriUciAnalysis();
+      };
+    }, [fen, analysisMode, isConnectionReady]);
+
+    const setAnalysisModeExplicit = useCallback((pv: AnalysisMode | null) => {
+      if (pv !== null && !isConnectionReady) return;
+      setAnalysisMode(pv);
+    }, [isConnectionReady]);
+
+    const requestAnalysis = useCallback((pv: AnalysisMode) => {
+      setAnalysisModeExplicit(pv);
+    }, [setAnalysisModeExplicit]);
 
     useImperativeHandle(ref, () => ({
       clear: () => setAnalysisRows([]),
@@ -139,28 +179,30 @@ const EngineAnalysisOutput = forwardRef<EngineAnalysisOutputRef, EngineAnalysisO
           console.error('Error parsing analysis message:', e);
         }
       },
+      setAnalysisMode: setAnalysisModeExplicit,
       requestAnalysis,
+      analysisMode,
       isLoading,
       isConnectionReady,
       initFailed
-    }), [requestAnalysis, isLoading, isConnectionReady, initFailed]);
+    }), [setAnalysisModeExplicit, requestAnalysis, analysisMode, isLoading, isConnectionReady, initFailed]);
 
-    const displayRows = currentPvMode === 1
+    const displayRows = analysisMode === 1
       ? (analysisRows.length > 0 ? [analysisRows[0]] : [])
       : Array.from({ length: 5 }, (_, i) => analysisRows[i] || { score: 0, pv: [] });
 
     const hasAnalysis = analysisRows.length > 0;
     const showLoading = isLoading && !hasAnalysis;
-    const isSinglePvMode = currentPvMode === 1;
+    const isSinglePvMode = analysisMode === 1;
     const showAnimatedSkeleton = showLoading || (externalThinking && !hasAnalysis);
-    const animatedSkeletonCount = showLoading ? (currentPvMode === 1 ? 1 : 5) : 1;
+    const animatedSkeletonCount = showLoading ? (analysisMode === 1 ? 1 : 5) : 1;
 
     useEffect(() => {
       if (showAnimatedSkeleton) {
-        const count = showLoading ? (currentPvMode === 1 ? 1 : 5) : 1;
-        setLastOffSkeletonLines(count);
+        const count = showLoading ? (analysisMode === 1 ? 1 : 5) : 1;
+        setLastOffSkeletonLines(count as AnalysisMode);
       }
-    }, [showAnimatedSkeleton, showLoading, currentPvMode]);
+    }, [showAnimatedSkeleton, showLoading, analysisMode]);
 
     const skeletonRowContentHeight = { height: '1.4em', fontSize: '14px' };
     const renderSkeletonRows = (count: number, animated: boolean) => (

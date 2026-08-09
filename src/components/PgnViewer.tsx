@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef, useImperativeHandle, forwardRef } from 'react';
+import { useState, useEffect, useLayoutEffect, useCallback, useRef, useImperativeHandle, forwardRef } from 'react';
 import { Chess } from '@jackstenglein/chess';
 
 export interface PositionChangeEvent {
@@ -431,49 +431,64 @@ const VariationPopover = ({
   buttonElement: HTMLButtonElement | null;
 }) => {
   const allMoves = main ? [main, ...variations] : variations;
+  const popoverRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState<{ top: number; left: number } | null>(null);
-  
-  // Calculate position based on button location
-  useEffect(() => {
+
+  // Place below (or above if clipped), centered on the button, clamped to the viewport
+  useLayoutEffect(() => {
     if (!buttonElement) {
       setPosition(null);
       return;
     }
-    
+
+    const margin = 8;
+    const gap = 8;
+
     const updatePosition = () => {
-      if (buttonElement) {
-        const rect = buttonElement.getBoundingClientRect();
-        // Position popover below the button, centered horizontally
-        setPosition({
-          top: rect.bottom + 8, // 8px gap below button (relative to viewport)
-          left: rect.left + (rect.width / 2) // Center horizontally on button (relative to viewport)
-        });
+      const rect = buttonElement.getBoundingClientRect();
+      const popoverWidth = popoverRef.current?.offsetWidth ?? 200;
+      const popoverHeight = popoverRef.current?.offsetHeight ?? 0;
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+
+      let top = rect.bottom + gap;
+      if (popoverHeight > 0 && top + popoverHeight > vh - margin) {
+        top = rect.top - gap - popoverHeight;
       }
+      if (popoverHeight > 0) {
+        top = Math.max(margin, Math.min(top, vh - popoverHeight - margin));
+      }
+
+      let left = rect.left + rect.width / 2 - popoverWidth / 2;
+      left = Math.max(margin, Math.min(left, vw - popoverWidth - margin));
+
+      setPosition({ top, left });
     };
-    
+
     updatePosition();
-    
-    // Update position on scroll or resize
+    // Remeasure after paint once the popover has real dimensions
+    const frameId = requestAnimationFrame(updatePosition);
+
     window.addEventListener('scroll', updatePosition, true);
     window.addEventListener('resize', updatePosition);
-    
+
     return () => {
+      cancelAnimationFrame(frameId);
       window.removeEventListener('scroll', updatePosition, true);
       window.removeEventListener('resize', updatePosition);
     };
-  }, [buttonElement]);
-  
-  if (!position || !buttonElement) return null;
-  
-  // Use fixed positioning with a high z-index to render above everything
-  // Fixed positioning is relative to viewport, so it escapes parent constraints
+  }, [buttonElement, allMoves.length]);
+
+  if (!buttonElement) return null;
+
   return (
-    <div 
+    <div
+      ref={popoverRef}
       className="variation-popover fixed z-[9999] bg-[var(--surface)] border border-[var(--primary)] rounded-lg shadow-lg p-2 min-w-[200px]"
       style={{
-        top: `${position.top}px`,
-        left: `${position.left}px`,
-        transform: 'translateX(-50%)' // Center on the calculated left position
+        top: `${position?.top ?? 0}px`,
+        left: `${position?.left ?? 0}px`,
+        visibility: position ? 'visible' : 'hidden',
       }}
     >
       <div className="text-xs text-[var(--textSecondary)] mb-2 px-2">
@@ -942,10 +957,22 @@ const PgnViewer = forwardRef<PgnViewerRef, PgnViewerProps>(({
         }
       }
     } else {
-      // At initial position
+      // At initial position — main first move or a sideline on that node
       const firstMove = currentGame.chess.nextMove() as any;
-      if (firstMove && firstMove.san === selectedMove) {
-        navigateToMoveNode(firstMove);
+      if (firstMove) {
+        if (firstMove.san === selectedMove) {
+          navigateToMoveNode(firstMove);
+        } else {
+          const variationBranches = Array.isArray((firstMove as any).variations)
+            ? (firstMove as any).variations
+            : [];
+          for (const branch of variationBranches) {
+            if (Array.isArray(branch) && branch.length > 0 && branch[0].san === selectedMove) {
+              navigateToMoveNode(branch[0]);
+              break;
+            }
+          }
+        }
       }
     }
     setShowVariationPopover(false);

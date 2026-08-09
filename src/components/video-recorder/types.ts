@@ -101,6 +101,7 @@ export interface RecorderSessionState {
   uciEngineReady: boolean;
   loadUciPending: boolean;
   analysisLoading: boolean;
+  analysisMode: 1 | 5 | null;
   analysisConnectionReady: boolean;
   recordingState: RecordingState;
   elapsedTime: number;
