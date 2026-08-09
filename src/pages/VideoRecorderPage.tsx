@@ -801,7 +801,7 @@ export default function VideoRecorderPage() {
               lookingOnWhite={lookingOnWhite}
               boardMode={boardMode}
               appMode={appMode}
-              isFullscreen={false}
+              isFullscreen={isFullscreen}
               handleMove={handleMove}
               handleSquareClick={handleSquareClick}
             />

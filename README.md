@@ -5,7 +5,7 @@ Desktop and web-shell article editor from [Next Move Studio s.r.o.](https://www.
 - **License:** [EUPL-1.2](LICENSE)
 - **Source:** [github.com/next-move-studio-eu/c94h6](https://github.com/next-move-studio-eu/c94h6)
 
-> **This repository does not accept pull requests.**
+> **This repository does not accept pull requests from community.**
 
 The root `package.json` sets `"private": false` on purpose: [`license-checker`](https://www.npmjs.com/package/license-checker) forces any `"private": true` package to **UNLICENSED**, which breaks `--onlyAllow` checks even when `license` and the `LICENSE` file are correct. This app is not published to npm by default; avoid `npm publish` unless you intend to.
 
