@@ -13,7 +13,8 @@ export type AnalysisMode = 1 | 5;
 export interface EngineAnalysisOutputRef {
   clear: () => void;
   fill: (message: string) => void;
-  /** Select analysis mode (toggle off if same). Auto-runs on FEN change while mode is set. */
+  /** Set analysis mode: 1 / 5 to run, null for OFF (no auto-analysis). */
+  setAnalysisMode: (pv: AnalysisMode | null) => void;
   requestAnalysis: (pv: AnalysisMode) => void;
   analysisMode: AnalysisMode | null;
   isLoading: boolean;
@@ -156,10 +157,14 @@ const EngineAnalysisOutput = forwardRef<EngineAnalysisOutputRef, EngineAnalysisO
       };
     }, [fen, analysisMode, isConnectionReady]);
 
-    const requestAnalysis = useCallback((pv: AnalysisMode) => {
-      if (!isConnectionReady) return;
-      setAnalysisMode((prev) => (prev === pv ? null : pv));
+    const setAnalysisModeExplicit = useCallback((pv: AnalysisMode | null) => {
+      if (pv !== null && !isConnectionReady) return;
+      setAnalysisMode(pv);
     }, [isConnectionReady]);
+
+    const requestAnalysis = useCallback((pv: AnalysisMode) => {
+      setAnalysisModeExplicit(pv);
+    }, [setAnalysisModeExplicit]);
 
     useImperativeHandle(ref, () => ({
       clear: () => setAnalysisRows([]),
@@ -174,12 +179,13 @@ const EngineAnalysisOutput = forwardRef<EngineAnalysisOutputRef, EngineAnalysisO
           console.error('Error parsing analysis message:', e);
         }
       },
+      setAnalysisMode: setAnalysisModeExplicit,
       requestAnalysis,
       analysisMode,
       isLoading,
       isConnectionReady,
       initFailed
-    }), [requestAnalysis, analysisMode, isLoading, isConnectionReady, initFailed]);
+    }), [setAnalysisModeExplicit, requestAnalysis, analysisMode, isLoading, isConnectionReady, initFailed]);
 
     const displayRows = analysisMode === 1
       ? (analysisRows.length > 0 ? [analysisRows[0]] : [])

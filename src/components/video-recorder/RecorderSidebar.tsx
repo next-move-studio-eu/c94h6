@@ -34,6 +34,7 @@ interface RecorderSidebarProps {
   recordingTitle: string;
   analysisButtonLabel: string;
   contextButtonLabel: string;
+  analysisOffButtonLabel: string;
   loadUciLabel: string;
   replaceUciLabel: string;
   recordButtonLabel: string;
@@ -59,6 +60,7 @@ export default function RecorderSidebar({
   recordingTitle,
   analysisButtonLabel,
   contextButtonLabel,
+  analysisOffButtonLabel,
   loadUciLabel,
   replaceUciLabel,
   recordButtonLabel,
@@ -83,6 +85,7 @@ export default function RecorderSidebar({
           replaceUciLabel={replaceUciLabel}
           analysisButtonLabel={analysisButtonLabel}
           contextButtonLabel={contextButtonLabel}
+          analysisOffButtonLabel={analysisOffButtonLabel}
           compact
         />
 
@@ -155,6 +158,7 @@ export default function RecorderSidebar({
               replaceUciLabel={replaceUciLabel}
               analysisButtonLabel={analysisButtonLabel}
               contextButtonLabel={contextButtonLabel}
+              analysisOffButtonLabel={analysisOffButtonLabel}
             />
 
             <div className="flex-1 min-h-4" />
@@ -231,6 +235,7 @@ interface AnalysisPanelProps {
   replaceUciLabel: string;
   analysisButtonLabel: string;
   contextButtonLabel: string;
+  analysisOffButtonLabel: string;
   compact?: boolean;
 }
 
@@ -243,11 +248,13 @@ function AnalysisPanel({
   replaceUciLabel,
   analysisButtonLabel,
   contextButtonLabel,
+  analysisOffButtonLabel,
   compact = false,
 }: AnalysisPanelProps) {
-  const labels = [
-    { label: analysisButtonLabel, depth: 1 as const },
-    { label: contextButtonLabel, depth: 5 as const },
+  const modes: { label: string; value: 1 | 5 | null; needsEngine: boolean }[] = [
+    { label: analysisButtonLabel, value: 1, needsEngine: true },
+    { label: contextButtonLabel, value: 5, needsEngine: true },
+    { label: analysisOffButtonLabel, value: null, needsEngine: false },
   ];
 
   return (
@@ -271,15 +278,16 @@ function AnalysisPanel({
         />
       </ThemeProvider>
 
-      <div className={`flex gap-2 ${compact ? 'mt-2' : ''}`}>
-        {labels.map(({ label, depth }) => {
-          const isActive = state.analysisMode === depth;
+      <div className={`flex gap-2 ${compact ? 'mt-2' : ''}`} role="group" aria-label="Analysis mode">
+        {modes.map(({ label, value, needsEngine }) => {
+          const isActive = state.analysisMode === value;
+          const disabled = needsEngine && !state.analysisConnectionReady;
           return (
             <motion.button
-              key={depth}
+              key={label}
               type="button"
-              onClick={() => analysisOutputRef.current?.requestAnalysis(depth)}
-              disabled={!state.analysisConnectionReady}
+              onClick={() => analysisOutputRef.current?.setAnalysisMode(value)}
+              disabled={disabled}
               aria-pressed={isActive}
               className={`flex-1 px-3 py-1.5 text-sm rounded transition-opacity disabled:opacity-40 disabled:cursor-not-allowed ${
                 isActive

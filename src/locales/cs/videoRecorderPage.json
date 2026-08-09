@@ -19,6 +19,7 @@
     "copyPopupFenOnly": "Pouze FEN",
     "analysisButton": "Analýza",
     "contextButton": "Kontext",
+    "analysisOffButton": "Vypnuto",
     "recordingTitle": "Nahrávání...",
     "recordButton": "Nahrávat",
     "pauseButton": "Pozastavit",

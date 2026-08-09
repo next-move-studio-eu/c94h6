@@ -1,11 +1,14 @@
-//! UCI chess engine bridge. Spawns a user-provided executable and communicates via UCI over stdin/stdout.
+//! UCI chess engine bridge.
+//!
+//! All engine I/O runs on a dedicated OS worker thread (below-normal priority on Windows)
+//! so analysis cannot block Tauri's async/IPC path or the webview MediaRecorder audio path.
 
 use serde::{Deserialize, Serialize};
 use std::io::{BufRead, BufReader, Write};
 use std::process::{Child, ChildStdin, Command, Stdio};
 use std::sync::atomic::{AtomicBool, Ordering};
-use std::sync::mpsc::Receiver;
-use std::sync::Mutex;
+use std::sync::mpsc::{self, Receiver, Sender};
+use std::sync::OnceLock;
 use std::thread;
 use std::time::Duration;
 
@@ -22,14 +25,60 @@ pub struct AnalysisRow {
 }
 
 struct EngineHandle {
-    #[allow(dead_code)]
     child: Child,
     stdin: ChildStdin,
     line_rx: Receiver<String>,
 }
 
-static ENGINE: Mutex<Option<EngineHandle>> = Mutex::new(None);
+enum WorkerMsg {
+    Init {
+        path: String,
+        reply: Sender<Result<(), String>>,
+    },
+    Analyze {
+        fen: String,
+        multi_pv: u32,
+        reply: Sender<Result<Vec<AnalysisRow>, String>>,
+    },
+    Kill {
+        reply: Sender<Result<(), String>>,
+    },
+}
+
 static CANCEL: AtomicBool = AtomicBool::new(false);
+static ENGINE_LOADED: AtomicBool = AtomicBool::new(false);
+static WORKER_TX: OnceLock<Sender<WorkerMsg>> = OnceLock::new();
+
+/// Soften scheduling so Stockfish I/O cannot starve webview audio capture.
+#[cfg(windows)]
+fn lower_current_thread_priority() {
+    extern "system" {
+        fn GetCurrentThread() -> isize;
+        fn SetThreadPriority(thread: isize, priority: i32) -> i32;
+    }
+    const THREAD_PRIORITY_BELOW_NORMAL: i32 = -1;
+    unsafe {
+        let _ = SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_BELOW_NORMAL);
+    }
+}
+
+#[cfg(not(windows))]
+fn lower_current_thread_priority() {}
+
+#[cfg(windows)]
+fn lower_process_priority(child: &Child) {
+    use std::os::windows::io::AsRawHandle;
+    extern "system" {
+        fn SetPriorityClass(process: *mut std::ffi::c_void, class: u32) -> i32;
+    }
+    const BELOW_NORMAL_PRIORITY_CLASS: u32 = 0x0000_4000;
+    unsafe {
+        let _ = SetPriorityClass(child.as_raw_handle() as *mut std::ffi::c_void, BELOW_NORMAL_PRIORITY_CLASS);
+    }
+}
+
+#[cfg(not(windows))]
+fn lower_process_priority(_child: &Child) {}
 
 fn drain_until_bestmove(handle: &mut EngineHandle, timeout_ms: u64) {
     let deadline = std::time::Instant::now() + Duration::from_millis(timeout_ms);
@@ -47,32 +96,42 @@ fn drain_until_bestmove(handle: &mut EngineHandle, timeout_ms: u64) {
 }
 
 fn spawn_reader(stdout: std::process::ChildStdout) -> Receiver<String> {
-    let (tx, rx) = std::sync::mpsc::channel();
-    thread::spawn(move || {
-        let reader = BufReader::new(stdout);
-        for line in reader.lines().flatten() {
-            if tx.send(line).is_err() {
-                break;
+    let (tx, rx) = mpsc::channel();
+    thread::Builder::new()
+        .name("uci-stdout-reader".into())
+        .spawn(move || {
+            lower_current_thread_priority();
+            let reader = BufReader::new(stdout);
+            for line in reader.lines().flatten() {
+                if tx.send(line).is_err() {
+                    break;
+                }
             }
-        }
-    });
+        })
+        .expect("failed to spawn uci stdout reader");
     rx
 }
 
-/// Initialize UCI engine at the given path. Returns Ok(()) on success.
-/// If an engine is already loaded, it is killed first.
-#[tauri::command]
-pub fn init_uci_engine(engine_path: String) -> Result<(), String> {
-    let mut guard = ENGINE.lock().map_err(|e| e.to_string())?;
-    if let Some(mut h) = guard.take() {
+fn kill_engine(engine: &mut Option<EngineHandle>) {
+    CANCEL.store(true, Ordering::SeqCst);
+    if let Some(mut h) = engine.take() {
         let _ = h.child.kill();
     }
+    ENGINE_LOADED.store(false, Ordering::SeqCst);
+}
+
+fn init_engine(engine: &mut Option<EngineHandle>, engine_path: String) -> Result<(), String> {
+    kill_engine(engine);
+    CANCEL.store(false, Ordering::SeqCst);
+
     let mut child = Command::new(&engine_path)
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
         .stderr(Stdio::null())
         .spawn()
         .map_err(|e| format!("Failed to spawn engine: {}", e))?;
+    lower_process_priority(&child);
+
     let stdin = child.stdin.take().ok_or("Failed to open engine stdin")?;
     let stdout = child.stdout.take().ok_or("Failed to open engine stdout")?;
     let line_rx = spawn_reader(stdout);
@@ -81,7 +140,7 @@ pub fn init_uci_engine(engine_path: String) -> Result<(), String> {
         stdin,
         line_rx,
     };
-    // UCI handshake
+
     writeln!(handle.stdin, "uci").map_err(|e| e.to_string())?;
     handle.stdin.flush().map_err(|e| e.to_string())?;
     let mut seen_uciok = false;
@@ -107,12 +166,16 @@ pub fn init_uci_engine(engine_path: String) -> Result<(), String> {
         }
     }
     if !seen_uciok {
+        let _ = handle.child.kill();
         return Err("UCI handshake timeout (no uciok)".to_string());
     }
     if !seen_readyok {
+        let _ = handle.child.kill();
         return Err("UCI handshake timeout (no readyok)".to_string());
     }
-    *guard = Some(handle);
+
+    *engine = Some(handle);
+    ENGINE_LOADED.store(true, Ordering::SeqCst);
     Ok(())
 }
 
@@ -155,16 +218,14 @@ fn parse_info_line(line: &str) -> Option<(u32, i32, Vec<String>)> {
     pv.map(|p| (multipv, score, p))
 }
 
-/// Run analysis and return rows. multi_pv 1 = single line (2s), 5 = top 5 (5s).
-/// Returns Err("cancelled") when interrupted via `uci_stop`.
-#[tauri::command]
-pub fn uci_analyze(fen: String, multi_pv: u32) -> Result<Vec<AnalysisRow>, String> {
+fn run_analyze(engine: &mut Option<EngineHandle>, fen: String, multi_pv: u32) -> Result<Vec<AnalysisRow>, String> {
     let multi_pv = if multi_pv == 0 { 1 } else { multi_pv.min(5) };
     let movetime_ms = if multi_pv == 1 { 2000u64 } else { 5000u64 };
     let timeout_ms = movetime_ms + ANALYZE_EXTRA_MS;
 
-    let mut guard = ENGINE.lock().map_err(|e| e.to_string())?;
-    let handle = guard.as_mut().ok_or("Engine not loaded. Use Load UCI first.")?;
+    let handle = engine
+        .as_mut()
+        .ok_or_else(|| "Engine not loaded. Use Load UCI first.".to_string())?;
 
     CANCEL.store(false, Ordering::SeqCst);
 
@@ -203,31 +264,104 @@ pub fn uci_analyze(fen: String, multi_pv: u32) -> Result<Vec<AnalysisRow>, Strin
         return Err(CANCEL_MSG.to_string());
     }
 
-    let ordered: Vec<AnalysisRow> = (1..=multi_pv)
-        .filter_map(|i| results.remove(&i))
-        .collect();
-    Ok(ordered)
+    Ok((1..=multi_pv).filter_map(|i| results.remove(&i)).collect())
 }
 
-/// Signal in-flight `uci_analyze` to stop. Does not need the engine mutex.
+fn worker_loop(rx: Receiver<WorkerMsg>) {
+    lower_current_thread_priority();
+    let mut engine: Option<EngineHandle> = None;
+
+    while let Ok(msg) = rx.recv() {
+        match msg {
+            WorkerMsg::Init { path, reply } => {
+                let _ = reply.send(init_engine(&mut engine, path));
+            }
+            WorkerMsg::Analyze {
+                fen,
+                multi_pv,
+                reply,
+            } => {
+                let _ = reply.send(run_analyze(&mut engine, fen, multi_pv));
+            }
+            WorkerMsg::Kill { reply } => {
+                kill_engine(&mut engine);
+                let _ = reply.send(Ok(()));
+            }
+        }
+    }
+}
+
+fn worker_tx() -> &'static Sender<WorkerMsg> {
+    WORKER_TX.get_or_init(|| {
+        let (tx, rx) = mpsc::channel();
+        thread::Builder::new()
+            .name("uci-worker".into())
+            .spawn(move || worker_loop(rx))
+            .expect("failed to spawn uci worker");
+        tx
+    })
+}
+
+async fn await_reply<T: Send + 'static>(reply_rx: Receiver<T>) -> Result<T, String> {
+    // Park a blocking-pool thread on the oneshot; never block Tauri's async executor
+    // with UCI I/O (keeps webview + MediaRecorder responsive).
+    tauri::async_runtime::spawn_blocking(move || {
+        reply_rx
+            .recv()
+            .map_err(|_| "UCI worker disconnected".to_string())
+    })
+    .await
+    .map_err(|e| format!("UCI worker join failed: {e}"))?
+}
+
+/// Initialize UCI engine at the given path. Returns Ok(()) on success.
+/// If an engine is already loaded, it is killed first.
+#[tauri::command]
+pub async fn init_uci_engine(engine_path: String) -> Result<(), String> {
+    let (reply_tx, reply_rx) = mpsc::channel();
+    worker_tx()
+        .send(WorkerMsg::Init {
+            path: engine_path,
+            reply: reply_tx,
+        })
+        .map_err(|_| "UCI worker disconnected".to_string())?;
+    await_reply(reply_rx).await?
+}
+
+/// Run analysis and return rows. multi_pv 1 = single line (2s), 5 = top 5 (5s).
+/// Returns Err("cancelled") when interrupted via `uci_stop`.
+#[tauri::command]
+pub async fn uci_analyze(fen: String, multi_pv: u32) -> Result<Vec<AnalysisRow>, String> {
+    let (reply_tx, reply_rx) = mpsc::channel();
+    worker_tx()
+        .send(WorkerMsg::Analyze {
+            fen,
+            multi_pv,
+            reply: reply_tx,
+        })
+        .map_err(|_| "UCI worker disconnected".to_string())?;
+    await_reply(reply_rx).await?
+}
+
+/// Signal in-flight analysis to stop. Instant; does not touch the worker queue.
 #[tauri::command]
 pub fn uci_stop() -> Result<(), String> {
     CANCEL.store(true, Ordering::SeqCst);
     Ok(())
 }
 
+/// Whether an engine is loaded. Reads an atomic — never waits on in-flight analysis.
 #[tauri::command]
 pub fn uci_engine_status() -> Result<bool, String> {
-    let guard = ENGINE.lock().map_err(|e| e.to_string())?;
-    Ok(guard.is_some())
+    Ok(ENGINE_LOADED.load(Ordering::SeqCst))
 }
 
 #[tauri::command]
-pub fn kill_uci_engine() -> Result<(), String> {
+pub async fn kill_uci_engine() -> Result<(), String> {
     CANCEL.store(true, Ordering::SeqCst);
-    let mut guard = ENGINE.lock().map_err(|e| e.to_string())?;
-    if let Some(mut h) = guard.take() {
-        let _ = h.child.kill();
-    }
-    Ok(())
+    let (reply_tx, reply_rx) = mpsc::channel();
+    worker_tx()
+        .send(WorkerMsg::Kill { reply: reply_tx })
+        .map_err(|_| "UCI worker disconnected".to_string())?;
+    await_reply(reply_rx).await?
 }

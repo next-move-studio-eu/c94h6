@@ -19,6 +19,7 @@
     "copyPopupFenOnly": "Just FEN",
     "analysisButton": "Analysis",
     "contextButton": "Context",
+    "analysisOffButton": "Off",
     "recordingTitle": "Recording...",
     "recordButton": "Record",
     "pauseButton": "Pause",
