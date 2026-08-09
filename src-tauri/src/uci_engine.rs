@@ -3,6 +3,7 @@
 use serde::{Deserialize, Serialize};
 use std::io::{BufRead, BufReader, Write};
 use std::process::{Child, ChildStdin, Command, Stdio};
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::mpsc::Receiver;
 use std::sync::Mutex;
 use std::thread;
@@ -10,6 +11,9 @@ use std::time::Duration;
 
 const INIT_TIMEOUT_MS: u64 = 8000;
 const ANALYZE_EXTRA_MS: u64 = 1000;
+const STOP_DRAIN_MS: u64 = 2000;
+
+const CANCEL_MSG: &str = "cancelled";
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AnalysisRow {
@@ -25,6 +29,22 @@ struct EngineHandle {
 }
 
 static ENGINE: Mutex<Option<EngineHandle>> = Mutex::new(None);
+static CANCEL: AtomicBool = AtomicBool::new(false);
+
+fn drain_until_bestmove(handle: &mut EngineHandle, timeout_ms: u64) {
+    let deadline = std::time::Instant::now() + Duration::from_millis(timeout_ms);
+    while std::time::Instant::now() < deadline {
+        match handle.line_rx.recv_timeout(Duration::from_millis(50)) {
+            Ok(line) => {
+                if line.starts_with("bestmove ") {
+                    return;
+                }
+            }
+            Err(std::sync::mpsc::RecvTimeoutError::Timeout) => continue,
+            Err(std::sync::mpsc::RecvTimeoutError::Disconnected) => return,
+        }
+    }
+}
 
 fn spawn_reader(stdout: std::process::ChildStdout) -> Receiver<String> {
     let (tx, rx) = std::sync::mpsc::channel();
@@ -136,6 +156,7 @@ fn parse_info_line(line: &str) -> Option<(u32, i32, Vec<String>)> {
 }
 
 /// Run analysis and return rows. multi_pv 1 = single line (2s), 5 = top 5 (5s).
+/// Returns Err("cancelled") when interrupted via `uci_stop`.
 #[tauri::command]
 pub fn uci_analyze(fen: String, multi_pv: u32) -> Result<Vec<AnalysisRow>, String> {
     let multi_pv = if multi_pv == 0 { 1 } else { multi_pv.min(5) };
@@ -144,6 +165,8 @@ pub fn uci_analyze(fen: String, multi_pv: u32) -> Result<Vec<AnalysisRow>, Strin
 
     let mut guard = ENGINE.lock().map_err(|e| e.to_string())?;
     let handle = guard.as_mut().ok_or("Engine not loaded. Use Load UCI first.")?;
+
+    CANCEL.store(false, Ordering::SeqCst);
 
     writeln!(handle.stdin, "position fen {}", fen).map_err(|e| e.to_string())?;
     writeln!(handle.stdin, "setoption name MultiPV value {}", multi_pv).map_err(|e| e.to_string())?;
@@ -154,6 +177,12 @@ pub fn uci_analyze(fen: String, multi_pv: u32) -> Result<Vec<AnalysisRow>, Strin
     let deadline = std::time::Instant::now() + Duration::from_millis(timeout_ms);
 
     while std::time::Instant::now() < deadline {
+        if CANCEL.load(Ordering::SeqCst) {
+            let _ = writeln!(handle.stdin, "stop");
+            let _ = handle.stdin.flush();
+            drain_until_bestmove(handle, STOP_DRAIN_MS);
+            return Err(CANCEL_MSG.to_string());
+        }
         match handle.line_rx.recv_timeout(Duration::from_millis(100)) {
             Ok(line) => {
                 if line.starts_with("bestmove ") {
@@ -170,10 +199,21 @@ pub fn uci_analyze(fen: String, multi_pv: u32) -> Result<Vec<AnalysisRow>, Strin
         }
     }
 
+    if CANCEL.load(Ordering::SeqCst) {
+        return Err(CANCEL_MSG.to_string());
+    }
+
     let ordered: Vec<AnalysisRow> = (1..=multi_pv)
         .filter_map(|i| results.remove(&i))
         .collect();
     Ok(ordered)
+}
+
+/// Signal in-flight `uci_analyze` to stop. Does not need the engine mutex.
+#[tauri::command]
+pub fn uci_stop() -> Result<(), String> {
+    CANCEL.store(true, Ordering::SeqCst);
+    Ok(())
 }
 
 #[tauri::command]
@@ -184,6 +224,7 @@ pub fn uci_engine_status() -> Result<bool, String> {
 
 #[tauri::command]
 pub fn kill_uci_engine() -> Result<(), String> {
+    CANCEL.store(true, Ordering::SeqCst);
     let mut guard = ENGINE.lock().map_err(|e| e.to_string())?;
     if let Some(mut h) = guard.take() {
         let _ = h.child.kill();

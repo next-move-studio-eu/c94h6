@@ -137,6 +137,7 @@ export default function VideoRecorderPage() {
   const [videoPlayerHeight, setVideoPlayerHeight] = useState(0);
   const [boardColumnHeight, setBoardColumnHeight] = useState(0);
   const [analysisLoading, setAnalysisLoading] = useState(false);
+  const [analysisMode, setAnalysisMode] = useState<1 | 5 | null>(null);
   const [analysisConnectionReady, setAnalysisConnectionReady] = useState(false);
   const [loadUciPending, setLoadUciPending] = useState(false);
   const [uciReadyOptimistic, setUciReadyOptimistic] = useState(false);
@@ -211,6 +212,7 @@ export default function VideoRecorderPage() {
     const interval = window.setInterval(() => {
       if (analysisOutputRef.current) {
         setAnalysisLoading(analysisOutputRef.current.isLoading);
+        setAnalysisMode(analysisOutputRef.current.analysisMode);
         setAnalysisConnectionReady(analysisOutputRef.current.isConnectionReady);
       }
     }, 100);
@@ -741,6 +743,7 @@ export default function VideoRecorderPage() {
     uciEngineReady,
     loadUciPending,
     analysisLoading,
+    analysisMode,
     analysisConnectionReady,
     recordingState,
     elapsedTime,

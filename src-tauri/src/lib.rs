@@ -26,6 +26,7 @@ pub fn run() {
             read_save_file,
             uci_engine::init_uci_engine,
             uci_engine::uci_analyze,
+            uci_engine::uci_stop,
             uci_engine::uci_engine_status,
             uci_engine::kill_uci_engine,
         ])

@@ -246,8 +246,8 @@ function AnalysisPanel({
   compact = false,
 }: AnalysisPanelProps) {
   const labels = [
-    { label: state.analysisLoading ? '...' : analysisButtonLabel, depth: 1 as const },
-    { label: state.analysisLoading ? '...' : contextButtonLabel, depth: 5 as const },
+    { label: analysisButtonLabel, depth: 1 as const },
+    { label: contextButtonLabel, depth: 5 as const },
   ];
 
   return (
@@ -272,17 +272,26 @@ function AnalysisPanel({
       </ThemeProvider>
 
       <div className={`flex gap-2 ${compact ? 'mt-2' : ''}`}>
-        {labels.map(({ label, depth }) => (
-          <motion.button
-            key={depth}
-            onClick={() => analysisOutputRef.current?.requestAnalysis(depth)}
-            disabled={state.analysisLoading || !state.analysisConnectionReady}
-            className="flex-1 px-3 py-1.5 text-sm bg-[var(--surfaceHigh)] text-[var(--text)] rounded hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
-            whileTap={{ scale: 0.98 }}
-          >
-            {label}
-          </motion.button>
-        ))}
+        {labels.map(({ label, depth }) => {
+          const isActive = state.analysisMode === depth;
+          return (
+            <motion.button
+              key={depth}
+              type="button"
+              onClick={() => analysisOutputRef.current?.requestAnalysis(depth)}
+              disabled={!state.analysisConnectionReady}
+              aria-pressed={isActive}
+              className={`flex-1 px-3 py-1.5 text-sm rounded transition-opacity disabled:opacity-40 disabled:cursor-not-allowed ${
+                isActive
+                  ? 'bg-[var(--primary)] text-[var(--onPrimary)] font-semibold'
+                  : 'bg-[var(--surfaceHigh)] text-[var(--text)] hover:opacity-90'
+              }`}
+              whileTap={{ scale: 0.98 }}
+            >
+              {label}
+            </motion.button>
+          );
+        })}
       </div>
     </div>
   );
