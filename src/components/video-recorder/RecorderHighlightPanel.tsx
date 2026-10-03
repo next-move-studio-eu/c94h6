@@ -32,10 +32,7 @@ export default function RecorderHighlightPanel({
   const isFullscreen = layout === 'fullscreen';
 
   return (
-    <div
-      className={`flex flex-col rounded-lg p-3 ${isFullscreen ? 'flex-shrink-0' : 'w-48'}`}
-      style={{ backgroundColor: 'var(--surfaceHigh)' }}
-    >
+    <div className={`flex flex-col rounded-xl p-3 surface-container-highest ${isFullscreen ? 'flex-shrink-0' : 'w-48'}`}>
       {isFullscreen ? (
         <>
           <div className="grid grid-cols-6 gap-1.5">
@@ -95,9 +92,7 @@ export default function RecorderHighlightPanel({
         </div>
       )}
 
-      <div
-        className={`pt-2 mt-2 ${isFullscreen ? 'border-t border-[var(--primaryBorder)] flex flex-wrap items-center gap-2' : 'mb-3 border-t space-y-1.5'}`}
-      >
+      <div className={`mt-3 ${isFullscreen ? 'flex flex-wrap items-center gap-2' : 'space-y-1.5'}`}>
         <label className="flex items-center gap-1.5 cursor-pointer group">
           <span className="relative inline-flex shrink-0">
             <input
@@ -109,8 +104,8 @@ export default function RecorderHighlightPanel({
             <span
               className="w-3.5 h-3.5 rounded border-2 flex items-center justify-center transition-all duration-200"
               style={{
-                borderColor: clearHighlightsOnMove ? 'var(--primary)' : 'var(--border)',
-                backgroundColor: clearHighlightsOnMove ? 'var(--primary)' : (isFullscreen ? 'transparent' : 'var(--bg)'),
+                borderColor: clearHighlightsOnMove ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)',
+                backgroundColor: clearHighlightsOnMove ? 'var(--md-sys-color-primary)' : 'transparent',
               }}
               aria-hidden="true"
             >
@@ -121,7 +116,7 @@ export default function RecorderHighlightPanel({
                   viewBox="0 0 10 8"
                   fill="none"
                   className="shrink-0"
-                  style={{ stroke: 'var(--onPrimary)' }}
+                  style={{ stroke: 'var(--md-sys-color-on-primary)' }}
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -136,18 +131,7 @@ export default function RecorderHighlightPanel({
 
         <motion.button
           onClick={onRemoveAllHighlights}
-          className={isFullscreen ? 'px-2 py-1 rounded-lg text-xs font-medium' : 'w-full px-2 py-1.5 rounded-lg text-xs font-medium transition-colors duration-150'}
-          style={{ backgroundColor: 'var(--error)', color: 'var(--onError)' }}
-          onMouseEnter={(event) => {
-            if (!isFullscreen) {
-              (event.currentTarget as HTMLElement).style.opacity = '0.9';
-            }
-          }}
-          onMouseLeave={(event) => {
-            if (!isFullscreen) {
-              (event.currentTarget as HTMLElement).style.opacity = '1';
-            }
-          }}
+          className={`btn-filled !bg-error !text-on-error ${isFullscreen ? '' : 'w-full'}`}
           whileTap={{ scale: 0.98 }}
         >
           {removeAllLabel}
@@ -171,11 +155,7 @@ function HighlightButton({ kind, label, colorValue, active, compact, onClick }: 
   return (
     <motion.button
       onClick={onClick}
-      className={`flex flex-col items-center justify-center p-1 rounded-lg border-2 ${compact ? 'transition-colors duration-150' : 'aspect-square transition-all duration-200'}`}
-      style={{
-        borderColor: active ? 'var(--primary)' : 'var(--border)',
-        backgroundColor: active ? 'var(--primarySubtle)' : compact ? 'transparent' : undefined,
-      }}
+      className={`focus-ring flex flex-col items-center justify-center p-1 rounded-lg ${active ? 'bg-secondary-container' : 'bg-surface-container-lowest'} ${compact ? '' : 'aspect-square'}`}
       whileHover={compact ? undefined : { scale: 1.05 }}
       whileTap={{ scale: 0.98 }}
     >
@@ -192,7 +172,7 @@ function HighlightButton({ kind, label, colorValue, active, compact, onClick }: 
           color={colorValue}
         />
       )}
-      <span className={compact ? 'text-[9px] text-text leading-tight truncate w-full text-center' : 'text-[10px] text-text leading-tight'}>
+      <span className={`${compact ? 'text-[9px] leading-tight truncate w-full text-center' : 'text-[10px] leading-tight'} ${active ? 'text-on-secondary-container' : 'text-on-surface'}`}>
         {label}
       </span>
     </motion.button>

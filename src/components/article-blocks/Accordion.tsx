@@ -81,23 +81,11 @@ export default function Accordion({ title, type = 'Info', body, children }: Acco
   const contentId = `${id}-content`;
 
   return (
-    <div
-      className="my-6 rounded-lg overflow-hidden border transition-colors duration-200"
-      style={{
-        borderColor: `var(--borderSubtle)`,
-        backgroundColor: `var(--surfaceHigh)`,
-      }}
-    >
+    <div className="my-6 overflow-hidden rounded-xl surface-container-high">
       <button
         type="button"
         onClick={() => setIsOpen((o) => !o)}
-        className="w-full flex items-center gap-3 px-5 py-4 text-left transition-colors duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-        style={{
-          ['--tw-ring-color' as string]: `var(--focusRing)`,
-          ['--tw-ring-offset-color' as string]: `var(--surfaceHigh)`,
-        }}
-        onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = `var(--hoverBg)`; }}
-        onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = ''; }}
+        className="focus-ring flex w-full items-center gap-3 px-5 py-4 text-left transition-colors duration-150 hover:bg-[color-mix(in_srgb,var(--md-sys-color-on-surface)_8%,transparent)]"
         aria-expanded={isOpen}
         aria-controls={contentId}
       >
@@ -130,12 +118,9 @@ export default function Accordion({ title, type = 'Info', body, children }: Acco
         role="region"
         className={`overflow-hidden transition-all duration-200 ease-out ${isOpen ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'}`}
       >
-        <div
-          className="px-5 pb-5 pt-0 border-t"
-          style={{ borderColor: `var(--divider)` }}
-        >
+        <div className="px-4 pb-4">
           <div
-            className="pt-4 prose prose-sm max-w-none [&>ul]:my-3 [&>ol]:my-3 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&>p]:my-3 [&>h2]:mt-4 [&>h2]:mb-2 [&>h3]:mt-3 [&>h3]:mb-2 [&>h4]:mt-2 [&>h4]:mb-1 [&_li]:leading-relaxed"
+            className="surface-container-highest rounded-lg px-4 py-3 prose prose-sm max-w-none [&>ul]:my-3 [&>ol]:my-3 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&>p]:my-3 [&>h2]:mt-4 [&>h2]:mb-2 [&>h3]:mt-3 [&>h3]:mb-2 [&>h4]:mt-2 [&>h4]:mb-1 [&_li]:leading-relaxed"
             style={{
               color: `var(--text)`,
               ['--tw-prose-links' as string]: `var(--primary)`,

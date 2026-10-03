@@ -79,23 +79,13 @@ function VideoControlsBar({
   }, [isDragging, handleSeek]);
 
   return (
-    <div
-      className="rounded-lg p-4"
-      style={{
-        backgroundColor: `var(--surface)`,
-        boxShadow: `var(--shadowSm)`,
-      }}
-    >
+    <div className="rounded-xl p-4 surface-container">
       {/* Progress bar */}
       <div
         ref={progressBarRef}
         onMouseDown={(e) => { setIsDragging(true); handleSeek(e); }}
         onClick={handleSeek}
-        className="w-full h-2 rounded-full cursor-pointer mb-4 border"
-        style={{
-          backgroundColor: `var(--surfaceHigh)`,
-          borderColor: `var(--border)`,
-        }}
+        className="mb-4 h-2 w-full cursor-pointer rounded-full bg-[var(--md-sys-color-surface-container-highest)]"
       >
         <div
           className="h-full rounded-full transition-all duration-75"
@@ -111,13 +101,7 @@ function VideoControlsBar({
         <button
           type="button"
           onClick={isPlaying ? onPause : onPlay}
-          className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-150"
-          style={{
-            backgroundColor: `var(--primary)`,
-            color: `var(--onPrimary)`,
-          }}
-          onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = `var(--primaryHover)`; }}
-          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = `var(--primary)`; }}
+          className="btn-icon-filled shrink-0"
         >
           {isPlaying ? (
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -146,10 +130,7 @@ function VideoControlsBar({
         <button
           type="button"
           onClick={onFullscreen}
-          className="flex-shrink-0 p-2 rounded-md transition-colors duration-150"
-          style={{ color: `var(--textSecondary)` }}
-          onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = `var(--hoverBg)`; }}
-          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = ''; }}
+          className="btn-icon shrink-0"
           title={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}
         >
           {isFullscreen ? (
@@ -293,20 +274,12 @@ export default function Video({ id, title }: VideoProps) {
   const displayDurationStr = formatDuration(displayDuration);
 
   return (
-    <div
-      className="my-6 rounded-lg overflow-hidden border"
-      style={{
-        borderColor: `var(--borderSubtle)`,
-        backgroundColor: `var(--surfaceHigh)`,
-      }}
-    >
+    <div className="my-6 overflow-hidden rounded-xl surface-container-high">
       {/* Header / toggle button */}
       <button
         type="button"
         onClick={() => setIsOpen((o) => !o)}
-        className="w-full flex items-center gap-3 px-5 py-4 text-left transition-colors duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-        onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = `var(--hoverBg)`; }}
-        onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = ''; }}
+        className="focus-ring flex w-full items-center gap-3 px-5 py-4 text-left transition-colors duration-150 hover:bg-[color-mix(in_srgb,var(--md-sys-color-on-surface)_8%,transparent)]"
         aria-expanded={isOpen}
         aria-controls={contentId}
       >
@@ -347,10 +320,7 @@ export default function Video({ id, title }: VideoProps) {
         role="region"
         className={`overflow-hidden transition-all duration-200 ease-out ${isOpen ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'}`}
       >
-        <div
-          className="px-5 pb-5 pt-0 border-t"
-          style={{ borderColor: `var(--divider)` }}
-        >
+        <div className="px-5 pb-5 pt-4">
           <div
             className={isFullscreen ? `relative w-full ${!showFullscreenControls ? 'cursor-none' : ''}` : 'pt-4 space-y-3'}
             ref={containerRef}

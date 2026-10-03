@@ -27,7 +27,7 @@ const FilePicker = forwardRef<HTMLInputElement, FilePickerProps>(
         <button
           type="button"
           onClick={handleButtonClick}
-          className={buttonClassName}
+          className={buttonClassName ?? 'btn-tonal'}
         >
           {buttonText}
         </button>

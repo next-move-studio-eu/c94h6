@@ -24,8 +24,8 @@ const ReplayMoves = forwardRef<ReplayMovesRef, ReplayMovesProps>(({ onAction, co
   const listenersRef = useRef<Set<ReplayMovesListener>>(new Set());
   const forwardSelectButtonRef = useRef<HTMLButtonElement>(null);
   const btnClass = compact
-    ? 'flex-1 px-2 py-1.5 text-[var(--textSecondary)] rounded-lg hover:text-[var(--text)] hover:bg-[var(--hoverBg)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center'
-    : 'flex-1 px-4 py-2 text-[var(--textSecondary)] rounded-lg hover:text-[var(--text)] hover:bg-[var(--hoverBg)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center';
+    ? 'focus-ring flex flex-1 items-center justify-center rounded-lg px-2 py-1.5 text-on-surface-variant transition-colors hover:bg-[color-mix(in_srgb,var(--md-sys-color-on-surface-variant)_8%,transparent)] disabled:cursor-not-allowed disabled:opacity-40'
+    : 'focus-ring flex flex-1 items-center justify-center rounded-lg px-4 py-2 text-on-surface-variant transition-colors hover:bg-[color-mix(in_srgb,var(--md-sys-color-on-surface-variant)_8%,transparent)] disabled:cursor-not-allowed disabled:opacity-40';
   const iconSize = compact ? 'w-4 h-4' : 'w-5 h-5';
 
   // Expose ref methods

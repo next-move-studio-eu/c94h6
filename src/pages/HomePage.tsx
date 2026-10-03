@@ -68,7 +68,7 @@ export default function HomePage() {
       <header>
         <h1 className="text-2xl font-semibold text-editor-text mb-2 flex items-center gap-3 flex-wrap">
           {t('editor.home.headlinePrefix')}
-          <Link to="/document/our-format" className="text-editor-primary underline underline-offset-2 hover:no-underline font-semibold">
+          <Link to="/document/our-format" className="text-editor-primary underline underline-offset-2 hover:no-underline font-semibold focus-ring">
             c94h6
           </Link>
         </h1>
@@ -76,7 +76,7 @@ export default function HomePage() {
           <li>{t('editor.home.bullet1')}</li>
           <li>{t('editor.home.bullet2')}</li>
           <li>
-            <Link to="/document/capabilities" className="text-editor-primary underline underline-offset-2 hover:no-underline">
+            <Link to="/document/capabilities" className="text-editor-primary underline underline-offset-2 hover:no-underline focus-ring">
               {t('editor.home.capabilitiesLink')}
             </Link>
           </li>
@@ -87,7 +87,7 @@ export default function HomePage() {
       </header>
 
       {/* Independent publishing — punk section: off-grid, no big providers */}
-      <section className="relative overflow-visible p-4 rounded-lg border border-editor-border bg-editor-surface">
+      <section className="relative overflow-visible p-4 rounded-xl surface-container-highest">
         <h2 className="text-lg font-semibold text-editor-text flex items-center justify-end gap-2 mb-4">
           {t('editor.home.independentPublishingTitle')}
           <PenLine className="h-5 w-5 shrink-0" strokeWidth={2} aria-hidden />
@@ -103,14 +103,14 @@ export default function HomePage() {
                   <button
                     type="button"
                     onClick={() => copyPrompt('components')}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm bg-[var(--primarySubtle)] border border-[var(--primaryBorder)] text-editor-text hover:bg-[var(--activeBg)] hover:border-[var(--primary)] transition-colors"
+                    className="btn-tonal text-sm"
                   >
                     {copiedWhich === 'components' ? t('editor.home.copied') : t('editor.home.specFormatForLLM')}
                   </button>
                   <button
                     type="button"
                     onClick={() => copyPrompt('translation')}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm border border-editor-border text-editor-text bg-editor-background hover:border-editor-muted transition-colors"
+                    className="btn-text text-sm"
                   >
                     {copiedWhich === 'translation' ? t('editor.home.copied') : t('editor.home.translationRulesForLLM')}
                   </button>
@@ -126,11 +126,11 @@ export default function HomePage() {
                       key={script.id}
                       type="button"
                       onClick={() => copyScript(script)}
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-mono text-sm bg-editor-background border border-editor-border text-editor-text hover:border-editor-primary hover:bg-editor-surface transition-colors"
+                      className="btn-tonal font-mono text-sm"
                     >
                       {script.name}
                       {copiedScript === script.id ? (
-                        <span className="text-editor-primary text-xs font-medium">{t('editor.home.copied')}</span>
+                        <span className="text-xs font-medium">{t('editor.home.copied')}</span>
                       ) : null}
                     </button>
                   ))}
@@ -145,7 +145,7 @@ export default function HomePage() {
                     <Link
                       key={path}
                       to={path}
-                      className="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-dashed border-editor-muted text-editor-muted hover:border-editor-primary hover:text-editor-text transition-colors"
+                      className="btn-icon-tonal"
                       aria-label={t(titleKey)}
                     >
                       <Icon className="h-5 w-5 shrink-0" />
@@ -158,7 +158,7 @@ export default function HomePage() {
           <div className="flex flex-shrink-0 flex-col justify-end overflow-visible">
             <Link
               to="/document/why"
-              className="inline-flex flex-col items-center justify-center gap-1.5 w-24 h-24 rounded-lg font-semibold text-xs uppercase bg-transparent border-2 border-editor-primary text-editor-primary hover:bg-[var(--primarySubtle)] hover:border-[var(--primaryHover)] focus:outline-none focus:ring-2 focus:ring-editor-primary focus:ring-offset-2 focus:ring-offset-editor-surface transition-colors"
+              className="btn-filled flex-col gap-1.5 w-24 h-24 p-2 text-xs font-semibold uppercase"
               style={{ transform: 'rotate(175deg)' }}
             >
               <FileBraces className="h-5 w-5 shrink-0" strokeWidth={2} aria-hidden />
@@ -169,14 +169,14 @@ export default function HomePage() {
       </section>
 
       </div>
-      <footer className="fixed bottom-0 left-0 right-0 z-50 border-t border-editor-border bg-editor-surface text-editor-text">
+      <footer className="fixed bottom-0 left-0 right-0 z-50 surface-container">
         <div className="max-w-2xl mx-auto px-4 py-3 flex flex-col items-center justify-center gap-1 text-center text-sm">
           <p>
             <a
               href={WEBSITE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-editor-text hover:text-editor-primary transition-colors"
+              className="text-editor-text hover:text-editor-primary transition-colors focus-ring"
             >
               {t('editor.home.byline')}
             </a>
@@ -185,15 +185,15 @@ export default function HomePage() {
             {t('editor.home.helpWithSites')}
           </p>
           <p>
-            <Link to="/document/as-is" className="text-editor-text hover:text-editor-primary transition-colors">
+            <Link to="/document/as-is" className="text-editor-text hover:text-editor-primary transition-colors focus-ring">
               {t('editor.nav.asIs')}
             </Link>
             {' · '}
-            <Link to="/document/credits" className="text-editor-text hover:text-editor-primary transition-colors">
+            <Link to="/document/credits" className="text-editor-text hover:text-editor-primary transition-colors focus-ring">
               {t('editor.nav.credits')}
             </Link>
             {' · '}
-            <Link to="/document/gdpr" className="text-editor-text hover:text-editor-primary transition-colors">
+            <Link to="/document/gdpr" className="text-editor-text hover:text-editor-primary transition-colors focus-ring">
               {t('editor.nav.gdpr')}
             </Link>
           </p>

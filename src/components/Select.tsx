@@ -87,12 +87,8 @@ export default function Select({
 
   const isForm = variant === 'form';
   const isEditor = variant === 'editor';
-  const triggerClasses = isForm
-    ? 'px-3 py-3 rounded-xl border border-[var(--border)] text-[var(--text)] bg-[var(--bg)] text-base focus:outline-none focus:ring-2 focus:ring-[var(--primary)]'
-    : isEditor
-      ? 'px-3 py-2 rounded-lg border border-[var(--border)] text-[var(--text)] bg-[var(--surface)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)] focus:border-[var(--primary)]'
-      : 'px-3 py-2 rounded-md border border-[var(--border)] text-[var(--text)] bg-[var(--surface)]';
-  const dropdownClasses = isForm ? 'rounded-xl' : isEditor ? 'rounded-lg' : 'rounded-md';
+  const triggerClasses = isForm ? 'text-base' : 'text-sm';
+  const dropdownClasses = isForm ? 'rounded-xl' : 'rounded-lg';
   const optionClasses = isForm ? 'px-3 py-2.5 text-base' : isEditor ? 'px-3 py-2 text-sm' : 'px-3 py-2';
 
   return (
@@ -102,9 +98,7 @@ export default function Select({
         onClick={() => !disabled && setIsOpen(!isOpen)}
         onKeyDown={handleKeyDown}
         disabled={disabled}
-        className={`w-full text-left flex items-center justify-between gap-2 transition-colors ${
-          disabled ? 'opacity-50 cursor-not-allowed' : isForm ? '' : isEditor ? 'hover:bg-[var(--hoverBg)]' : 'hover:bg-[var(--hoverBg)]'
-        } ${triggerClasses} ${isOpen ? (isForm ? 'border-[var(--primary)] ring-2 ring-[var(--primary)]' : isEditor ? 'border-[var(--primary)] ring-1 ring-[var(--primary)]' : 'border-[var(--primary)] ring-2 ring-[var(--primary)]') : ''}`}
+        className={`field-filled focus-ring w-full text-left flex items-center justify-between gap-2 ${triggerClasses}`}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
       >
@@ -121,9 +115,7 @@ export default function Select({
 
       {isOpen && (
         <div
-          className={`absolute z-50 w-full mt-1 max-h-60 overflow-auto scrollbar-theme ${dropdownClasses} ${
-            isForm ? 'border border-[var(--border)] bg-[var(--bg)]' : isEditor ? 'border border-[var(--border)] bg-[var(--surface)]' : 'border border-[var(--border)] bg-[var(--surface)]'
-          }`}
+          className={`absolute z-50 w-full mt-1 max-h-60 overflow-auto scrollbar-theme surface-container-high ${dropdownClasses}`}
           style={{ boxShadow: 'var(--shadowSm)' }}
           role="listbox"
         >
@@ -133,10 +125,12 @@ export default function Select({
               type="button"
               onClick={() => handleSelect(option.value)}
               onMouseEnter={() => setHighlightedIndex(index)}
-              className={`w-full text-left text-[var(--text)] transition-colors ${optionClasses} ${
-                option.value === value || index === highlightedIndex
-                  ? 'bg-[var(--primary)] text-[var(--onPrimary)]'
-                  : 'hover:bg-[var(--primary)] hover:text-[var(--onPrimary)]'
+              className={`w-full text-left transition-colors focus-ring ${optionClasses} ${
+                option.value === value
+                  ? 'bg-secondary-container text-on-secondary-container'
+                  : index === highlightedIndex
+                    ? 'bg-surface-container-highest'
+                    : 'hover:bg-surface-container-highest'
               }`}
               role="option"
               aria-selected={option.value === value}

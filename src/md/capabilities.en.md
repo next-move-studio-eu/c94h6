@@ -9,16 +9,16 @@ This is a simple source code editor for your content. We focus on general open s
 - **Image slideshow**
 - **Video in article**
 - **Audio in article**
-- **DOT diagram**
-- **Pie chart**
-- **Bar chart**
 - **Quiz**
-- **TTS**
-- **KaTeX**
-- **SMILES**
 - **Chess diagram**
 - **Game against engine**
 - **Chess video**
+- **DOT diagram**
+- **Pie chart**
+- **Bar chart**
+- **TTS**
+- **KaTeX**
+- **SMILES**
 
 ## Formats we use
 
@@ -26,10 +26,10 @@ This is a simple source code editor for your content. We focus on general open s
 - **AVIF** — Images
 - **AV1** — Video
 - **Opus** — Audio
+- **FEN** — Chess
 - **DOT** — Diagrams
 - **LaTeX** — Mathematics
 - **SMILES** — Chemistry
-- **FEN** — Chess
 
 We do not support JPG, PNG or H.264 by default — formats we all know well, but which already have their best years behind them. In the editor you can add any items to the JSON and files to the ZIP folder, and teach your presentation layer to read this data correctly.
 

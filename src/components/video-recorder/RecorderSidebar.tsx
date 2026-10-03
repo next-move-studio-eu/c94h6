@@ -209,20 +209,22 @@ function PgnPanel({
   onSelectionChange,
 }: PgnPanelProps) {
   return (
-    <ThemeProvider mode={mode}>
-      <PgnViewer
-        ref={pgnViewerRef as RefObject<PgnViewerRef>}
-        pgn={pgn}
-        showLoadButton={true}
-        onPositionChange={onPositionChange}
-        onPgnLoad={onPgnLoad}
-        initialSelection={pgnSelection}
-        onSelectionChange={onSelectionChange}
-        forwardSelectButtonRef={forwardSelectButtonRef}
-        texts={texts.pgnViewerTexts}
-        translateMove={translateSanMove}
-      />
-    </ThemeProvider>
+    <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-xl p-3 surface-container-highest">
+      <ThemeProvider mode={mode}>
+        <PgnViewer
+          ref={pgnViewerRef as RefObject<PgnViewerRef>}
+          pgn={pgn}
+          showLoadButton={true}
+          onPositionChange={onPositionChange}
+          onPgnLoad={onPgnLoad}
+          initialSelection={pgnSelection}
+          onSelectionChange={onSelectionChange}
+          forwardSelectButtonRef={forwardSelectButtonRef}
+          texts={texts.pgnViewerTexts}
+          translateMove={translateSanMove}
+        />
+      </ThemeProvider>
+    </div>
   );
 }
 
@@ -258,14 +260,14 @@ function AnalysisPanel({
   ];
 
   return (
-    <div className="flex-shrink-0 w-full space-y-3">
+    <div className="flex-shrink-0 w-full space-y-3 rounded-xl p-3 surface-container-highest">
       {state.showUciButton && (
         <LoadUciButton
           state={state}
           onClick={actions.handleLoadUci}
           loadUciLabel={loadUciLabel}
           replaceUciLabel={replaceUciLabel}
-          className={compact ? 'w-full px-3 py-1.5 text-sm rounded border mb-2 transition-opacity' : 'w-full px-3 py-1.5 text-sm rounded border transition-opacity'}
+          className={compact ? 'btn-tonal w-full mb-2' : 'btn-tonal w-full'}
         />
       )}
 
@@ -289,11 +291,7 @@ function AnalysisPanel({
               onClick={() => analysisOutputRef.current?.setAnalysisMode(value)}
               disabled={disabled}
               aria-pressed={isActive}
-              className={`flex-1 px-3 py-1.5 text-sm rounded transition-opacity disabled:opacity-40 disabled:cursor-not-allowed ${
-                isActive
-                  ? 'bg-[var(--primary)] text-[var(--onPrimary)] font-semibold'
-                  : 'bg-[var(--surfaceHigh)] text-[var(--text)] hover:opacity-90'
-              }`}
+              className={`flex-1 px-3 ${isActive ? 'btn-filled' : 'btn-tonal'}`}
               whileTap={{ scale: 0.98 }}
             >
               {label}
@@ -320,11 +318,6 @@ function LoadUciButton({ state, onClick, loadUciLabel, replaceUciLabel, classNam
       onClick={onClick}
       disabled={state.loadUciPending}
       className={className}
-      style={{
-        backgroundColor: 'var(--surfaceHigh)',
-        color: 'var(--text)',
-        borderColor: 'var(--border)',
-      }}
       whileTap={{ scale: 0.98 }}
     >
       {state.loadUciPending ? '...' : state.uciEngineReady ? replaceUciLabel : loadUciLabel}
@@ -369,23 +362,14 @@ function RecordingPanel({
   const isFullscreen = layout === 'fullscreen';
 
   return (
-    <div
-      className={isFullscreen ? 'flex-shrink-0 pt-3 border-t' : 'flex-shrink-0 pt-4 border-t'}
-      style={{ borderColor: isFullscreen ? 'var(--border)' : 'var(--divider)' }}
-    >
+    <div className={isFullscreen ? 'flex-shrink-0 surface-container-highest rounded-xl p-3' : 'flex-shrink-0 surface-container-highest rounded-xl p-4'}>
       <div className={`flex items-center justify-between ${isFullscreen ? 'mb-2' : 'mb-3'}`}>
-        <h2
-          className={`${isFullscreen ? 'text-base' : 'text-lg'} font-semibold flex items-center gap-2`}
-          style={{ color: 'var(--text)' }}
-        >
-          <span className="w-1 h-5 rounded-full" style={{ backgroundColor: 'var(--primary)' }} />
+        <h2 className={`${isFullscreen ? 'text-base' : 'text-lg'} font-semibold flex items-center gap-2`}>
+          <span className="w-1 h-5 rounded-full bg-primary" />
           {recordingTitle}
         </h2>
         {(state.recordingState === 'recording' || state.recordingState === 'paused') && (
-          <div
-            className={`${isFullscreen ? 'text-xl' : 'text-2xl'} font-mono font-bold`}
-            style={{ color: 'var(--primary)' }}
-          >
+          <div className={`${isFullscreen ? 'text-xl' : 'text-2xl'} font-mono font-bold text-primary`}>
             {formatRecordingTime(state.elapsedTime)}
           </div>
         )}
@@ -396,24 +380,7 @@ function RecordingPanel({
           <motion.button
             onClick={actions.handleStartRecording}
             disabled={!state.isWebMSupported}
-            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${isFullscreen ? '' : 'duration-150'}`}
-            style={
-              state.isWebMSupported
-                ? { backgroundColor: 'var(--primary)', color: 'var(--onPrimary)' }
-                : isFullscreen
-                  ? { backgroundColor: 'var(--surfaceHigh)', color: 'var(--text)', cursor: 'not-allowed', opacity: 0.6 }
-                  : { backgroundColor: 'var(--surfaceHigh)', color: 'var(--textDisabled)', cursor: 'not-allowed' }
-            }
-            onMouseEnter={(event) => {
-              if (!isFullscreen && state.isWebMSupported) {
-                (event.currentTarget as HTMLElement).style.backgroundColor = 'var(--primaryHover)';
-              }
-            }}
-            onMouseLeave={(event) => {
-              if (!isFullscreen && state.isWebMSupported) {
-                (event.currentTarget as HTMLElement).style.backgroundColor = 'var(--primary)';
-              }
-            }}
+            className="btn-filled"
             title={!state.isWebMSupported && !isFullscreen ? webmNotSupportedLabel : ''}
             whileTap={state.isWebMSupported ? { scale: 0.98 } : {}}
           >
@@ -423,46 +390,37 @@ function RecordingPanel({
 
         {state.recordingState === 'recording' && (
           <>
-            <ActionButton
-              label={pauseButtonLabel}
-              onClick={actions.handlePauseRecording}
-              isFullscreen={isFullscreen}
-              primary={false}
-            />
-            <ActionButton label={stopButtonLabel} onClick={actions.handleStopRecording} isFullscreen={isFullscreen} danger />
+            <ActionButton label={pauseButtonLabel} onClick={actions.handlePauseRecording} />
+            <ActionButton label={stopButtonLabel} onClick={actions.handleStopRecording} danger />
           </>
         )}
 
         {state.recordingState === 'paused' && (
           <>
-            <ActionButton label={resumeButtonLabel} onClick={actions.handleResumeRecording} isFullscreen={isFullscreen} primary />
-            <ActionButton label={stopButtonLabel} onClick={actions.handleStopRecording} isFullscreen={isFullscreen} danger />
+            <ActionButton label={resumeButtonLabel} onClick={actions.handleResumeRecording} primary />
+            <ActionButton label={stopButtonLabel} onClick={actions.handleStopRecording} danger />
           </>
         )}
 
-        <div className={`ml-auto ${isFullscreen ? 'text-text' : ''} text-sm font-medium`}>
+        <div className="ml-auto text-sm font-medium">
           {state.recordingState === 'recording' && (
-            <span className={isFullscreen ? 'text-error animate-pulse' : 'animate-pulse'} style={isFullscreen ? undefined : { color: 'var(--error)' }}>
-              {recordingStatusLabel}
-            </span>
+            <span className="text-error animate-pulse">{recordingStatusLabel}</span>
           )}
           {state.recordingState === 'paused' && (
-            <span className={isFullscreen ? 'text-warning' : ''} style={isFullscreen ? undefined : { color: 'var(--warning)' }}>
-              {pausedStatusLabel}
-            </span>
+            <span className="text-warning">{pausedStatusLabel}</span>
           )}
-          {state.recordingState === 'idle' && <span style={{ color: 'var(--textSecondary)' }}>{idleStatusLabel}</span>}
+          {state.recordingState === 'idle' && <span className="text-on-surface-variant">{idleStatusLabel}</span>}
         </div>
       </div>
 
       {!state.isWebMSupported && (
-        <div className={isFullscreen ? 'mt-3 p-3 rounded-lg text-sm' : 'flex-shrink-0 mt-4 pt-4 border-t'} style={isFullscreen ? { backgroundColor: 'var(--error)', color: 'var(--onPrimary)' } : { borderColor: 'var(--divider)' }}>
+        <div className={isFullscreen ? 'mt-3 rounded-xl p-3 text-sm bg-error-container text-on-error-container' : 'mt-4'}>
           {isFullscreen ? (
             webmNotSupportedLabel
           ) : (
-            <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--error)', color: 'var(--onError)' }}>
+            <div className="p-4 rounded-xl bg-error-container text-on-error-container">
               <div className="font-bold text-lg mb-2">{unsupportedBrowserLabel}</div>
-              <div className="text-sm opacity-95">{webmNotSupportedLabel}</div>
+              <div className="text-sm">{webmNotSupportedLabel}</div>
             </div>
           )}
         </div>
@@ -474,47 +432,15 @@ function RecordingPanel({
 interface ActionButtonProps {
   label: string;
   onClick: () => void | Promise<void>;
-  isFullscreen: boolean;
   primary?: boolean;
   danger?: boolean;
 }
 
-function ActionButton({ label, onClick, isFullscreen, primary = false, danger = false }: ActionButtonProps) {
-  const style = danger
-    ? { backgroundColor: 'var(--error)', color: isFullscreen ? 'var(--onPrimary)' : 'var(--onError)' }
-    : primary
-      ? { backgroundColor: 'var(--primary)', color: 'var(--onPrimary)' }
-      : { backgroundColor: 'var(--surfaceHigh)', color: 'var(--text)' };
+function ActionButton({ label, onClick, primary = false, danger = false }: ActionButtonProps) {
+  const className = danger ? 'btn-filled !bg-error !text-on-error' : primary ? 'btn-filled' : 'btn-tonal';
 
   return (
-    <motion.button
-      onClick={onClick}
-      className={`px-4 py-2 rounded-lg text-sm ${primary || danger ? 'font-semibold' : 'font-medium'} ${isFullscreen ? '' : 'transition-colors duration-150'}`}
-      style={style}
-      onMouseEnter={(event) => {
-        if (!isFullscreen) {
-          if (primary) {
-            (event.currentTarget as HTMLElement).style.backgroundColor = 'var(--primaryHover)';
-          } else if (danger) {
-            (event.currentTarget as HTMLElement).style.opacity = '0.9';
-          } else {
-            (event.currentTarget as HTMLElement).style.backgroundColor = 'var(--hoverBg)';
-          }
-        }
-      }}
-      onMouseLeave={(event) => {
-        if (!isFullscreen) {
-          if (primary) {
-            (event.currentTarget as HTMLElement).style.backgroundColor = 'var(--primary)';
-          } else if (danger) {
-            (event.currentTarget as HTMLElement).style.opacity = '1';
-          } else {
-            (event.currentTarget as HTMLElement).style.backgroundColor = 'var(--surfaceHigh)';
-          }
-        }
-      }}
-      whileTap={{ scale: 0.98 }}
-    >
+    <motion.button onClick={onClick} className={className} whileTap={{ scale: 0.98 }}>
       {label}
     </motion.button>
   );

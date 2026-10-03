@@ -1,5 +1,4 @@
 import BlockWrapper from '../BlockWrapper';
-import Select from '../../Select';
 import type { ArticleVideoBlock } from '../../../types/articleEditor';
 import { useTranslation } from 'react-i18next';
 import type { BlockEditorProps } from './blockEditorShared';
@@ -28,26 +27,26 @@ export function ArticleVideoBlockEditor({
       <div className="space-y-2">
         {articleVideoIds.length > 0 && (
           <div>
-            <label className="mb-1 block text-xs text-[var(--textSecondary)]">{t('articleEditor.articleVideoId')}</label>
-            <Select
+            <label className="mb-1 block text-xs text-[var(--md-sys-color-on-surface-variant)]">{t('articleEditor.articleVideoId')}</label>
+            <select
               value={block.videoId}
-              onChange={(v) => onUpdate({ ...block, videoId: v })}
-              options={articleVideoIds.map((n) => ({
-                value: String(n),
-                label: `video${n}.webm`,
-              }))}
-              variant="editor"
-            />
+              onChange={(e) => onUpdate({ ...block, videoId: e.target.value })}
+              className="field-filled focus-ring"
+            >
+              {articleVideoIds.map((n) => (
+                <option key={n} value={String(n)}>{`video${n}.webm`}</option>
+              ))}
+            </select>
           </div>
         )}
         <div>
-          <label className="mb-1 block text-xs text-[var(--textSecondary)]">{t('articleEditor.articleVideoTitle')}</label>
+          <label className="mb-1 block text-xs text-[var(--md-sys-color-on-surface-variant)]">{t('articleEditor.articleVideoTitle')}</label>
           <input
             type="text"
             value={block.title}
             onChange={(e) => onUpdate({ ...block, title: e.target.value })}
             placeholder={t('articleEditor.articleVideoTitlePlaceholder')}
-            className="w-full rounded border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text)] placeholder:text-[var(--textSecondary)]"
+            className="field-filled focus-ring"
           />
         </div>
       </div>

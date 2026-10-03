@@ -74,10 +74,9 @@ export default function DotDiagram({ content, className, showPostprocessInfo }: 
         className={className}
         style={{
           padding: '1rem',
-          border: '1px solid var(--error)',
-          borderRadius: '0.5rem',
-          backgroundColor: 'var(--errorSubtle)',
-          color: 'var(--error)',
+          borderRadius: '0.75rem',
+          backgroundColor: 'var(--md-sys-color-error-container)',
+          color: 'var(--md-sys-color-on-error-container)',
           fontSize: '0.875rem',
         }}
       >

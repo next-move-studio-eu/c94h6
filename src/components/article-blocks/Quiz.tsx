@@ -116,9 +116,9 @@ function RadioCheckQuiz({ inputType, items, result, isSubmitting, onSubmit, subm
                 <span
                   className={`w-3.5 h-3.5 flex items-center justify-center transition-colors peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-0 ${isRadio ? 'rounded-full border-2' : 'rounded border-2'}`}
                   style={{
-                    borderColor: isChecked ? themeVar('primary') : themeVar('border'),
+                    borderColor: isChecked ? themeVar('primary') : 'var(--md-sys-color-outline)',
                     backgroundColor: isChecked ? themeVar('primary') : themeVar('bg'),
-                    outlineColor: themeVar('primary'),
+                    outlineColor: 'var(--md-sys-color-outline)',
                   }}
                   aria-hidden="true"
                 >
@@ -141,8 +141,7 @@ function RadioCheckQuiz({ inputType, items, result, isSubmitting, onSubmit, subm
           type="button"
           onClick={() => onSubmit(selected)}
           disabled={isSubmitting || (isRadio && !selected.some(Boolean))}
-          className="rounded-lg border-2 px-4 py-2 text-sm font-semibold transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-          style={{ borderColor: themeVar('primary'), color: themeVar('primary') }}
+          className="btn-filled"
         >
           {isSubmitting ? '…' : submitLabel}
         </button>
@@ -249,12 +248,7 @@ function SortQuiz({ items: initialItems, result, isSubmitting, onSubmit, submitL
             <div
               key={itemIdx}
               data-quiz-sort-position={posIdx}
-              className={`flex items-center gap-2 rounded-lg border px-3 py-2 text-sm select-none ${canDrag ? 'cursor-grab active:cursor-grabbing' : 'cursor-default opacity-70'} ${dragging === posIdx ? 'opacity-50' : ''}`}
-              style={{
-                borderColor: themeVar('border'),
-                backgroundColor: themeVar('surfaceHigh'),
-                color: themeVar('text'),
-              }}
+              className={`surface-container-highest flex select-none items-center gap-2 rounded-lg px-3 py-2 text-sm ${canDrag ? 'cursor-grab active:cursor-grabbing' : 'cursor-default opacity-70'} ${dragging === posIdx ? 'opacity-50' : ''}`}
             >
               {canDrag ? (
                 <span
@@ -283,8 +277,7 @@ function SortQuiz({ items: initialItems, result, isSubmitting, onSubmit, submitL
           type="button"
           onClick={() => onSubmit(initialItems.map((_, idx) => order.indexOf(idx) + 1))}
           disabled={isSubmitting}
-          className="rounded-lg border-2 px-4 py-2 text-sm font-semibold transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-          style={{ borderColor: themeVar('primary'), color: themeVar('primary') }}
+          className="btn-filled"
         >
           {isSubmitting ? '…' : submitLabel}
         </button>
@@ -378,13 +371,8 @@ function MatchQuiz({ fixedItems, matchItems, result, isSubmitting, onSubmit, sub
           {sortedFixed.map((f) => (
             <div
               key={f.order}
-              className="flex items-center rounded-lg border px-3 py-2 text-sm min-h-[var(--match-row-height)]"
-              style={{
-                minHeight: rowMinHeight,
-                borderColor: themeVar('border'),
-                backgroundColor: themeVar('surfaceHigh'),
-                color: themeVar('text'),
-              }}
+              className="surface-container-highest flex min-h-[var(--match-row-height)] items-center rounded-lg px-3 py-2 text-sm"
+              style={{ minHeight: rowMinHeight }}
             >
               <span className="font-medium break-words">{f.caption}</span>
             </div>
@@ -407,13 +395,8 @@ function MatchQuiz({ fixedItems, matchItems, result, isSubmitting, onSubmit, sub
                 layout
                 transition={{ type: 'spring', stiffness: 350, damping: 30 }}
                 data-quiz-match-right-position={posIdx}
-                className={`flex items-center gap-2 rounded-lg border px-3 py-2 text-sm select-none min-h-[var(--match-row-height)] ${canDrag ? 'cursor-grab active:cursor-grabbing' : 'cursor-default opacity-70'} ${dragging === posIdx ? 'opacity-50' : ''}`}
-                style={{
-                  minHeight: rowMinHeight,
-                  borderColor: themeVar('border'),
-                  backgroundColor: themeVar('surfaceHigh'),
-                  color: themeVar('text'),
-                }}
+                className={`surface-container-highest flex min-h-[var(--match-row-height)] select-none items-center gap-2 rounded-lg px-3 py-2 text-sm ${canDrag ? 'cursor-grab active:cursor-grabbing' : 'cursor-default opacity-70'} ${dragging === posIdx ? 'opacity-50' : ''}`}
+                style={{ minHeight: rowMinHeight }}
               >
                 {canDrag ? (
                   <span
@@ -443,8 +426,7 @@ function MatchQuiz({ fixedItems, matchItems, result, isSubmitting, onSubmit, sub
           type="button"
           onClick={() => onSubmit(sortedFixed.map((f, p) => ({ encrypted: matchItems[rightOrder[p]].encrypted, matchedOrder: f.order })), rightOrder)}
           disabled={isSubmitting}
-          className="rounded-lg border-2 px-4 py-2 text-sm font-semibold transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-          style={{ borderColor: themeVar('primary'), color: themeVar('primary') }}
+          className="btn-filled"
         >
           {isSubmitting ? '…' : submitLabel}
         </button>
@@ -595,17 +577,28 @@ export default function Quiz({ question, quizId, quizFrameBackground = 'surfaceH
 
   const outcomeBar = (result != null || isSubmitting) && (
     <div
-      className="flex items-center gap-2 rounded-lg border px-3 py-2 text-sm"
-      style={{ borderColor: themeVar('border'), backgroundColor: themeVar('surfaceHigh') }}
+      className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm"
+      style={{
+        backgroundColor: result === 'correct'
+          ? 'var(--md-sys-color-success-container)'
+          : result === 'incorrect'
+            ? 'var(--md-sys-color-warning-container)'
+            : 'var(--md-sys-color-surface-container-highest)',
+        color: result === 'correct'
+          ? 'var(--md-sys-color-on-success-container)'
+          : result === 'incorrect'
+            ? 'var(--md-sys-color-on-warning-container)'
+            : 'var(--md-sys-color-on-surface)',
+      }}
     >
       {StateIcon && (
         <StateIcon
-          className={`shrink-0 w-5 h-5 ${isSubmitting ? 'animate-spin' : result === 'correct' ? 'text-emerald-500' : result === 'incorrect' ? 'text-amber-500' : 'opacity-40'}`}
-          style={isSubmitting ? { color: themeVar('primary') } : undefined}
+          className={`h-5 w-5 shrink-0 ${isSubmitting ? 'animate-spin' : result == null ? 'opacity-40' : ''}`}
+          style={isSubmitting ? { color: 'var(--md-sys-color-primary)' } : undefined}
           aria-hidden
         />
       )}
-      <span className={`text-sm ${result === 'correct' ? 'font-semibold text-emerald-600' : result === 'incorrect' ? 'font-semibold text-amber-600' : 'opacity-60'}`} style={{ color: result === 'already' ? themeVar('text') : isSubmitting ? themeVar('primary') : undefined }}>
+      <span className={`text-sm ${result === 'correct' || result === 'incorrect' ? 'font-semibold' : ''}`}>
         {isSubmitting ? t('quiz.verifying') : result === 'correct' ? t('quiz.correct') : result === 'incorrect' ? t('quiz.incorrect') : t('quiz.alreadyAnswered')}
       </span>
     </div>
@@ -615,16 +608,12 @@ export default function Quiz({ question, quizId, quizFrameBackground = 'surfaceH
   // Render
   // ---------------------------------------------------------------------------
 
-  const frameBg = quizFrameBackground === 'surfaceHigh' ? 'surfaceHigh' : 'surface';
+  const frameClass = quizFrameBackground === 'surfaceHigh'
+    ? 'surface-container-high'
+    : 'surface-container-low';
 
   return (
-    <div
-      className="my-6 rounded-xl border p-5 space-y-4"
-      style={{
-        borderColor: themeVar('borderSubtle'),
-        backgroundColor: themeVar(frameBg),
-      }}
-    >
+    <div className={`my-6 space-y-4 rounded-xl p-5 ${frameClass}`}>
       <p
         className="font-medium text-sm flex items-center gap-2"
         style={{ color: themeVar('text') }}

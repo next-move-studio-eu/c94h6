@@ -32,8 +32,7 @@ export default function RecorderCopyPopup({
       onClick={onClose}
     >
       <div
-        className="w-full max-w-md rounded-xl p-4 space-y-2"
-        style={{ backgroundColor: 'var(--surface)', boxShadow: 'var(--shadowSm)' }}
+        className="w-full max-w-md rounded-[1.75rem] p-6 space-y-2 surface-container-high"
         onClick={(event) => event.stopPropagation()}
       >
         <PopupButton label={diagramJsonLabel} onClick={onCopyDiagramJson} />
@@ -43,8 +42,7 @@ export default function RecorderCopyPopup({
 
         <motion.button
           onClick={onClose}
-          className="w-full px-3 py-2 text-sm rounded hover:opacity-90 transition-opacity"
-          style={{ backgroundColor: 'var(--border)', color: 'var(--text)' }}
+          className="btn-text w-full"
           whileTap={{ scale: 0.99 }}
         >
           {closeLabel}
@@ -64,8 +62,7 @@ function PopupButton({
   return (
     <motion.button
       onClick={onClick}
-      className="w-full px-3 py-2 text-left text-sm rounded hover:opacity-90 transition-opacity"
-      style={{ backgroundColor: 'var(--surfaceHigh)', color: 'var(--text)' }}
+      className="btn-tonal w-full justify-start"
       whileTap={{ scale: 0.99 }}
     >
       {label}

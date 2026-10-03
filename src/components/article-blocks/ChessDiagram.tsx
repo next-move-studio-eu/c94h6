@@ -99,17 +99,18 @@ export default function ChessDiagram({
       )}
       {isChallenge && result != null && (
         <div
-          className="flex items-center gap-2 rounded-lg border px-3 py-2 text-sm w-full max-w-[400px]"
-          style={{ borderColor: themeVar('border'), backgroundColor: themeVar('surfaceHigh') }}
+          className="flex w-full max-w-[400px] items-center gap-2 rounded-xl px-4 py-3 text-sm"
+          style={{
+            backgroundColor: result === 'correct' ? 'var(--md-sys-color-success-container)' : 'var(--md-sys-color-warning-container)',
+            color: result === 'correct' ? 'var(--md-sys-color-on-success-container)' : 'var(--md-sys-color-on-warning-container)',
+          }}
         >
           {result === 'correct' ? (
-            <Trophy className="shrink-0 w-5 h-5 text-emerald-500" aria-hidden />
+            <Trophy className="h-5 w-5 shrink-0" aria-hidden />
           ) : (
-            <Frown className="shrink-0 w-5 h-5 text-amber-500" aria-hidden />
+            <Frown className="h-5 w-5 shrink-0" aria-hidden />
           )}
-          <span
-            className={`text-sm font-semibold ${result === 'correct' ? 'text-emerald-600' : 'text-amber-600'}`}
-          >
+          <span className="text-sm font-semibold">
             {result === 'correct' ? t('quiz.correct') : t('quiz.incorrect')}
           </span>
         </div>

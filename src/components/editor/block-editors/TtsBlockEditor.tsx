@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import BlockWrapper from '../BlockWrapper';
 import type { TtsBlock, TtsBlockItem } from '../../../types/articleEditor';
 import { useTranslation } from 'react-i18next';
-import type { BlockEditorProps } from './blockEditorShared';
+import { checkboxFaceClass, type BlockEditorProps } from './blockEditorShared';
 import { Plus, Trash2 } from 'lucide-react';
 
 export function TtsBlockEditor({
@@ -49,11 +49,9 @@ export function TtsBlockEditor({
     [block, onUpdate]
   );
 
-  const tableClass =
-    'w-full border-collapse text-left text-sm table-fixed border border-[var(--border)]';
-  const cellClass =
-    'align-top py-2 px-3 border border-[var(--border)]';
-  const thClass = `${cellClass} bg-[var(--surfaceHigh)] text-[var(--textSecondary)] font-medium`;
+  const tableClass = 'w-full table-fixed text-left text-sm';
+  const cellClass = 'align-top px-3 py-2';
+  const thClass = `${cellClass} surface-container-high font-medium text-[var(--md-sys-color-on-surface-variant)]`;
 
   const showJustReadUi = block.justRead && items.length === 1;
   const singleItem = items[0];
@@ -69,31 +67,28 @@ export function TtsBlockEditor({
         onMoveDown={onMoveDown}
         onRemove={onRemove}
       >
-        <label className="flex items-center gap-2 cursor-pointer w-fit mb-3 text-sm text-[var(--textSecondary)]">
+        <label className="group mb-3 flex w-fit cursor-pointer items-center gap-2 text-sm text-[var(--md-sys-color-on-surface-variant)]">
           <input
             type="checkbox"
             checked={!!block.justRead}
             onChange={(e) => setJustRead(e.target.checked)}
             className="sr-only peer"
           />
-          <span className="relative inline-flex shrink-0 w-3.5 h-3.5 rounded border-2 border-[var(--border)] group-hover:border-[var(--primary)] peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-0 peer-focus-visible:outline-[var(--primary)] flex items-center justify-center transition-colors peer-checked:border-[var(--primary)]"
-            style={{ backgroundColor: block.justRead ? 'var(--primary)' : 'var(--bg)' }}
-            aria-hidden="true"
-          >
+          <span className={checkboxFaceClass(!!block.justRead)} aria-hidden="true">
             {block.justRead && (
-              <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0" style={{ stroke: 'var(--onPrimary)' }} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0" style={{ stroke: 'var(--md-sys-color-on-primary)' }} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M1 4l3 3 5-6" />
               </svg>
             )}
           </span>
-          <span className="text-[var(--text)]">{t('articleEditor.ttsJustRead')}</span>
+          <span className="text-[var(--md-sys-color-on-surface)]">{t('articleEditor.ttsJustRead')}</span>
         </label>
         <div className="w-full space-y-3">
-          <p className="text-xs text-[var(--textSecondary)]">
+          <p className="text-xs text-[var(--md-sys-color-on-surface-variant)]">
             {t('articleEditor.ttsJustReadPreviewHint')}
           </p>
           <div>
-            <label className="block text-xs font-medium text-[var(--textSecondary)] mb-1">
+            <label className="mb-1 block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)]">
               {t('articleEditor.ttsLabel')} ({t('articleEditor.ttsJustReadButtonTitle')})
             </label>
             <input
@@ -101,11 +96,11 @@ export function TtsBlockEditor({
               value={singleItem.label ?? ''}
               onChange={(e) => updateItem(0, { label: e.target.value })}
               placeholder={t('articleEditor.ttsJustReadLabelPlaceholder')}
-              className="w-full min-w-0 rounded border border-[var(--border)] bg-[var(--surface)] px-2 py-1.5 text-sm text-[var(--text)] focus:border-[var(--primary)] focus:outline-none"
+              className="field-filled focus-ring"
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-[var(--textSecondary)] mb-1">
+            <label className="mb-1 block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)]">
               {t('articleEditor.ttsText')}
             </label>
             <textarea
@@ -113,11 +108,11 @@ export function TtsBlockEditor({
               onChange={(e) => updateItem(0, { text: e.target.value })}
               placeholder={t('articleEditor.ttsTextPlaceholder')}
               rows={4}
-              className="w-full min-w-0 rounded border border-[var(--border)] bg-[var(--surface)] px-2 py-1.5 text-sm text-[var(--text)] focus:border-[var(--primary)] focus:outline-none resize-y"
+              className="field-filled focus-ring resize-y"
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-[var(--textSecondary)] mb-1">
+            <label className="mb-1 block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)]">
               {t('articleEditor.ttsLanguage')}
             </label>
             <input
@@ -125,7 +120,7 @@ export function TtsBlockEditor({
               value={singleItem.language}
               onChange={(e) => updateItem(0, { language: e.target.value })}
               placeholder="en-GB"
-              className="w-full max-w-[8rem] rounded border border-[var(--border)] bg-[var(--surface)] px-2 py-1 text-xs text-[var(--text)] focus:border-[var(--primary)] focus:outline-none"
+              className="field-filled focus-ring max-w-[8rem]"
               title={t('articleEditor.ttsLanguageHint')}
             />
           </div>
@@ -145,24 +140,21 @@ export function TtsBlockEditor({
       onRemove={onRemove}
     >
       {items.length === 1 && (
-        <label className="flex items-center gap-2 cursor-pointer w-fit mb-3 text-sm text-[var(--textSecondary)]">
+        <label className="group mb-3 flex w-fit cursor-pointer items-center gap-2 text-sm text-[var(--md-sys-color-on-surface-variant)]">
           <input
             type="checkbox"
             checked={!!block.justRead}
             onChange={(e) => setJustRead(e.target.checked)}
             className="sr-only peer"
           />
-          <span className="relative inline-flex shrink-0 w-3.5 h-3.5 rounded border-2 border-[var(--border)] group-hover:border-[var(--primary)] peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-0 peer-focus-visible:outline-[var(--primary)] flex items-center justify-center transition-colors peer-checked:border-[var(--primary)]"
-            style={{ backgroundColor: block.justRead ? 'var(--primary)' : 'var(--bg)' }}
-            aria-hidden="true"
-          >
+          <span className={checkboxFaceClass(!!block.justRead)} aria-hidden="true">
             {block.justRead && (
-              <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0" style={{ stroke: 'var(--onPrimary)' }} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0" style={{ stroke: 'var(--md-sys-color-on-primary)' }} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M1 4l3 3 5-6" />
               </svg>
             )}
           </span>
-          <span className="text-[var(--text)]">{t('articleEditor.ttsJustRead')}</span>
+          <span className="text-[var(--md-sys-color-on-surface)]">{t('articleEditor.ttsJustRead')}</span>
         </label>
       )}
       <table className={tableClass}>
@@ -199,7 +191,7 @@ export function TtsBlockEditor({
                   value={item.label ?? ''}
                   onChange={(e) => updateItem(i, { label: e.target.value })}
                   placeholder={t('articleEditor.ttsLabelPlaceholder')}
-                  className="w-full min-w-0 rounded border border-[var(--border)] bg-[var(--surface)] px-2 py-1.5 text-sm text-[var(--text)] focus:border-[var(--primary)] focus:outline-none"
+                  className="field-filled focus-ring"
                 />
               </td>
               <td className={cellClass}>
@@ -208,7 +200,7 @@ export function TtsBlockEditor({
                   value={item.text}
                   onChange={(e) => updateItem(i, { text: e.target.value })}
                   placeholder={t('articleEditor.ttsTextPlaceholder')}
-                  className="w-full min-w-0 rounded border border-[var(--border)] bg-[var(--surface)] px-2 py-1.5 text-sm text-[var(--text)] focus:border-[var(--primary)] focus:outline-none"
+                  className="field-filled focus-ring"
                 />
               </td>
               <td className={cellClass}>
@@ -217,12 +209,12 @@ export function TtsBlockEditor({
                   value={item.language}
                   onChange={(e) => updateItem(i, { language: e.target.value })}
                   placeholder="en-GB"
-                  className="w-full min-w-0 rounded border border-[var(--border)] bg-[var(--surface)] px-2 py-1 text-xs text-[var(--text)] focus:border-[var(--primary)] focus:outline-none"
+                  className="field-filled focus-ring"
                   title={t('articleEditor.ttsLanguageHint')}
                 />
               </td>
               <td className={cellClass}>
-                <label className="flex items-center gap-2 cursor-pointer w-fit group text-xs text-[var(--textSecondary)]">
+                <label className="group flex w-fit cursor-pointer items-center gap-2 text-xs text-[var(--md-sys-color-on-surface-variant)]">
                   <span className="relative inline-flex shrink-0">
                     <input
                       type="checkbox"
@@ -230,19 +222,15 @@ export function TtsBlockEditor({
                       onChange={(e) => updateItem(i, { stt: e.target.checked })}
                       className="sr-only peer"
                     />
-                    <span
-                      className={`w-3.5 h-3.5 rounded border-2 flex items-center justify-center transition-colors peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-0 peer-focus-visible:outline-[var(--primary)] ${item.stt ? 'border-[var(--primary)]' : 'border-[var(--border)] group-hover:border-[var(--primary)]'}`}
-                      style={{ backgroundColor: item.stt ? 'var(--primary)' : 'var(--bg)' }}
-                      aria-hidden="true"
-                    >
+                    <span className={checkboxFaceClass(item.stt)} aria-hidden="true">
                       {item.stt && (
-                        <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0" style={{ stroke: 'var(--onPrimary)' }} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0" style={{ stroke: 'var(--md-sys-color-on-primary)' }} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M1 4l3 3 5-6" />
                         </svg>
                       )}
                     </span>
                   </span>
-                  <span className="text-[var(--text)]">{t('articleEditor.ttsSttEnable')}</span>
+                  <span className="text-[var(--md-sys-color-on-surface)]">{t('articleEditor.ttsSttEnable')}</span>
                 </label>
               </td>
               <td className={cellClass}>
@@ -250,7 +238,7 @@ export function TtsBlockEditor({
                   type="button"
                   onClick={() => removeRow(i)}
                   disabled={items.length <= 1}
-                  className="rounded p-1.5 text-[var(--textSecondary)] hover:bg-[var(--errorSubtle)] hover:text-[var(--error)] disabled:opacity-40 disabled:hover:bg-transparent"
+                  className="btn-icon"
                   aria-label={t('articleEditor.remove')}
                 >
                   <Trash2 className="h-4 w-4" />
@@ -264,7 +252,7 @@ export function TtsBlockEditor({
         <button
           type="button"
           onClick={addRow}
-          className="inline-flex items-center gap-1.5 rounded-lg border border-dashed border-[var(--border)] bg-transparent px-3 py-1.5 text-sm font-medium text-[var(--textSecondary)] hover:border-[var(--primary)] hover:bg-[var(--primarySubtle)] hover:text-[var(--primary)]"
+          className="btn-tonal"
         >
           <Plus className="h-4 w-4" />
           {t('articleEditor.ttsAddRow')}

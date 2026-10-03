@@ -144,11 +144,10 @@ function getMarkdownComponents() {
     ),
     blockquote: ({ children, ...props }: React.HTMLAttributes<HTMLQuoteElement>) => (
       <blockquote
-        className="relative pl-6 pr-4 py-4 my-6 rounded-r-xl italic border-l-4 border-editor-primary text-editor-text"
-        style={{ backgroundColor: 'var(--primarySubtle)', boxShadow: 'var(--shadowSm)' }}
+        className="relative pl-6 pr-4 py-4 my-6 rounded-xl italic bg-primary-container text-on-primary-container"
         {...props}
       >
-        <div className="absolute top-2 left-2 text-4xl opacity-20 text-editor-primary">"</div>
+        <div className="absolute top-2 left-2 text-4xl opacity-20">"</div>
         <div className="relative z-10">{children}</div>
       </blockquote>
     ),
@@ -164,8 +163,7 @@ function getMarkdownComponents() {
       }
       return (
         <code
-          className="px-2 py-1 rounded-md text-sm font-mono font-semibold text-editor-primary border border-editor-border"
-          style={{ backgroundColor: 'var(--primarySubtle)' }}
+          className="px-2 py-1 rounded text-sm font-mono font-semibold text-primary bg-surface-container-highest"
           {...props}
         >
           {children}
@@ -180,13 +178,9 @@ function getMarkdownComponents() {
       const language = langMatch ? langMatch[1] : '';
       return (
         <div className="group relative my-6">
-          <div className="absolute inset-0 rounded-2xl opacity-10 blur-2xl scale-105 bg-editor-primary" />
-          <div
-            className="relative rounded-2xl overflow-hidden border border-editor-border"
-            style={{ background: 'var(--codeBg)', boxShadow: 'var(--shadowSm)' }}
-          >
+          <div className="relative rounded-xl overflow-hidden surface-container">
             {language && (
-              <div className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-editor-on-primary bg-editor-primary">
+              <div className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-on-primary bg-primary">
                 {language}
               </div>
             )}
@@ -198,14 +192,14 @@ function getMarkdownComponents() {
       );
     },
     table: ({ children, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
-      <div className="overflow-x-auto my-8 rounded-xl" style={{ boxShadow: 'var(--shadowSm)' }}>
-        <table className="min-w-full border-collapse bg-editor-surface" {...props}>
+      <div className="overflow-x-auto my-8 rounded-xl surface-container-high">
+        <table className="min-w-full border-collapse" {...props}>
           {children}
         </table>
       </div>
     ),
     thead: ({ children, ...props }: React.HTMLAttributes<HTMLTableSectionElement>) => (
-      <thead className="bg-editor-primary" {...props}>
+      <thead className="bg-surface-container-highest" {...props}>
         {children}
       </thead>
     ),
@@ -215,17 +209,17 @@ function getMarkdownComponents() {
       </tbody>
     ),
     tr: ({ children, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
-      <tr className="border-b border-editor-border transition-colors" {...props}>
+      <tr className="even:bg-surface-container-highest" {...props}>
         {children}
       </tr>
     ),
     th: ({ children, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
-      <th className="px-6 py-4 text-left font-bold text-sm uppercase tracking-wider last:border-r-0 text-editor-on-primary border-r border-editor-border" {...props}>
+      <th className="px-6 py-4 text-left font-bold text-sm uppercase tracking-wider text-on-surface" {...props}>
         {children}
       </th>
     ),
     td: ({ children, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
-      <td className="px-6 py-4 last:border-r-0 text-editor-text border-r border-editor-border" {...props}>
+      <td className="px-6 py-4 text-on-surface" {...props}>
         {children}
       </td>
     ),
@@ -271,10 +265,10 @@ export default function DocumentPage() {
 
   if (!docId || !entry) {
     return (
-      <div className="document-page min-h-screen text-editor-text bg-editor-background">
+      <div className="document-page min-h-screen surface">
         <div className="container mx-auto px-4 py-12 md:py-20">
-          <div className="max-w-4xl mx-auto rounded-2xl p-8 md:p-12 bg-editor-surface shadow-sm border border-editor-border">
-            <p className="text-editor-muted">{t('editor.document.notFound')}</p>
+          <div className="max-w-4xl mx-auto rounded-xl p-8 md:p-12 surface-container">
+            <p className="text-on-surface-variant">{t('editor.document.notFound')}</p>
           </div>
         </div>
       </div>
@@ -283,10 +277,10 @@ export default function DocumentPage() {
 
   if (!raw) {
     return (
-      <div className="document-page min-h-screen text-editor-text bg-editor-background">
+      <div className="document-page min-h-screen surface">
         <div className="container mx-auto px-4 py-12 md:py-20">
-          <div className="max-w-4xl mx-auto rounded-2xl p-8 md:p-12 bg-editor-surface shadow-sm border border-editor-border">
-            <p className="text-editor-muted">{t('editor.document.contentNotFound', { filename: entry.filename })}</p>
+          <div className="max-w-4xl mx-auto rounded-xl p-8 md:p-12 surface-container">
+            <p className="text-on-surface-variant">{t('editor.document.contentNotFound', { filename: entry.filename })}</p>
           </div>
         </div>
       </div>
@@ -294,14 +288,14 @@ export default function DocumentPage() {
   }
 
   return (
-    <div className="document-page min-h-screen text-editor-text bg-editor-background">
+    <div className="document-page min-h-screen surface">
       <div className="container mx-auto px-4 py-12 md:py-20">
         <div className="max-w-4xl mx-auto">
           <div className="no-print flex items-center justify-end gap-3 mb-6">
             <button
               type="button"
               onClick={() => downloadMarkdown(entry.filename, raw)}
-              className="flex items-center gap-2 rounded-lg border-2 border-editor-primary px-4 py-2 text-sm font-medium bg-transparent text-editor-primary transition-colors hover:bg-editor-surface"
+              className="btn-tonal"
             >
               <Download className="h-4 w-4" />
               {t('editor.document.downloadMd')}
@@ -309,16 +303,13 @@ export default function DocumentPage() {
             <button
               type="button"
               onClick={() => window.print()}
-              className="flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium bg-editor-primary text-editor-on-primary hover:opacity-90 transition-opacity"
+              className="btn-filled"
             >
               <Printer className="h-4 w-4" />
               {t('editor.document.printToPdf')}
             </button>
           </div>
-          <article
-            className="document-print rounded-2xl p-8 md:p-12 bg-editor-surface border border-editor-border"
-            style={{ boxShadow: 'var(--shadowSm)' }}
-          >
+          <article className="document-print rounded-xl p-8 md:p-12 surface-container">
             <div className="relative z-10">
               <div className="document-body prose prose-lg max-w-none">
                 <ReactMarkdown remarkPlugins={[remarkGfm]} components={mdComponents}>

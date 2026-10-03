@@ -26,11 +26,7 @@ export function ContentImagesSection({
 }: ContentImagesSectionProps) {
   return (
     <div>
-      <SectionHeader
-        icon={Image}
-        title={t('articleEditor.contentImagesTitle')}
-        description={t('articleEditor.contentImagesFormatRequired')}
-      />
+      <SectionHeader icon={Image} title={t('articleEditor.contentImagesTitle')} />
       <input
         ref={inputRef}
         type="file"
@@ -42,7 +38,7 @@ export function ContentImagesSection({
       <UploadButton
         label={t('articleEditor.addImage')}
         onClick={onOpenPicker}
-        className="mb-3 flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-[var(--border)] py-3 text-sm font-medium text-[var(--primary)] hover:bg-[var(--primarySubtle)]"
+        className="mb-3"
       />
       {numberedIds.length > 0 && (
         <ul className="space-y-1 text-xs text-[var(--textSecondary)]">

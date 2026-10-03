@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useMemo, useCallback, type SetStateAction } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect, useMemo, useCallback, type SetStateAction } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -8,23 +8,8 @@ import {
   SaveAll,
   Eye,
   Edit3,
-  Type,
-  ListChecks,
-  Image as ImageIcon,
-  SquarePlay,
-  Video as VideoIcon,
-  Presentation,
-  Swords,
   LayoutList,
   CodeXml,
-  Puzzle,
-  Workflow,
-  Sigma,
-  PieChart,
-  BarChart2,
-  Mic,
-  Music,
-  FlaskConical,
   WandSparkles,
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -34,6 +19,7 @@ import {
   createBlockId,
   type EditorState,
   type EditorBlock,
+  type MarkdownBlock,
   type ArticleLanguage,
 } from '../types/articleEditor';
 import { buildArticleZip, parseArticleZip } from '../utils/articleZip';
@@ -62,6 +48,8 @@ import { AuthProvider } from '../contexts/AuthContext';
 import { useArticleEditorAutosave } from '../hooks/useArticleEditorAutosave';
 import { useArticleSession } from '../contexts/ArticleSessionContext';
 import AssetsPanel from '../components/editor/AssetsPanel';
+import { AppendBlockSplitButton, type AddableBlockType } from '../components/editor/AddBlockMenu';
+import type { MarkdownInsertPlacement } from '../utils/markdownInsert';
 import ArticleEditorPreview from '../components/ArticleEditorPreview';
 import {
   MarkdownBlockEditor,
@@ -441,29 +429,86 @@ export default function ArticlesPage() {
     return () => window.removeEventListener('keydown', onKey);
   }, [handleSave, handleSaveAs]);
 
-  const addBlock = (type: EditorBlock['type']) => {
-    const block = createDefaultBlock(type);
-    if (type === 'photo' && numberedImageIds.length > 0) {
-      (block as { imageId: number }).imageId = numberedImageIds[0];
+  const scrollBlockIdRef = useRef<string | null>(null);
+
+  const createPreparedBlock = (type: AddableBlockType): EditorBlock => {
+    let block = createDefaultBlock(type);
+    if (block.type === 'photo' && numberedImageIds.length > 0) {
+      block = { ...block, imageId: numberedImageIds[0] };
+    } else if (block.type === 'articleVideo' && articleVideoIds.length > 0) {
+      block = { ...block, videoId: String(articleVideoIds[0]) };
+    } else if (block.type === 'articleAudio' && articleAudioIds.length > 0) {
+      block = { ...block, audioId: String(articleAudioIds[0]) };
     }
-    if (type === 'articleVideo' && articleVideoIds.length > 0) {
-      (block as { videoId: string }).videoId = String(articleVideoIds[0]);
-    }
-    if (type === 'articleAudio' && articleAudioIds.length > 0) {
-      (block as { audioId: string }).audioId = String(articleAudioIds[0]);
-    }
-    setState((s) => {
-      const contentItem = blockToContentItem(block);
-      const newId = createBlockId();
-      const newBlock = { ...block, id: newId };
-      return {
-        ...s,
-        content: [...s.content, contentItem],
-        blockIds: [...s.blockIds, newId],
-        blocks: [...s.blocks, newBlock],
-      };
+    return { ...block, id: createBlockId() };
+  };
+
+  const addBlock = (type: AddableBlockType) => {
+    const newBlock = createPreparedBlock(type);
+    scrollBlockIdRef.current = newBlock.id;
+    setState((current) => ({
+      ...current,
+      content: [...current.content, blockToContentItem(newBlock)],
+      blockIds: [...current.blockIds, newBlock.id],
+      blocks: [...current.blocks, newBlock],
+    }));
+  };
+
+  const insertAtMarkdownCaret = (index: number, type: AddableBlockType, plan: MarkdownInsertPlacement) => {
+    const newBlock = createPreparedBlock(type);
+    const suffixBlock: MarkdownBlock | null =
+      plan.action === 'between'
+        ? (() => {
+            const created = createDefaultBlock('markdown');
+            return created.type === 'markdown'
+              ? { ...created, id: createBlockId(), content: plan.after }
+              : { id: createBlockId(), type: 'markdown', content: plan.after };
+          })()
+        : null;
+    scrollBlockIdRef.current = newBlock.id;
+    setState((current) => {
+      const existing = current.blocks[index];
+      if (!existing || existing.type !== 'markdown') return current;
+      const content = [...current.content];
+      const blockIds = [...current.blockIds];
+      const blocks = [...current.blocks];
+      if (plan.action === 'before') {
+        const markdownBlock: MarkdownBlock = { ...existing, content: plan.markdown };
+        content.splice(index, 1, blockToContentItem(newBlock), blockToContentItem(markdownBlock));
+        blockIds.splice(index, 1, newBlock.id, markdownBlock.id);
+        blocks.splice(index, 1, newBlock, markdownBlock);
+      } else if (plan.action === 'after') {
+        const markdownBlock: MarkdownBlock = { ...existing, content: plan.markdown };
+        content.splice(index, 1, blockToContentItem(markdownBlock), blockToContentItem(newBlock));
+        blockIds.splice(index, 1, markdownBlock.id, newBlock.id);
+        blocks.splice(index, 1, markdownBlock, newBlock);
+      } else if (suffixBlock) {
+        const prefix: MarkdownBlock = { ...existing, content: plan.before };
+        content.splice(
+          index,
+          1,
+          blockToContentItem(prefix),
+          blockToContentItem(newBlock),
+          blockToContentItem(suffixBlock),
+        );
+        blockIds.splice(index, 1, prefix.id, newBlock.id, suffixBlock.id);
+        blocks.splice(index, 1, prefix, newBlock, suffixBlock);
+      } else {
+        return current;
+      }
+      return { ...current, content, blockIds, blocks };
     });
   };
+
+  useLayoutEffect(() => {
+    const id = scrollBlockIdRef.current;
+    if (!id) return;
+    const escaped = typeof CSS !== 'undefined' && typeof CSS.escape === 'function' ? CSS.escape(id) : id;
+    const element = document.querySelector(`[data-editor-block-id="${escaped}"]`);
+    if (!element) return;
+    scrollBlockIdRef.current = null;
+    element.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }, [state.blocks]);
 
   const updateBlock = (index: number, block: EditorBlock) => {
     setState((s) => {
@@ -612,7 +657,7 @@ export default function ArticlesPage() {
   }, []);
 
   return (
-    <div className="relative h-[calc(100vh-80px)] flex flex-col overflow-hidden" style={{ backgroundColor: 'var(--bg)' }}>
+    <div className="surface relative flex h-[calc(100vh-80px)] flex-col overflow-hidden">
       <input
         ref={fileInputRef}
         type="file"
@@ -630,23 +675,23 @@ export default function ArticlesPage() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
         >
-          <div className="flex max-h-[calc(100vh-2rem-80px)] w-full max-w-[calc(100vw-2rem)] min-h-0 flex-1 flex-col overflow-hidden rounded-xl bg-[var(--surface)]" style={{ boxShadow: 'var(--shadowSm)' }}>
-            <header className="flex-shrink-0 border-b border-[var(--border)] bg-[var(--surface)] p-4">
+          <div className="surface-container-low flex max-h-[calc(100vh-2rem-80px)] w-full max-w-[calc(100vw-2rem)] min-h-0 flex-1 flex-col overflow-hidden rounded-xl">
+            <header className="surface-container-high flex-shrink-0 p-4">
               <div className="flex flex-wrap items-center gap-2">
                 <button
                   type="button"
                   onClick={handleNew}
-                  className="flex items-center gap-2 rounded-lg border-2 border-[var(--primary)] px-4 py-2 text-sm font-semibold text-[var(--primary)] transition-colors duration-150 hover:bg-[var(--primarySubtle)]"
+                  className="btn-tonal"
                 >
-                  <FilePlus className="h-4 w-4" />
+                  <FilePlus className="h-5 w-5" />
                   {t('articlesPage.new')}
                 </button>
                 <button
                   type="button"
                   onClick={handleOpenZip}
-                  className="flex items-center gap-2 rounded-lg border-2 border-[var(--border)] px-4 py-2 text-sm font-semibold text-[var(--text)] transition-colors duration-150 hover:bg-[var(--hoverBg)]"
+                  className="btn-text"
                 >
-                  <FolderOpen className="h-4 w-4" />
+                  <FolderOpen className="h-5 w-5" />
                   {t('articlesPage.openZip')}
                 </button>
                 <button
@@ -654,9 +699,9 @@ export default function ArticlesPage() {
                   onClick={() => void handleSave()}
                   disabled={isSaving}
                   title={t('articlesPage.saveShortcutHint')}
-                  className="flex items-center gap-2 rounded-lg border-2 border-[var(--border)] px-4 py-2 text-sm font-semibold text-[var(--text)] transition-colors duration-150 disabled:opacity-60 hover:bg-[var(--hoverBg)]"
+                  className="btn-filled"
                 >
-                  <Save className="h-4 w-4" />
+                  <Save className="h-5 w-5" />
                   {isSaving ? t('articlesPage.saving') : t('articlesPage.save')}
                 </button>
                 <button
@@ -664,20 +709,20 @@ export default function ArticlesPage() {
                   onClick={() => void handleSaveAs()}
                   disabled={isSaving}
                   title={t('articlesPage.saveAsShortcutHint')}
-                  className="flex items-center gap-2 rounded-lg border-2 border-[var(--border)] px-4 py-2 text-sm font-semibold text-[var(--text)] transition-colors duration-150 disabled:opacity-60 hover:bg-[var(--hoverBg)]"
+                  className="btn-tonal"
                 >
-                  <SaveAll className="h-4 w-4" />
+                  <SaveAll className="h-5 w-5" />
                   {t('articlesPage.saveAs')}
                 </button>
                 {articleFileLabel && (
-                  <span className="max-w-[12rem] truncate text-xs font-medium text-[var(--textSecondary)]" title={articleFileLabel}>
+                  <span className="max-w-[12rem] truncate text-xs font-medium text-[var(--md-sys-color-on-surface-variant)]" title={articleFileLabel}>
                     {articleFileLabel}
                     {diskDirty ? ` ${t('articlesPage.unsavedMarker')}` : ''}
                   </span>
                 )}
                 <div className="ml-auto flex flex-wrap items-center gap-2">
                 {lastSavedAt && (
-                  <span className="self-center text-xs text-[var(--textSecondary)]" role="status">
+                  <span className="self-center text-xs text-[var(--md-sys-color-on-surface-variant)]" role="status">
                     {t('articlesPage.draftSavedAt', {
                       time: new Date(lastSavedAt).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' }),
                     })}
@@ -687,9 +732,9 @@ export default function ArticlesPage() {
                   type="button"
                   onClick={() => (isProMode ? handleSwitchToNoob() : handleSwitchToPro())}
                   title={isProMode ? t('articlesPage.modeNoobTooltip') : t('articlesPage.modeProTooltip')}
-                  className={`flex items-center gap-2 rounded-xl border-2 px-4 py-2 text-sm font-semibold ${isProMode ? 'border-[var(--primary)] bg-[var(--primary)] text-[var(--onPrimary)] hover:opacity-90' : 'border-[var(--primaryBorder)] text-[var(--text)] hover:bg-[var(--primarySubtle)]'}`}
+                  className={isProMode ? 'btn-filled' : 'btn-tonal'}
                 >
-                  {isProMode ? <LayoutList className="h-4 w-4" /> : <CodeXml className="h-4 w-4" />}
+                  {isProMode ? <LayoutList className="h-5 w-5" /> : <CodeXml className="h-5 w-5" />}
                   {isProMode ? t('articlesPage.modeNoob') : t('articlesPage.modePro')}
                 </button>
                 <button
@@ -712,15 +757,15 @@ export default function ArticlesPage() {
                     }
                     setShowPreview(true);
                   }}
-                  className={`flex items-center gap-2 rounded-xl border-2 px-4 py-2 text-sm font-semibold ${showPreview ? 'border-[var(--primaryBorder)] text-[var(--text)] hover:bg-[var(--primarySubtle)]' : 'border-[var(--primary)] bg-[var(--primary)] text-[var(--onPrimary)] hover:opacity-90'}`}
+                  className={showPreview ? 'btn-text' : 'btn-filled'}
                 >
-                  {showPreview ? <Edit3 className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  {showPreview ? <Edit3 className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                   {showPreview ? t('articlesPage.edit') : t('articlesPage.preview')}
                 </button>
                 </div>
               </div>
               {loadErrors.length > 0 && (
-                <div className="mt-3 rounded-lg border border-[var(--error)] bg-[var(--errorSubtle)] p-3 text-sm text-[var(--error)]">
+                <div className="mt-3 rounded-xl bg-[var(--md-sys-color-error-container)] p-3 text-sm text-[var(--md-sys-color-on-error-container)]">
                   <ul className="list-disc pl-4">
                     {loadErrors.map((msg, i) => (
                       <li key={i}>{msg}</li>
@@ -730,9 +775,9 @@ export default function ArticlesPage() {
               )}
             </header>
 
-            <div className="flex min-h-0 flex-1 flex overflow-hidden">
-              <div className="flex min-h-full min-w-0 flex-1 items-stretch">
-                <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
+            <div className="flex min-h-0 flex-1 overflow-hidden p-3">
+              <div className="flex min-h-full min-w-0 flex-1 items-stretch gap-3">
+                <div className="surface-container flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden rounded-xl">
                   {showPreview ? (
                     <div key="preview" className="min-h-0 flex-1 overflow-y-auto p-4 scrollbar-theme">
                       <ArticleEditorPreview blocks={state.blocks} />
@@ -744,7 +789,7 @@ export default function ArticlesPage() {
                         onClick={handlePrettyPrintProJson}
                         title={t('articlesPage.proModePrettyPrint')}
                         aria-label={t('articlesPage.proModePrettyPrint')}
-                        className="absolute right-7 top-7 z-10 inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--primaryBorder)] bg-[var(--surface)] text-[var(--primary)] transition-colors duration-150 hover:bg-[var(--primarySubtle)]"
+                        className="btn-icon-tonal absolute right-7 top-7 z-10"
                       >
                         <WandSparkles className="h-4 w-4" />
                       </button>
@@ -752,51 +797,19 @@ export default function ArticlesPage() {
                         value={proModeJson}
                         onChange={(e) => handleProJsonChange(e.target.value)}
                         placeholder={t('articlesPage.proModePlaceholder')}
-                        className="h-full min-h-0 w-full resize-none overflow-y-auto rounded-lg border border-[var(--primaryBorder)] bg-[var(--surface)] p-4 pr-14 font-mono text-sm text-[var(--text)] placeholder:text-[var(--textSecondary)] focus:border-[var(--primary)] focus:outline-none focus:ring-2 focus:ring-[var(--primarySubtle)] scrollbar-theme"
+                        className="field-filled focus-ring h-full min-h-0 resize-none overflow-y-auto pr-14 font-mono text-sm scrollbar-theme"
                         style={{ minHeight: 0 }}
                         spellCheck={false}
                       />
                     </div>
                   ) : (
                     <div key="blocks" className="flex min-h-0 flex-1 flex-col overflow-y-auto p-4 scrollbar-theme">
-                      <div className="mb-4 flex flex-wrap gap-2 flex-shrink-0">
-                        <span className="mr-2 self-center text-xs font-medium text-[var(--textSecondary)]">
-                          {t('articlesPage.add')}
-                        </span>
-                        {(
-                          [
-                            ['markdown', 'articleEditor.blockMarkdown', Type],
-                            ['photo', 'articlesPage.blockImage', ImageIcon],
-                            ['articleVideo', 'articleEditor.blockArticleVideo', VideoIcon],
-                            ['articleAudio', 'articleEditor.blockArticleAudio', Music],
-                            ['accordion', 'articlesPage.blockAccordion', ListChecks],
-                            ['quiz', 'articlesPage.blockQuiz', Puzzle],
-                            ['slideshow', 'articlesPage.blockSlideshow', Presentation],
-                            ['tts', 'articleEditor.blockTts', Mic],
-                            ['katex', 'articleEditor.blockKatex', Sigma],
-                            ['dot', 'articlesPage.blockDot', Workflow],
-                            ['pie', 'articlesPage.blockPie', PieChart],
-                            ['bar', 'articlesPage.blockBar', BarChart2],
-                            ['smiles', 'articleEditor.blockSmiles', FlaskConical],
-                            ['chessDiagram', 'articlesPage.blockChessDiagram', Swords],
-                            ['video', 'articlesPage.blockVideo', SquarePlay],
-                            ['playEngine', 'articlesPage.blockPlayEngine', Swords],
-                          ] as [string, string, typeof Type][]
-                        ).map(([type, labelKey, Icon]) => (
-                          <button
-                            key={type}
-                            type="button"
-                            onClick={() => addBlock(type as EditorBlock['type'])}
-                            className="flex items-center gap-1.5 rounded-lg border border-[var(--primaryBorder)] px-3 py-1.5 text-xs font-medium text-[var(--text)] hover:bg-[var(--primarySubtle)]"
-                          >
-                            <Icon className="h-3.5 w-3.5" />
-                            {t(labelKey)}
-                          </button>
-                        ))}
+                      <div className="mb-4 flex-shrink-0">
+                        <AppendBlockSplitButton onAppend={addBlock} />
                       </div>
                       <div className="space-y-6 pb-8">
                         {state.blocks.length === 0 && (
-                          <p className="py-8 text-center text-sm text-[var(--textSecondary)]">
+                          <p className="py-8 text-center text-sm text-[var(--md-sys-color-on-surface-variant)]">
                             {t('articlesPage.noBlocksYet')}
                           </p>
                         )}
@@ -817,7 +830,14 @@ export default function ArticlesPage() {
                           };
                           switch (block.type) {
                             case 'markdown':
-                              return <MarkdownBlockEditor key={block.id} block={block} {...common} />;
+                              return (
+                                <MarkdownBlockEditor
+                                  key={block.id}
+                                  block={block}
+                                  {...common}
+                                  onInsertAtCaret={(type, insertPlan) => insertAtMarkdownCaret(index, type, insertPlan)}
+                                />
+                              );
                             case 'accordion':
                               return <AccordionBlockEditor key={block.id} block={block} {...common} />;
                             case 'chessDiagram':
@@ -860,9 +880,9 @@ export default function ArticlesPage() {
                 </div>
 
                 {!showPreview && (
-                  <aside className="flex w-72 flex-shrink-0 flex-col overflow-hidden border-l border-[var(--border)] min-h-0">
+                  <aside className="surface-container-highest flex w-72 min-h-0 flex-shrink-0 flex-col overflow-hidden rounded-xl">
                     <div className="min-h-0 flex-1 overflow-y-auto p-4 scrollbar-theme">
-                      <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[var(--textSecondary)]">
+                      <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[var(--md-sys-color-on-surface-variant)]">
                         {t('articlesPage.assets')}
                       </h2>
                       <AssetsPanel state={state} setState={setState} />

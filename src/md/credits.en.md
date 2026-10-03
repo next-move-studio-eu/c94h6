@@ -34,6 +34,7 @@ This application uses the following open source components. Listed are name, lin
 - [@jridgewell/resolve-uri@3.1.2](https://github.com/jridgewell/resolve-uri) — MIT License
 - [@jridgewell/sourcemap-codec@1.5.5](https://github.com/jridgewell/sourcemaps) — MIT License
 - [@jridgewell/trace-mapping@0.3.31](https://github.com/jridgewell/sourcemaps) — MIT License
+- [@material/material-color-utilities@0.4.0](https://github.com/material-foundation/material-color-utilities) — Apache License 2.0
 - [@nodelib/fs.scandir@2.1.5](https://github.com/nodelib/nodelib/tree/master/packages/fs/fs.scandir) — MIT License
 - [@nodelib/fs.stat@2.0.5](https://github.com/nodelib/nodelib/tree/master/packages/fs/fs.stat) — MIT License
 - [@nodelib/fs.walk@1.2.8](https://github.com/nodelib/nodelib/tree/master/packages/fs/fs.walk) — MIT License

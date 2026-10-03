@@ -190,11 +190,9 @@ export default function TtsVocabulary({ items, justRead = false }: TtsVocabulary
   }, []);
 
   const hasAnyStt = items.some((it) => it.stt);
-  const tableClass =
-    'w-full border-collapse text-left text-sm table-fixed border border-[var(--border)]';
-  const cellClass =
-    'align-middle py-2 px-3 border border-[var(--border)] text-[var(--text)]';
-  const thClass = `${cellClass} bg-[var(--surfaceHigh)] text-[var(--textSecondary)] font-medium`;
+  const tableClass = 'w-full border-collapse text-left text-sm table-fixed';
+  const cellClass = 'align-middle px-3 py-3 text-[var(--md-sys-color-on-surface)]';
+  const thClass = `${cellClass} surface-container-highest font-medium text-[var(--md-sys-color-on-surface-variant)]`;
 
   if (!items?.length) return null;
 
@@ -204,12 +202,12 @@ export default function TtsVocabulary({ items, justRead = false }: TtsVocabulary
   if (showJustRead) {
     return (
       <div className="my-4 flex justify-center">
-        <div className="inline-flex min-w-0 shrink-0 items-stretch rounded-lg border border-[var(--primaryBorder)] bg-[var(--primarySubtle)]">
+        <div className="inline-flex min-w-0 shrink-0 items-center gap-1">
           {isSpeaking ? (
             <button
               type="button"
               onClick={stopSpeak}
-              className="inline-flex items-center gap-1 rounded-l-lg border-0 bg-transparent px-2.5 py-1.5 text-sm font-medium text-[var(--primary)] hover:bg-[var(--primary)] hover:text-[var(--onPrimary)]"
+              className="btn-tonal"
             >
               <Square className="h-3.5 w-3.5" />
               {t('articleEditor.ttsStop')}
@@ -225,7 +223,7 @@ export default function TtsVocabulary({ items, justRead = false }: TtsVocabulary
               }
               disabled={!(singleItem.text ?? '').trim()}
               title={typeof singleItem.label === 'string' && singleItem.label.trim() ? singleItem.label.trim() : undefined}
-              className="inline-flex items-center gap-1 rounded-l-lg border-0 bg-transparent px-2.5 py-1.5 text-sm font-medium text-[var(--primary)] hover:bg-[var(--primary)] hover:text-[var(--onPrimary)] disabled:opacity-50 disabled:hover:bg-transparent disabled:hover:text-[var(--primary)]"
+              className="btn-tonal"
             >
               <Play className="h-3.5 w-3.5" />
               {(typeof singleItem.label === 'string' && singleItem.label.trim())
@@ -233,11 +231,11 @@ export default function TtsVocabulary({ items, justRead = false }: TtsVocabulary
                 : t('articleEditor.ttsPlayAction')}
             </button>
           )}
-          <div className="relative flex items-stretch">
+          <div className="relative">
             <button
               type="button"
               onClick={() => setOpenVoiceRow(openVoiceRow === 0 ? null : 0)}
-              className="inline-flex items-center justify-center rounded-r-lg border-0 border-l border-[var(--primaryBorder)] bg-transparent px-2 text-[var(--primary)] hover:bg-[var(--primary)] hover:text-[var(--onPrimary)]"
+              className="btn-icon-tonal"
               aria-label={t('articleEditor.ttsVoiceSelect')}
             >
               <ChevronDown
@@ -246,8 +244,7 @@ export default function TtsVocabulary({ items, justRead = false }: TtsVocabulary
             </button>
             {openVoiceRow === 0 && (
               <div
-                className="absolute left-0 top-full z-50 mt-1 max-h-48 min-w-[12rem] overflow-auto rounded-lg border border-[var(--border)] bg-[var(--surface)] py-1 shadow-lg"
-                style={{ boxShadow: 'var(--shadowMd)' }}
+                className="surface-container-high absolute left-0 top-full z-50 mt-1 max-h-48 min-w-[12rem] overflow-auto rounded-xl py-1"
               >
                 {getVoicesForLang(singleItem.language).length === 0 ? (
                   <div className="px-3 py-2 text-xs text-[var(--textSecondary)]">
@@ -264,8 +261,8 @@ export default function TtsVocabulary({ items, justRead = false }: TtsVocabulary
                       }}
                       className={`w-full px-3 py-2 text-left text-sm ${
                         getVoiceForRow(singleItem)?.name === v.name
-                          ? 'bg-[var(--primary)] text-[var(--onPrimary)]'
-                          : 'text-[var(--text)] hover:bg-[var(--hoverBg)]'
+                          ? 'bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)]'
+                          : 'text-[var(--md-sys-color-on-surface)] hover:bg-[color-mix(in_srgb,var(--md-sys-color-on-surface)_8%,transparent)]'
                       }`}
                     >
                       {v.name} ({v.lang})
@@ -281,7 +278,7 @@ export default function TtsVocabulary({ items, justRead = false }: TtsVocabulary
   }
 
   return (
-    <div className="my-4 overflow-x-auto">
+    <div className="my-4 overflow-x-auto rounded-xl surface-container-low">
       <table className={tableClass}>
         <colgroup>
           <col style={{ width: hasAnyStt ? '35%' : '42.5%' }} />
@@ -309,7 +306,7 @@ export default function TtsVocabulary({ items, justRead = false }: TtsVocabulary
         </thead>
         <tbody>
           {items.map((item, i) => (
-            <tr key={i}>
+            <tr key={i} className={i % 2 === 1 ? 'bg-[var(--md-sys-color-surface-container)]' : undefined}>
               <td className={cellClass}>
                 {item.label ?? ''}
               </td>
@@ -317,21 +314,21 @@ export default function TtsVocabulary({ items, justRead = false }: TtsVocabulary
                 {item.text ?? ''}
               </td>
               <td className={cellClass}>
-                <div className="inline-flex min-w-0 shrink-0 items-stretch rounded-lg border border-[var(--primaryBorder)] bg-[var(--primarySubtle)]">
+                <div className="inline-flex min-w-0 shrink-0 items-center gap-1">
                   <button
                     type="button"
                     onClick={() => speak(item)}
                     disabled={!(item.text ?? '').trim()}
-                    className="inline-flex items-center gap-1 rounded-l-lg border-0 bg-transparent px-2.5 py-1.5 text-sm font-medium text-[var(--primary)] hover:bg-[var(--primary)] hover:text-[var(--onPrimary)] disabled:opacity-50 disabled:hover:bg-transparent disabled:hover:text-[var(--primary)]"
+                    className="btn-tonal"
                   >
                     <Play className="h-3.5 w-3.5" />
                     {t('articleEditor.ttsPlayAction')}
                   </button>
-                  <div className="relative flex items-stretch">
+                  <div className="relative">
                     <button
                       type="button"
                       onClick={() => setOpenVoiceRow(openVoiceRow === i ? null : i)}
-                      className="inline-flex items-center justify-center rounded-r-lg border-0 border-l border-[var(--primaryBorder)] bg-transparent px-2 text-[var(--primary)] hover:bg-[var(--primary)] hover:text-[var(--onPrimary)]"
+                      className="btn-icon-tonal"
                       aria-label={t('articleEditor.ttsVoiceSelect')}
                     >
                       <ChevronDown
@@ -340,8 +337,7 @@ export default function TtsVocabulary({ items, justRead = false }: TtsVocabulary
                     </button>
                     {openVoiceRow === i && (
                       <div
-                        className="absolute left-0 top-full z-50 mt-1 max-h-48 min-w-[12rem] overflow-auto rounded-lg border border-[var(--border)] bg-[var(--surface)] py-1 shadow-lg"
-                        style={{ boxShadow: 'var(--shadowMd)' }}
+                        className="surface-container-high absolute left-0 top-full z-50 mt-1 max-h-48 min-w-[12rem] overflow-auto rounded-xl py-1"
                       >
                         {getVoicesForLang(item.language).length === 0 ? (
                           <div className="px-3 py-2 text-xs text-[var(--textSecondary)]">
@@ -358,8 +354,8 @@ export default function TtsVocabulary({ items, justRead = false }: TtsVocabulary
                               }}
                               className={`w-full px-3 py-2 text-left text-sm ${
                                 getVoiceForRow(item)?.name === v.name
-                                  ? 'bg-[var(--primary)] text-[var(--onPrimary)]'
-                                  : 'text-[var(--text)] hover:bg-[var(--hoverBg)]'
+                                  ? 'bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)]'
+                                  : 'text-[var(--md-sys-color-on-surface)] hover:bg-[color-mix(in_srgb,var(--md-sys-color-on-surface)_8%,transparent)]'
                               }`}
                             >
                               {v.name} ({v.lang})
@@ -405,11 +401,11 @@ export default function TtsVocabulary({ items, justRead = false }: TtsVocabulary
                       }}
                       onTouchEnd={stopRecording}
                       onTouchCancel={stopRecording}
-                      className={`inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-sm font-medium transition-colors ${
+                      className={
                         recordingRow === i
-                          ? 'border-[var(--error)] bg-[var(--errorSubtle)] text-[var(--error)] animate-pulse'
-                          : 'border-[var(--border)] bg-[var(--surface)] text-[var(--text)] hover:bg-[var(--hoverBg)]'
-                      }`}
+                          ? 'inline-flex items-center gap-1.5 rounded-full border-0 bg-[var(--md-sys-color-error-container)] px-4 py-2 text-sm font-medium text-[var(--md-sys-color-on-error-container)] animate-pulse'
+                          : 'btn-tonal'
+                      }
                       title={t('articleEditor.ttsHoldToRecord')}
                     >
                       <Mic className="h-3.5 w-3.5" />

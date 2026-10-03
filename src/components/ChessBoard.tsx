@@ -679,32 +679,37 @@ export default function ChessBoard({
       
       {/* Promotion dialog */}
       {promotionSquare && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-[var(--surface)] rounded-lg p-6 shadow-xl">
-            <div className="text-[var(--text)] mb-4 text-center font-semibold">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          style={{ backgroundColor: 'var(--modalOverlay)' }}
+        >
+          <div className="surface-container-high rounded-lg p-6 shadow-xl">
+            <div className="mb-4 text-center font-semibold text-on-surface">
               {texts.choosePromotionPiece || 'Choose promotion piece'}
             </div>
             <div className="grid grid-cols-4 gap-4">
               {(['q', 'r', 'b', 'n'] as const).map(piece => (
                 <button
                   key={piece}
+                  type="button"
                   onClick={() => handlePromotion(piece)}
-                  className="bg-[var(--primary)] text-[var(--onPrimary)] p-4 rounded-lg hover:opacity-90 transition-opacity"
+                  className="btn-icon-filled h-auto w-auto p-3"
                 >
                   <img
                     src={getPieceImage(game.turn() === 'w' ? piece.toUpperCase() : piece)}
                     alt={piece}
-                    className="w-12 h-12 mx-auto"
+                    className="h-12 w-12"
                   />
                 </button>
               ))}
             </div>
             <button
+              type="button"
               onClick={() => {
                 setPromotionSquare(null);
                 setSelectedSquare(null);
               }}
-              className="mt-4 w-full bg-[var(--surfaceHigh)] text-[var(--onPrimary)] py-2 rounded-lg hover:opacity-90 transition-opacity"
+              className="btn-text mt-4 w-full"
             >
               {texts.cancel || 'Cancel'}
             </button>

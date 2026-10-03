@@ -28,11 +28,7 @@ export function ArticleAudiosSection({
 }: ArticleAudiosSectionProps) {
   return (
     <div>
-      <SectionHeader
-        icon={Mic}
-        title={t('articleEditor.articleAudiosTitle')}
-        description={t('articleEditor.articleAudiosFormatRequired')}
-      />
+      <SectionHeader icon={Mic} title={t('articleEditor.articleAudiosTitle')} />
       <input
         ref={inputRef}
         type="file"
@@ -43,7 +39,7 @@ export function ArticleAudiosSection({
       <UploadButton
         label={t('articleEditor.addArticleAudio')}
         onClick={onOpenPicker}
-        className="mb-3 flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-[var(--border)] px-4 py-3 text-sm font-medium text-[var(--primary)] hover:bg-[var(--primarySubtle)]"
+        className="mb-3"
       />
       <AssetSlotList
         ids={ids}

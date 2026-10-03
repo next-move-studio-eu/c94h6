@@ -1,11 +1,90 @@
 import type { DerivedChessOverlayTokens } from './chessHighlightDerivation';
 
 /**
- * Semantic color token shape (includes EU keys on full theme merge).
- * Palette modules omit EU; applyTheme merges euBrandColors.
- * Chess square/arrow overlays are derived in buildThemeTokens from lightSquare, darkSquare, selectedHue.
+ * Material 3 role names. CSS variables are `--md-sys-color-<name>`.
+ * Chess squares are secondary-palette tones sampled per theme in buildThemeTokens.
+ * Chess overlays are derived there from those squares.
+ * EU badge colors are merged from euBrandColors and are not seed colors.
  */
-export type ThemeTokens = {
+export const MATERIAL_ROLE_NAMES = [
+  'primary',
+  'on-primary',
+  'primary-container',
+  'on-primary-container',
+  'inverse-primary',
+  'primary-fixed',
+  'primary-fixed-dim',
+  'on-primary-fixed',
+  'on-primary-fixed-variant',
+  'secondary',
+  'on-secondary',
+  'secondary-container',
+  'on-secondary-container',
+  'secondary-fixed',
+  'secondary-fixed-dim',
+  'on-secondary-fixed',
+  'on-secondary-fixed-variant',
+  'tertiary',
+  'on-tertiary',
+  'tertiary-container',
+  'on-tertiary-container',
+  'tertiary-fixed',
+  'tertiary-fixed-dim',
+  'on-tertiary-fixed',
+  'on-tertiary-fixed-variant',
+  'error',
+  'on-error',
+  'error-container',
+  'on-error-container',
+  'background',
+  'on-background',
+  'surface',
+  'surface-dim',
+  'surface-bright',
+  'surface-container-lowest',
+  'surface-container-low',
+  'surface-container',
+  'surface-container-high',
+  'surface-container-highest',
+  'surface-variant',
+  'on-surface',
+  'on-surface-variant',
+  'outline',
+  'outline-variant',
+  'inverse-surface',
+  'inverse-on-surface',
+  'shadow',
+  'scrim',
+  'surface-tint',
+] as const;
+
+/** Success, warning, and info, harmonized from the seed in colors.ts. */
+export const CUSTOM_ROLE_NAMES = [
+  'success',
+  'on-success',
+  'success-container',
+  'on-success-container',
+  'warning',
+  'on-warning',
+  'warning-container',
+  'on-warning-container',
+  'info',
+  'on-info',
+  'info-container',
+  'on-info-container',
+] as const;
+
+export type MaterialRoleName = (typeof MATERIAL_ROLE_NAMES)[number];
+export type CustomRoleName = (typeof CUSTOM_ROLE_NAMES)[number];
+export type SchemeCssVar = `md-sys-color-${MaterialRoleName | CustomRoleName}`;
+export type SchemeColorTokens = Record<SchemeCssVar, string>;
+
+/**
+ * Names already used by components. Values are copies of scheme roles so existing
+ * `var(--…)` references keep resolving until later tracks switch to shared classes.
+ * `outline` is reserved for focus; neutral strokes use `outline-variant`.
+ */
+export type LegacyThemeAliases = {
   bg: string;
   surface: string;
   surfaceHigh: string;
@@ -40,19 +119,22 @@ export type ThemeTokens = {
   onInfo: string;
   codeBg: string;
   codeBorder: string;
+};
+
+/** Chess-diagram colors sampled from the seed palettes in buildThemeTokens. */
+export type ChessContentColors = {
   lightSquare: string;
   darkSquare: string;
   frame: string;
-  /** Rank/file letters on the chess board frame (dark on light frame in light UI, light on dark frame in dark UI). */
   boardLabel: string;
-} & DerivedChessOverlayTokens & {
-  shadowSm: string;
-  shadowMd: string;
-  euBlue: string;
-  euGold: string;
 };
 
-/** Palette slices omit EU and omit derived chess overlays; `selectedHue` drives overlay OKLCH hues next to board squares. */
-export type PaletteTokens = Omit<ThemeTokens, 'euBlue' | 'euGold' | keyof DerivedChessOverlayTokens> & {
-  selectedHue: number;
-};
+export type ThemeTokens = SchemeColorTokens &
+  LegacyThemeAliases &
+  ChessContentColors &
+  DerivedChessOverlayTokens & {
+    shadowSm: string;
+    shadowMd: string;
+    euBlue: string;
+    euGold: string;
+  };

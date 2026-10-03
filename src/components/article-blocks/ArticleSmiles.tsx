@@ -11,9 +11,9 @@ export interface ArticleSmilesProps {
 
 export default function ArticleSmiles({ smiles, title }: ArticleSmilesProps) {
   const { rdkit, ready, error } = useRDKit();
-  const { mode, paletteId } = useTheme();
+  const { mode } = useTheme();
   const { t } = useTranslation('articleBlocks');
-  const textColor = buildThemeTokens(mode, paletteId).text;
+  const textColor = buildThemeTokens(mode).text;
 
   let body: React.ReactNode;
   if (!smiles.trim()) {
@@ -22,7 +22,7 @@ export default function ArticleSmiles({ smiles, title }: ArticleSmilesProps) {
     body = (
       <p className="text-sm text-[var(--textSecondary)]">
         {t('articleSmiles.viewerUnavailable')}{' '}
-        <code className="rounded bg-[var(--surfaceHigh)] px-1">{smiles}</code>
+        <code className="rounded surface-container-highest px-1">{smiles}</code>
       </p>
     );
   } else if (!ready || !rdkit) {
@@ -33,7 +33,7 @@ export default function ArticleSmiles({ smiles, title }: ArticleSmilesProps) {
       body = (
         <p className="text-sm text-[var(--textSecondary)]">
           {t('articleSmiles.invalidSmiles')}{' '}
-          <code className="rounded bg-[var(--surfaceHigh)] px-1">{smiles}</code>
+          <code className="rounded surface-container-highest px-1">{smiles}</code>
         </p>
       );
     } else {
@@ -50,7 +50,7 @@ export default function ArticleSmiles({ smiles, title }: ArticleSmilesProps) {
         body = (
           <p className="text-sm text-[var(--textSecondary)]">
             {t('articleSmiles.smilesLabel')}{' '}
-            <code className="rounded bg-[var(--surfaceHigh)] px-1">{smiles}</code>
+            <code className="rounded surface-container-highest px-1">{smiles}</code>
           </p>
         );
       }

@@ -25,7 +25,7 @@ export default function ArticleEditorPreview({ blocks }: ArticleEditorPreviewPro
 
   if (!hasContent) {
     return (
-      <p className="text-sm text-[var(--textDisabled)]">{t('articleEditor.previewEmpty')}</p>
+      <p className="text-sm text-on-surface-variant">{t('articleEditor.previewEmpty')}</p>
     );
   }
 

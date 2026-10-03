@@ -40,14 +40,8 @@ export default function PhotoArticleFullscreen({
               }}
             >
               <button
-                className="backdrop-blur-sm rounded-lg p-2.5 transition-all duration-200 hover:scale-110 active:scale-95"
-                style={{ backgroundColor: 'rgba(0,0,0,0.45)' }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.65)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.45)';
-                }}
+                type="button"
+                className="btn-icon-filled"
                 title={t('videoPlayer.exitFullscreen')}
                 aria-label={t('videoPlayer.exitFullscreen')}
               >

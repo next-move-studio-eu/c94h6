@@ -36,14 +36,14 @@ export function AssetSlotList({
           />
           <label
             htmlFor={`${inputPrefix}-${id}`}
-            className="min-w-0 flex-1 cursor-pointer rounded border border-[var(--border)] px-3 py-2 text-left text-sm text-[var(--text)] hover:bg-[var(--hoverBg)]"
+            className="focus-ring min-w-0 flex-1 cursor-pointer rounded-lg bg-[var(--md-sys-color-secondary-container)] px-3 py-2 text-left text-sm text-[var(--md-sys-color-on-secondary-container)]"
           >
-            <span className="truncate">{getLabel(id)}</span>
+            <span className="block truncate">{getLabel(id)}</span>
           </label>
           <button
             type="button"
             onClick={() => onRemove(id)}
-            className="shrink-0 text-xs text-[var(--error)] hover:underline"
+            className="btn-text min-h-8 shrink-0 px-3 py-1 text-xs text-[var(--md-sys-color-error)]"
           >
             {removeLabel}
           </button>
