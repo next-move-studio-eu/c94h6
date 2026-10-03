@@ -752,7 +752,7 @@ export default function VideoRecorderPage() {
   };
 
   return (
-    <div className="h-screen overflow-hidden flex flex-col" style={{ backgroundColor: 'var(--bg)' }}>
+    <div className="h-screen overflow-hidden flex flex-col surface">
       <motion.div
         className={`flex gap-4 p-4 ${!isFullscreen ? 'flex-1 min-h-0 items-start justify-center' : 'flex-1 min-h-0'}`}
         initial={{ opacity: 0 }}
@@ -760,11 +760,7 @@ export default function VideoRecorderPage() {
         transition={{ duration: 0.3 }}
       >
         <div
-          className={`flex gap-0 rounded-xl overflow-hidden ${isFullscreen ? 'flex-1 min-h-0' : appMode === 'recording' ? 'flex-1 min-w-0' : 'flex-shrink-0 w-fit max-w-full'}`}
-          style={{
-            backgroundColor: 'var(--surface)',
-            boxShadow: 'var(--shadowSm)',
-          }}
+          className={`flex gap-0 rounded-xl overflow-hidden surface-container ${isFullscreen ? 'flex-1 min-h-0' : appMode === 'recording' ? 'flex-1 min-w-0' : 'flex-shrink-0 w-fit max-w-full'}`}
         >
           <div className={`flex gap-4 p-4 ${isFullscreen || appMode === 'recording' ? 'flex-1 min-h-0 min-w-0' : ''}`}>
             {appMode === 'recording' && !isFullscreen && (
@@ -898,9 +894,8 @@ export default function VideoRecorderPage() {
             {previewAudioUrl && (
               <div
                 ref={fullscreenControlsRef}
-                className="absolute bottom-0 left-0 right-0 w-full pb-4 px-4 transition-opacity duration-300"
+                className="absolute bottom-0 left-0 right-0 w-full pb-4 px-4 transition-opacity duration-300 surface-container-high"
                 style={{
-                  backgroundColor: 'var(--surface)',
                   opacity: showFullscreenControls ? 1 : 0,
                   pointerEvents: showFullscreenControls ? 'auto' : 'none',
                 }}
@@ -947,7 +942,7 @@ export default function VideoRecorderPage() {
               </div>
             </div>
 
-            <div className="w-96 flex-shrink-0 flex flex-col gap-3 overflow-y-auto border-l p-4" style={{ backgroundColor: 'var(--surface)', borderColor: 'var(--divider)' }}>
+            <div className="w-96 flex-shrink-0 flex flex-col gap-3 overflow-y-auto surface-container-high p-4">
               <RecorderHighlightPanel
                 layout="fullscreen"
                 boardMode={boardMode}
@@ -1001,16 +996,7 @@ export default function VideoRecorderPage() {
                   <motion.button
                     type="button"
                     onClick={() => setLookingOnWhite((prev) => !prev)}
-                    className="flex-shrink-0 p-2 rounded-lg transition-colors duration-150"
-                    style={{ color: 'var(--textSecondary)' }}
-                    onMouseEnter={(event) => {
-                      (event.currentTarget as HTMLElement).style.backgroundColor = 'var(--hoverBg)';
-                      (event.currentTarget as HTMLElement).style.color = 'var(--text)';
-                    }}
-                    onMouseLeave={(event) => {
-                      (event.currentTarget as HTMLElement).style.backgroundColor = '';
-                      (event.currentTarget as HTMLElement).style.color = 'var(--textSecondary)';
-                    }}
+                    className="btn-icon flex-shrink-0"
                     title={t('videoRecorderPage.rotateBoard')}
                     aria-label={t('videoRecorderPage.rotateBoard')}
                     whileTap={{ scale: 0.98 }}
@@ -1025,16 +1011,7 @@ export default function VideoRecorderPage() {
                   <motion.button
                     type="button"
                     onClick={handleFullscreen}
-                    className="flex-shrink-0 p-2 rounded-lg transition-colors duration-150"
-                    style={{ color: 'var(--textSecondary)' }}
-                    onMouseEnter={(event) => {
-                      (event.currentTarget as HTMLElement).style.backgroundColor = 'var(--hoverBg)';
-                      (event.currentTarget as HTMLElement).style.color = 'var(--text)';
-                    }}
-                    onMouseLeave={(event) => {
-                      (event.currentTarget as HTMLElement).style.backgroundColor = '';
-                      (event.currentTarget as HTMLElement).style.color = 'var(--textSecondary)';
-                    }}
+                    className="btn-icon flex-shrink-0"
                     title={t('videoRecorderPage.videoPlayerExitFullscreen')}
                     aria-label={t('videoRecorderPage.videoPlayerExitFullscreen')}
                     whileTap={{ scale: 0.98 }}
@@ -1047,7 +1024,7 @@ export default function VideoRecorderPage() {
 
                 <motion.button
                   onClick={handleNewGame}
-                  className="w-full px-3 py-1.5 text-sm bg-[var(--surfaceHigh)] text-[var(--text)] rounded hover:opacity-90 transition-opacity"
+                  className="btn-tonal w-full"
                   whileTap={{ scale: 0.99 }}
                 >
                   {t('videoRecorderPage.newGameButton')}
@@ -1055,7 +1032,7 @@ export default function VideoRecorderPage() {
 
                 <motion.button
                   onClick={() => setIsCopyPopupOpen(true)}
-                  className="w-full px-3 py-1.5 text-sm bg-[var(--surfaceHigh)] text-[var(--text)] rounded hover:opacity-90 transition-opacity"
+                  className="btn-tonal w-full"
                   whileTap={{ scale: 0.99 }}
                 >
                   {fenCopiedFeedback

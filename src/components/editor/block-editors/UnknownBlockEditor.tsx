@@ -24,14 +24,14 @@ export function UnknownBlockEditor({
       onMoveDown={onMoveDown}
       onRemove={onRemove}
     >
-      <details className="rounded border border-amber-500/50 bg-amber-500/10 overflow-hidden">
-        <summary className="cursor-pointer list-none px-3 py-2 text-sm text-amber-700 dark:text-amber-400 [&::-webkit-details-marker]:hidden [&::marker]:hidden">
+      <details className="overflow-hidden rounded-xl">
+        <summary className="cursor-pointer list-none bg-[var(--md-sys-color-error-container)] px-3 py-2 text-sm text-[var(--md-sys-color-on-error-container)] [&::-webkit-details-marker]:hidden [&::marker]:hidden">
           <span className="select-none">
             {t('articleEditor.blockUnknown')}: {typeLabel}
           </span>
-          <span className="ml-1 inline-block text-amber-600 dark:text-amber-500" aria-hidden>▾</span>
+          <span className="ml-1 inline-block" aria-hidden>▾</span>
         </summary>
-        <pre className="border-t border-amber-500/30 bg-[var(--surface)] p-3 font-mono text-xs text-[var(--text)] whitespace-pre-wrap overflow-x-auto m-0">
+        <pre className="surface-container-high m-0 overflow-x-auto whitespace-pre-wrap p-3 font-mono text-xs text-[var(--md-sys-color-on-surface)]">
           {prettyJson}
         </pre>
       </details>

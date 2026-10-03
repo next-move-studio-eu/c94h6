@@ -28,15 +28,15 @@ export default function SlideshowRecorderRecordingControls({
       className="flex-shrink-0 w-[22rem] flex flex-col gap-4 overflow-y-auto min-h-0 self-stretch scrollbar-theme"
       style={previewColumnHeight ? { maxHeight: previewColumnHeight } : undefined}
     >
-      <div className="flex flex-col rounded-2xl p-4" style={{ backgroundColor: 'var(--surface)' }}>
+      <div className="flex flex-col rounded-xl p-4 surface-container-high">
         <div className="flex-shrink-0 w-full space-y-3">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-lg font-semibold text-text flex items-center gap-2">
-              <span className="w-1 h-6 rounded-full" style={{ backgroundColor: 'var(--primary)' }} />
+            <h2 className="text-lg font-semibold flex items-center gap-2">
+              <span className="w-1 h-6 rounded-full bg-primary" />
               {recordingTitle}
             </h2>
             {(recordingState === 'recording' || recordingState === 'paused') && (
-              <div className="text-2xl font-mono font-bold" style={{ color: 'var(--primary)' }}>
+              <div className="text-2xl font-mono font-bold text-primary">
                 {formatRecordingTime(elapsedTime)}
               </div>
             )}
@@ -46,26 +46,7 @@ export default function SlideshowRecorderRecordingControls({
               <motion.button
                 onClick={onStartRecording}
                 disabled={!isWebMSupported}
-                className="px-4 py-2 rounded-lg text-sm font-semibold transition-colors duration-150"
-                style={
-                  isWebMSupported
-                    ? { backgroundColor: 'var(--primary)', color: 'var(--onPrimary)' }
-                    : {
-                        backgroundColor: 'var(--surfaceHigh)',
-                        color: 'var(--textDisabled)',
-                        cursor: 'not-allowed',
-                      }
-                }
-                onMouseEnter={(event) => {
-                  if (isWebMSupported) {
-                    (event.currentTarget as HTMLElement).style.backgroundColor = 'var(--primaryHover)';
-                  }
-                }}
-                onMouseLeave={(event) => {
-                  if (isWebMSupported) {
-                    (event.currentTarget as HTMLElement).style.backgroundColor = 'var(--primary)';
-                  }
-                }}
+                className="btn-filled"
                 title={!isWebMSupported ? webmNotSupportedTitle : ''}
                 whileTap={isWebMSupported ? { scale: 0.98 } : {}}
               >
@@ -89,25 +70,21 @@ export default function SlideshowRecorderRecordingControls({
 
             <div className="ml-auto text-sm font-medium">
               {recordingState === 'recording' ? (
-                <span className="animate-pulse" style={{ color: 'var(--error)' }}>
-                  {recordingStatusLabel}
-                </span>
+                <span className="animate-pulse text-error">{recordingStatusLabel}</span>
               ) : null}
               {recordingState === 'paused' ? (
-                <span style={{ color: 'var(--warning)' }}>{pausedStatusLabel}</span>
+                <span className="text-warning">{pausedStatusLabel}</span>
               ) : null}
               {recordingState === 'idle' ? (
-                <span style={{ color: 'var(--textSecondary)' }}>{idleStatusLabel}</span>
+                <span className="text-on-surface-variant">{idleStatusLabel}</span>
               ) : null}
             </div>
           </div>
         </div>
         {!isWebMSupported ? (
-          <div className="flex-shrink-0 mt-4 pt-4 border-t" style={{ borderColor: 'var(--divider)' }}>
-            <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--error)', color: 'var(--onError)' }}>
-              <div className="font-bold text-lg mb-2">{unsupportedBrowserLabel}</div>
-              <div className="text-sm opacity-95">{webmNotSupportedLabel}</div>
-            </div>
+          <div className="mt-4 p-4 rounded-xl bg-error-container text-on-error-container">
+            <div className="font-bold text-lg mb-2">{unsupportedBrowserLabel}</div>
+            <div className="text-sm">{webmNotSupportedLabel}</div>
           </div>
         ) : null}
       </div>
@@ -126,43 +103,10 @@ function ActionButton({
   primary?: boolean;
   danger?: boolean;
 }) {
-  const style = danger
-    ? { backgroundColor: 'var(--error)', color: 'var(--onError)' }
-    : primary
-      ? { backgroundColor: 'var(--primary)', color: 'var(--onPrimary)' }
-      : {
-          borderColor: 'var(--border)',
-          color: 'var(--text)',
-          backgroundColor: 'var(--surfaceHigh)',
-        };
+  const className = danger ? 'btn-filled !bg-error !text-on-error' : primary ? 'btn-filled' : 'btn-tonal';
 
   return (
-    <motion.button
-      onClick={onClick}
-      className={`px-4 py-2 rounded-lg text-sm ${primary || danger ? 'font-semibold' : 'font-medium'} transition-colors duration-150 ${primary || danger ? '' : 'border'}`}
-      style={style}
-      onMouseEnter={(event) => {
-        if (primary) {
-          (event.currentTarget as HTMLElement).style.backgroundColor = 'var(--primaryHover)';
-        } else if (danger) {
-          (event.currentTarget as HTMLElement).style.opacity = '0.9';
-        } else {
-          (event.currentTarget as HTMLElement).style.borderColor = 'var(--primary)';
-          (event.currentTarget as HTMLElement).style.backgroundColor = 'var(--primarySubtle)';
-        }
-      }}
-      onMouseLeave={(event) => {
-        if (primary) {
-          (event.currentTarget as HTMLElement).style.backgroundColor = 'var(--primary)';
-        } else if (danger) {
-          (event.currentTarget as HTMLElement).style.opacity = '1';
-        } else {
-          (event.currentTarget as HTMLElement).style.borderColor = 'var(--border)';
-          (event.currentTarget as HTMLElement).style.backgroundColor = 'var(--surfaceHigh)';
-        }
-      }}
-      whileTap={{ scale: 0.98 }}
-    >
+    <motion.button onClick={onClick} className={className} whileTap={{ scale: 0.98 }}>
       {label}
     </motion.button>
   );

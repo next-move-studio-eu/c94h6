@@ -114,3 +114,186 @@ body {
 .scrollbar-theme::-webkit-scrollbar-thumb:hover {
   background: var(--primary);
 }
+
+/* Shared Material surfaces, buttons, fields, and focus. Later tracks apply these classes. */
+@layer components {
+  .surface,
+  .surface-dim,
+  .surface-bright,
+  .surface-container-lowest,
+  .surface-container-low,
+  .surface-container,
+  .surface-container-high,
+  .surface-container-highest {
+    color: var(--md-sys-color-on-surface);
+  }
+
+  .surface { background-color: var(--md-sys-color-surface); }
+  .surface-dim { background-color: var(--md-sys-color-surface-dim); }
+  .surface-bright { background-color: var(--md-sys-color-surface-bright); }
+  .surface-container-lowest { background-color: var(--md-sys-color-surface-container-lowest); }
+  .surface-container-low { background-color: var(--md-sys-color-surface-container-low); }
+  .surface-container { background-color: var(--md-sys-color-surface-container); }
+  .surface-container-high { background-color: var(--md-sys-color-surface-container-high); }
+  .surface-container-highest { background-color: var(--md-sys-color-surface-container-highest); }
+
+  .btn-filled,
+  .btn-tonal,
+  .btn-text,
+  .btn-icon,
+  .btn-icon-filled,
+  .btn-icon-tonal {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 500;
+    line-height: 1.25;
+    text-decoration: none;
+  }
+
+  .btn-filled,
+  .btn-tonal,
+  .btn-text {
+    min-height: 2.5rem;
+    padding: 0.625rem 1.5rem;
+  }
+
+  .btn-text {
+    padding-inline: 0.75rem;
+    background-color: transparent;
+    color: var(--md-sys-color-primary);
+  }
+
+  .btn-filled {
+    background-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+  }
+
+  .btn-tonal {
+    background-color: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
+  }
+
+  .btn-icon,
+  .btn-icon-filled,
+  .btn-icon-tonal {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+  }
+
+  .btn-icon {
+    background-color: transparent;
+    color: var(--md-sys-color-on-surface-variant);
+  }
+
+  .btn-icon-filled {
+    background-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+  }
+
+  .btn-icon-tonal {
+    background-color: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
+  }
+
+  .btn-filled:hover:not(:disabled) {
+    background-color: color-mix(in srgb, var(--md-sys-color-on-primary) 8%, var(--md-sys-color-primary));
+  }
+
+  .btn-filled:active:not(:disabled) {
+    background-color: color-mix(in srgb, var(--md-sys-color-on-primary) 12%, var(--md-sys-color-primary));
+  }
+
+  .btn-tonal:hover:not(:disabled) {
+    background-color: color-mix(in srgb, var(--md-sys-color-on-secondary-container) 8%, var(--md-sys-color-secondary-container));
+  }
+
+  .btn-tonal:active:not(:disabled) {
+    background-color: color-mix(in srgb, var(--md-sys-color-on-secondary-container) 12%, var(--md-sys-color-secondary-container));
+  }
+
+  .btn-text:hover:not(:disabled) {
+    background-color: color-mix(in srgb, var(--md-sys-color-primary) 8%, transparent);
+  }
+
+  .btn-text:active:not(:disabled) {
+    background-color: color-mix(in srgb, var(--md-sys-color-primary) 12%, transparent);
+  }
+
+  .btn-icon:hover:not(:disabled) {
+    background-color: color-mix(in srgb, var(--md-sys-color-on-surface-variant) 8%, transparent);
+  }
+
+  .btn-icon:active:not(:disabled) {
+    background-color: color-mix(in srgb, var(--md-sys-color-on-surface-variant) 12%, transparent);
+  }
+
+  .btn-icon-filled:hover:not(:disabled) {
+    background-color: color-mix(in srgb, var(--md-sys-color-on-primary) 8%, var(--md-sys-color-primary));
+  }
+
+  .btn-icon-filled:active:not(:disabled) {
+    background-color: color-mix(in srgb, var(--md-sys-color-on-primary) 12%, var(--md-sys-color-primary));
+  }
+
+  .btn-icon-tonal:hover:not(:disabled) {
+    background-color: color-mix(in srgb, var(--md-sys-color-on-secondary-container) 8%, var(--md-sys-color-secondary-container));
+  }
+
+  .btn-icon-tonal:active:not(:disabled) {
+    background-color: color-mix(in srgb, var(--md-sys-color-on-secondary-container) 12%, var(--md-sys-color-secondary-container));
+  }
+
+  .btn-filled:disabled,
+  .btn-tonal:disabled,
+  .btn-text:disabled,
+  .btn-icon:disabled,
+  .btn-icon-filled:disabled,
+  .btn-icon-tonal:disabled,
+  .field-filled:disabled {
+    opacity: 0.38;
+    cursor: not-allowed;
+  }
+
+  .btn-filled:focus-visible,
+  .btn-tonal:focus-visible,
+  .btn-text:focus-visible,
+  .btn-icon:focus-visible,
+  .btn-icon-filled:focus-visible,
+  .btn-icon-tonal:focus-visible,
+  .focus-ring:focus-visible {
+    outline: 2px solid var(--md-sys-color-outline);
+    outline-offset: 2px;
+  }
+
+  .field-filled {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 1px solid var(--md-sys-color-on-surface-variant);
+    border-radius: 0.25rem 0.25rem 0 0;
+    background-color: var(--md-sys-color-surface-container-highest);
+    color: var(--md-sys-color-on-surface);
+    padding: 0.75rem 1rem;
+    font: inherit;
+  }
+
+  .field-filled::placeholder {
+    color: var(--md-sys-color-on-surface-variant);
+  }
+
+  .field-filled:focus {
+    border-bottom: 2px solid var(--md-sys-color-primary);
+  }
+
+  .field-filled:focus:not(.focus-ring) {
+    outline: none;
+  }
+}

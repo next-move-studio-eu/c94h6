@@ -17,14 +17,11 @@ export default function SlideshowRecorderFullscreen({
   return (
     <div
       ref={fullscreenRef}
-      className="fixed inset-0 z-50 overflow-hidden"
+      className="fixed inset-0 z-50 overflow-hidden flex flex-col surface"
       style={{
-        background: 'var(--bg)',
         visibility: isFullscreen ? 'visible' : 'hidden',
         pointerEvents: isFullscreen ? 'auto' : 'none',
         opacity: isFullscreen ? 1 : 0,
-        display: 'flex',
-        flexDirection: 'column',
       }}
     >
       <div
@@ -53,15 +50,14 @@ export default function SlideshowRecorderFullscreen({
             />
           </>
         ) : (
-          <div className="text-[var(--textSecondary)]">{noImageLabel}</div>
+          <div className="text-on-surface-variant">{noImageLabel}</div>
         )}
       </div>
 
       <div
         ref={fullscreenControlsRef}
-        className="absolute bottom-0 left-0 right-0 w-full pb-4 px-4 transition-opacity duration-300"
+        className="absolute bottom-0 left-0 right-0 w-full pb-4 px-4 transition-opacity duration-300 surface-container-high"
         style={{
-          backgroundColor: 'var(--bg)',
           opacity: showFullscreenControls ? 1 : 0,
           pointerEvents: showFullscreenControls ? 'auto' : 'none',
         }}

@@ -45,6 +45,15 @@ export const CODE_LANGUAGES = [
   { value: 'markdown', label: 'Markdown' },
 ];
 
+/** Checkbox control face. The outline stroke marks the control; the focus ring stays. */
+export function checkboxFaceClass(checked: boolean): string {
+  const base =
+    'flex h-3.5 w-3.5 items-center justify-center rounded border-2 transition-colors peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[var(--md-sys-color-outline)]';
+  return checked
+    ? `${base} border-[var(--md-sys-color-primary)] bg-[var(--md-sys-color-primary)]`
+    : `${base} border-[var(--md-sys-color-outline)] bg-[var(--md-sys-color-surface-container-highest)] group-hover:border-[var(--md-sys-color-primary)]`;
+}
+
 /** Accordion icon type options. */
 export const ACCORDION_TYPES = [
   'Info',

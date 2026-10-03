@@ -14,7 +14,6 @@ import { RecorderSessionProvider } from './contexts/RecorderSessionContext';
 import { ArticleSessionProvider } from './contexts/ArticleSessionContext';
 import { isTauriShell, resolveExternalBrowserUrl } from './utils/externalLinks';
 import ThemeToggle from './components/ThemeToggle';
-import PaletteSelect from './components/PaletteSelect';
 
 function AppShell() {
   const { t } = useTranslation('appShell');
@@ -61,18 +60,16 @@ function AppShell() {
   ] as const;
 
   return (
-    <div className="min-h-screen flex flex-col bg-editor-background text-editor-text">
-      <header className="sticky top-0 z-50 border-b border-editor-border bg-editor-surface">
+    <div className="min-h-screen flex flex-col surface">
+      <header className="sticky top-0 z-50 surface-container">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-          <nav className="flex items-center gap-4">
+          <nav className="flex items-center gap-1">
             {nav.map(({ path, labelKey }) => (
               <Link
                 key={path}
                 to={path}
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  location.pathname === path
-                    ? 'bg-editor-primary text-editor-on-primary'
-                    : 'text-editor-text hover:bg-editor-surface hover:text-editor-primary'
+                className={`text-sm ${
+                  location.pathname === path ? 'btn-filled' : 'btn-text'
                 }`}
               >
                 {t(labelKey)}
@@ -80,7 +77,6 @@ function AppShell() {
             ))}
           </nav>
           <div className="flex items-center gap-2">
-            <PaletteSelect />
             <ThemeToggle />
             <div className="flex gap-1">
               {(['en', 'cs'] as const).map((lang) => (
@@ -93,7 +89,7 @@ function AppShell() {
                       localStorage.setItem('editorLang', lang);
                     } catch (_) {}
                   }}
-                  className={`px-2 py-1 rounded text-sm ${language === lang ? 'bg-editor-primary text-editor-on-primary' : 'text-editor-muted hover:text-editor-text'}`}
+                  className={`text-sm ${language === lang ? 'btn-tonal' : 'btn-text'}`}
                 >
                   {lang.toUpperCase()}
                 </button>

@@ -29,7 +29,7 @@ export function DotBlockEditor({
         placeholder={t('articleEditor.placeholderDot')}
         rows={8}
         spellCheck={false}
-        className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2 font-mono text-sm text-[var(--text)] focus:border-[var(--primary)] focus:outline-none"
+        className="field-filled focus-ring resize-y font-mono"
       />
     </BlockWrapper>
   );

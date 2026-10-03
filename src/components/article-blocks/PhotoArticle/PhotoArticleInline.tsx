@@ -98,16 +98,8 @@ export default function PhotoArticleInline({
             }}
           >
             <button
-              className={`backdrop-blur-sm rounded-lg transition-all duration-200 hover:scale-110 active:scale-95 ${
-                isPreview ? 'p-1.5' : 'p-2.5'
-              }`}
-              style={{ backgroundColor: 'rgba(0,0,0,0.45)' }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.65)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.45)';
-              }}
+              type="button"
+              className="btn-icon-filled"
               title={t('videoPlayer.enterFullscreen')}
               aria-label={t('videoPlayer.enterFullscreen')}
             >

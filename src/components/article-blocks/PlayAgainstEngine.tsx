@@ -46,43 +46,31 @@ export default function PlayAgainstEngine({
       <button
         type="button"
         onClick={handleClick}
-        className="rounded-lg px-5 py-2.5 text-sm font-semibold transition-colors w-full max-w-md cursor-pointer hover:opacity-90 border-0"
-        style={{
-          backgroundColor: `var(--primary)`,
-          color: `var(--onPrimary)`,
-        }}
+        className="btn-filled w-full max-w-md"
       >
         {buttonText}
       </button>
       {isPreview && showPopup && (
         <>
           <div
-            className="fixed inset-0 z-40 bg-black/40"
+            className="fixed inset-0 z-40"
+            style={{ backgroundColor: 'var(--modalOverlay)' }}
             aria-hidden
             onClick={() => setShowPopup(false)}
           />
           <div
-            className="fixed left-1/2 top-1/2 z-50 w-[min(90vw,320px)] -translate-x-1/2 -translate-y-1/2 rounded-xl border-2 p-4 shadow-lg"
-            style={{
-              borderColor: 'var(--border)',
-              backgroundColor: 'var(--surfaceHigh)',
-              color: 'var(--text)',
-            }}
+            className="surface-container-high fixed left-1/2 top-1/2 z-50 w-[min(90vw,320px)] -translate-x-1/2 -translate-y-1/2 rounded-[1.75rem] p-6"
             role="dialog"
             aria-modal="true"
             aria-labelledby="play-engine-popup-title"
           >
-            <p id="play-engine-popup-title" className="text-sm font-medium mb-4">
+            <p id="play-engine-popup-title" className="mb-4 text-sm font-medium">
               {t('playEngine.notAvailableInEditor')}
             </p>
             <button
               type="button"
               onClick={() => setShowPopup(false)}
-              className="rounded-lg px-4 py-2 text-sm font-semibold border-0 cursor-pointer hover:opacity-90"
-              style={{
-                backgroundColor: 'var(--primary)',
-                color: 'var(--onPrimary)',
-              }}
+              className="btn-text"
             >
               {t('common.ok')}
             </button>

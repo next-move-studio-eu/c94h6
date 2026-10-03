@@ -11,7 +11,7 @@ export function UploadButton({ label, onClick, className }: UploadButtonProps) {
     <button
       type="button"
       onClick={onClick}
-      className={className ?? 'flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-[var(--border)] py-3 text-sm font-medium text-[var(--primary)] hover:bg-[var(--primarySubtle)]'}
+      className={['btn-tonal w-full rounded-xl', className].filter(Boolean).join(' ')}
     >
       <Upload className="h-4 w-4" />
       {label}

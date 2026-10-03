@@ -111,19 +111,11 @@ export default function ArticleAudio({
   const progress = displayDuration > 0 ? (currentTime / displayDuration) * 100 : 0;
 
   return (
-    <div
-      className="rounded-lg overflow-hidden border"
-      style={{
-        backgroundColor: `var(--surfaceHigh)`,
-        borderColor: `var(--borderSubtle)`,
-        boxShadow: `var(--shadowSm)`,
-      }}
-    >
+    <div className="overflow-hidden rounded-xl surface-container-high">
       <button
         type="button"
         onClick={() => setIsOpen((o) => !o)}
-        className="w-full flex items-center gap-2 px-4 py-3 text-left"
-        style={{ color: `var(--text)` }}
+        className="focus-ring flex w-full items-center gap-2 px-4 py-3 text-left hover:bg-[color-mix(in_srgb,var(--md-sys-color-on-surface)_8%,transparent)]"
       >
         <ChevronDown
           className="w-4 h-4 shrink-0 transition-transform"
@@ -136,7 +128,7 @@ export default function ArticleAudio({
         )}
       </button>
       {isOpen && (
-        <div className="px-4 pb-4 pt-0">
+        <div className="px-4 pb-4 pt-3">
           {loadError && (
             <p className="text-sm py-2" style={{ color: `var(--error)` }}>
               {loadError}
@@ -158,11 +150,7 @@ export default function ArticleAudio({
                 <button
                   type="button"
                   onClick={isPlaying ? handlePause : handlePlay}
-                  className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
-                  style={{
-                    backgroundColor: `var(--primary)`,
-                    color: `var(--onPrimary)`,
-                  }}
+                  className="btn-icon-filled shrink-0"
                 >
                   {isPlaying ? (
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -180,11 +168,7 @@ export default function ArticleAudio({
                     role="progressbar"
                     tabIndex={0}
                     onClick={handleSeek}
-                    className="w-full h-2 rounded-full cursor-pointer border"
-                    style={{
-                      backgroundColor: `var(--surfaceHigh)`,
-                      borderColor: `var(--border)`,
-                    }}
+                    className="h-2 w-full cursor-pointer rounded-full bg-[var(--md-sys-color-surface-container-highest)]"
                   >
                     <div
                       className="h-full rounded-full transition-all"

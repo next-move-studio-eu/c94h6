@@ -58,10 +58,10 @@ export function PieBlockEditor({
   const sliceRows = data.map((slice, i) => (
     <li
       key={i}
-      className="flex flex-wrap items-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] p-3"
+      className="surface-container-high flex flex-wrap items-center gap-2 rounded-xl p-3"
     >
       <span
-        className="shrink-0 w-5 h-5 rounded border border-[var(--border)]"
+        className="h-5 w-5 shrink-0 rounded-full"
         style={{ backgroundColor: ensureHex(slice.color) }}
         aria-hidden
       />
@@ -71,7 +71,7 @@ export function PieBlockEditor({
         value={slice.label}
         onChange={(e) => updateSlice(i, { label: e.target.value })}
         placeholder={t('articleEditor.placeholderPieLabel')}
-        className="min-w-0 flex-1 rounded border border-[var(--border)] bg-[var(--surface)] px-2 py-1.5 text-sm text-[var(--text)] focus:border-[var(--primary)] focus:outline-none"
+        className="field-filled focus-ring min-w-0 w-auto flex-1"
       />
       <label className="sr-only">{t('articleEditor.pieSliceValue')}</label>
       <input
@@ -81,21 +81,21 @@ export function PieBlockEditor({
         value={slice.value}
         onChange={(e) => updateSlice(i, { value: Math.max(0, Number(e.target.value) || 0) })}
         placeholder="0"
-        className="w-20 rounded border border-[var(--border)] bg-[var(--surface)] px-2 py-1.5 text-sm text-[var(--text)] focus:border-[var(--primary)] focus:outline-none"
+        className="field-filled focus-ring w-20"
       />
       <div className="flex items-center gap-1">
         <input
           type="color"
           value={ensureHex(slice.color)}
           onChange={(e) => updateSlice(i, { color: e.target.value })}
-          className="h-8 w-8 cursor-pointer rounded border border-[var(--border)] bg-transparent p-0"
+          className="focus-ring h-10 w-10 cursor-pointer rounded-full border-none bg-transparent p-0"
           title={t('articleEditor.pieSliceColor')}
           aria-label={t('articleEditor.pieSliceColor')}
         />
         <button
           type="button"
           onClick={() => removeSlice(i)}
-          className="rounded p-1.5 text-[var(--textSecondary)] hover:bg-[var(--errorSubtle)] hover:text-[var(--error)]"
+          className="btn-icon"
           aria-label={t('articleEditor.remove')}
           title={t('articleEditor.remove')}
         >
@@ -117,7 +117,7 @@ export function PieBlockEditor({
     >
       <div className="space-y-4">
         <div>
-          <label className="mb-1 block text-xs text-[var(--textSecondary)]">
+          <label className="mb-1 block text-xs text-[var(--md-sys-color-on-surface-variant)]">
             {t('articleEditor.pieName')}
           </label>
           <input
@@ -125,11 +125,11 @@ export function PieBlockEditor({
             value={block.name}
             onChange={(e) => onUpdate({ ...block, name: e.target.value })}
             placeholder={t('articleEditor.placeholderPieName')}
-            className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text)] focus:border-[var(--primary)] focus:outline-none"
+            className="field-filled focus-ring"
           />
         </div>
         {data.length > 0 && (
-          <div className="flex justify-center rounded-lg border border-[var(--border)] bg-[var(--surfaceHigh)] p-3">
+          <div className="surface-container-high flex justify-center rounded-xl p-3">
             <PieDiagram name={block.name} data={data} className="pointer-events-none" />
           </div>
         )}
@@ -139,7 +139,7 @@ export function PieBlockEditor({
         <button
           type="button"
           onClick={addSlice}
-          className="flex w-full items-center justify-center gap-2 rounded-lg border border-dashed border-[var(--border)] bg-transparent py-2.5 text-sm font-medium text-[var(--textSecondary)] hover:border-[var(--primary)] hover:bg-[var(--primarySubtle)] hover:text-[var(--primary)]"
+          className="btn-tonal w-full"
         >
           <Plus className="h-4 w-4" />
           {t('articleEditor.pieAddSlice')}

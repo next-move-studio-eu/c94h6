@@ -43,7 +43,7 @@ export function ArticleVideosSection({
       <UploadButton
         label={t('articleEditor.addArticleVideo')}
         onClick={onOpenPicker}
-        className="mb-3 flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-[var(--border)] py-3 text-sm font-medium text-[var(--primary)] hover:bg-[var(--primarySubtle)]"
+        className="mb-3"
       />
       <AssetSlotList
         ids={ids}

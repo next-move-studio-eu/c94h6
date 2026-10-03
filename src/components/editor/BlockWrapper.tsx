@@ -43,19 +43,19 @@ export default function BlockWrapper({
   };
 
   return (
-    <div className="group relative rounded-r-xl border-l-4 border-[var(--primaryBorder)] bg-[var(--surface)] pl-4 pr-4 pt-3 pb-4 transition-all hover:border-[var(--primary)]">
+    <div className="surface-container-highest rounded-xl p-4">
       <div className="mb-3 flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          <span className="text-xs font-medium uppercase tracking-wider text-[var(--textSecondary)]">
+          <span className="text-xs font-medium uppercase tracking-wider text-[var(--md-sys-color-on-surface-variant)]">
             {blockLabel}
           </span>
-          <span className="inline-flex items-center gap-1 rounded-full border border-[var(--border)] px-2 py-0.5 text-[10px] font-medium text-[var(--textSecondary)]">
+          <span className="inline-flex items-center gap-1 rounded-lg bg-[var(--md-sys-color-secondary-container)] px-2 py-0.5 text-[10px] font-medium text-[var(--md-sys-color-on-secondary-container)]">
             <span>{t('articleEditor.blockIdPrefix')}</span>
-            <code className="font-mono text-[var(--text)]">{block.id}</code>
+            <code className="font-mono">{block.id}</code>
             <button
               type="button"
               onClick={copyBlockId}
-              className="rounded p-0.5 text-[var(--textSecondary)] hover:bg-[var(--hoverBg)] hover:text-[var(--primary)]"
+              className="btn-icon h-5 w-5 text-[var(--md-sys-color-on-secondary-container)]"
               aria-label={t(copied ? 'articleEditor.ariaBlockIdCopied' : 'articleEditor.ariaCopyBlockId')}
               title={t(copied ? 'articleEditor.ariaBlockIdCopied' : 'articleEditor.ariaCopyBlockId')}
             >
@@ -68,7 +68,7 @@ export default function BlockWrapper({
             type="button"
             onClick={onMoveUp}
             disabled={!canMoveUp}
-            className="rounded p-1.5 text-[var(--textSecondary)] hover:bg-[var(--hoverBg)] hover:text-[var(--primary)] disabled:opacity-40 disabled:hover:bg-transparent"
+            className="btn-icon h-8 w-8"
             aria-label={t('articleEditor.ariaMoveUp')}
           >
             <ChevronUp className="h-4 w-4" />
@@ -77,7 +77,7 @@ export default function BlockWrapper({
             type="button"
             onClick={onMoveDown}
             disabled={!canMoveDown}
-            className="rounded p-1.5 text-[var(--textSecondary)] hover:bg-[var(--hoverBg)] hover:text-[var(--primary)] disabled:opacity-40 disabled:hover:bg-transparent"
+            className="btn-icon h-8 w-8"
             aria-label={t('articleEditor.ariaMoveDown')}
           >
             <ChevronDown className="h-4 w-4" />
@@ -85,7 +85,7 @@ export default function BlockWrapper({
           <button
             type="button"
             onClick={onRemove}
-            className="rounded p-1.5 text-[var(--textSecondary)] hover:bg-[var(--errorSubtle)] hover:text-[var(--error)]"
+            className="btn-icon h-8 w-8 text-[var(--md-sys-color-error)]"
             aria-label={t('articleEditor.ariaRemove')}
           >
             <Trash2 className="h-4 w-4" />

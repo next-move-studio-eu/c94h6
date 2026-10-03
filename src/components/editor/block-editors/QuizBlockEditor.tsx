@@ -1,5 +1,4 @@
 import BlockWrapper from '../BlockWrapper';
-import Select from '../../Select';
 import type { QuizBlock, QuizType, QuizOptionItem, SortOptionItem, FixedCaptionItem, MatchOptionItem } from '../../../types/articleEditor';
 
 /** Shuffle array randomly (Fisher–Yates). Does not mutate keys/order fields, only the order of items in the list. */
@@ -12,7 +11,7 @@ function shuffleAnswers<T>(arr: T[]): T[] {
   return out;
 }
 import { useTranslation } from 'react-i18next';
-import { type BlockEditorProps } from './blockEditorShared';
+import { checkboxFaceClass, type BlockEditorProps } from './blockEditorShared';
 
 export function QuizBlockEditor({
   block,
@@ -50,41 +49,37 @@ export function QuizBlockEditor({
     };
     return (
       <div>
-        <span className="mb-2 block text-xs font-medium text-[var(--textSecondary)]">{t('articleEditor.quizOptions')}</span>
+        <span className="mb-2 block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)]">{t('articleEditor.quizOptions')}</span>
         <div className="space-y-2">
           {options.map((opt, idx) => (
             <div key={idx} className="flex items-center gap-2">
               <label className="flex items-center gap-2 cursor-pointer w-fit group shrink-0">
                 <span className="relative inline-flex shrink-0">
                   <input type="checkbox" checked={opt.isCorrect} onChange={(e) => setOption(idx, opt.text, e.target.checked)} className="sr-only peer" />
-                  <span
-                    className={`w-3.5 h-3.5 rounded border-2 flex items-center justify-center transition-colors peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-0 peer-focus-visible:outline-[var(--primary)] ${opt.isCorrect ? 'border-[var(--primary)]' : 'border-[var(--border)] group-hover:border-[var(--primary)]'}`}
-                    style={{ backgroundColor: opt.isCorrect ? 'var(--primary)' : 'var(--bg)' }}
-                    aria-hidden="true"
-                  >
+                  <span className={checkboxFaceClass(opt.isCorrect)} aria-hidden="true">
                     {opt.isCorrect && (
-                      <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0" style={{ stroke: 'var(--onPrimary)' }} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0" style={{ stroke: 'var(--md-sys-color-on-primary)' }} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M1 4l3 3 5-6" />
                       </svg>
                     )}
                   </span>
                 </span>
-                <span className="text-xs text-[var(--textSecondary)]">{t('articleEditor.quizCorrect')}</span>
+                <span className="text-xs text-[var(--md-sys-color-on-surface-variant)]">{t('articleEditor.quizCorrect')}</span>
               </label>
               <input
                 type="text"
                 value={opt.text}
                 onChange={(e) => setOption(idx, e.target.value, opt.isCorrect)}
                 placeholder={t('articleEditor.placeholderQuizOption')}
-                className="flex-1 min-w-0 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text)] focus:border-[var(--primary)] focus:outline-none"
+                className="field-filled focus-ring min-w-0 w-auto flex-1"
               />
               {options.length > 1 && (
-                <button type="button" onClick={() => removeOption(idx)} className="shrink-0 rounded p-1.5 text-[var(--textSecondary)] hover:bg-[var(--errorSubtle)] hover:text-[var(--error)]" aria-label={t('articleEditor.ariaRemove')}>×</button>
+                <button type="button" onClick={() => removeOption(idx)} className="btn-icon shrink-0" aria-label={t('articleEditor.ariaRemove')}>×</button>
               )}
             </div>
           ))}
         </div>
-        <button type="button" onClick={addOption} className="mt-2 rounded border border-dashed border-[var(--border)] px-3 py-1 text-xs text-[var(--textSecondary)] hover:border-[var(--primary)] hover:text-[var(--text)]">
+        <button type="button" onClick={addOption} className="btn-tonal mt-2">
           + {t('articleEditor.quizAddOption')}
         </button>
       </div>
@@ -102,7 +97,7 @@ export function QuizBlockEditor({
     };
     return (
       <div>
-        <span className="mb-2 block text-xs font-medium text-[var(--textSecondary)]">{t('articleEditor.quizSortItems')}</span>
+        <span className="mb-2 block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)]">{t('articleEditor.quizSortItems')}</span>
         <div className="space-y-2">
           {items.map((item, idx) => (
             <div key={idx} className="flex items-center gap-2">
@@ -111,7 +106,7 @@ export function QuizBlockEditor({
                 min="1"
                 value={item.order}
                 onChange={(e) => setItem(idx, item.caption, parseInt(e.target.value, 10) || 1)}
-                className="w-14 shrink-0 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-2 py-2 text-sm text-center text-[var(--text)] focus:border-[var(--primary)] focus:outline-none"
+                className="field-filled focus-ring w-14 shrink-0 text-center"
                 title={t('articleEditor.quizSortOrder')}
               />
               <input
@@ -119,23 +114,23 @@ export function QuizBlockEditor({
                 value={item.caption}
                 onChange={(e) => setItem(idx, e.target.value, item.order)}
                 placeholder={t('articleEditor.placeholderSortCaption')}
-                className="flex-1 min-w-0 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text)] focus:border-[var(--primary)] focus:outline-none"
+                className="field-filled focus-ring min-w-0 w-auto flex-1"
               />
               {items.length > 2 && (
-                <button type="button" onClick={() => removeItem(idx)} className="shrink-0 rounded p-1.5 text-[var(--textSecondary)] hover:bg-[var(--errorSubtle)] hover:text-[var(--error)]" aria-label={t('articleEditor.ariaRemove')}>×</button>
+                <button type="button" onClick={() => removeItem(idx)} className="btn-icon shrink-0" aria-label={t('articleEditor.ariaRemove')}>×</button>
               )}
             </div>
           ))}
         </div>
         <div className="mt-2 flex flex-wrap gap-2">
-          <button type="button" onClick={addItem} className="rounded border border-dashed border-[var(--border)] px-3 py-1 text-xs text-[var(--textSecondary)] hover:border-[var(--primary)] hover:text-[var(--text)]">
+          <button type="button" onClick={addItem} className="btn-tonal">
             + {t('articleEditor.quizAddOption')}
           </button>
-          <button type="button" onClick={() => onUpdate({ ...block, sortOptions: shuffleAnswers(items) })} className="rounded border border-[var(--border)] px-3 py-1 text-xs text-[var(--textSecondary)] hover:border-[var(--primary)] hover:text-[var(--text)]" title={t('articleEditor.quizShuffleAnswers')}>
+          <button type="button" onClick={() => onUpdate({ ...block, sortOptions: shuffleAnswers(items) })} className="btn-text" title={t('articleEditor.quizShuffleAnswers')}>
             {t('articleEditor.quizShuffleAnswers')}
           </button>
         </div>
-        <p className="mt-1 text-xs text-[var(--textSecondary)]">{t('articleEditor.quizSortHint')}</p>
+        <p className="mt-1 text-xs text-[var(--md-sys-color-on-surface-variant)]">{t('articleEditor.quizSortHint')}</p>
       </div>
     );
   };
@@ -161,7 +156,7 @@ export function QuizBlockEditor({
       <div className="space-y-3">
         <div className="grid gap-3" style={{ gridTemplateColumns: '1fr 1fr' }}>
           <div>
-            <span className="mb-1 block text-xs font-medium text-[var(--textSecondary)]">{t('articleEditor.quizMatchFixed')}</span>
+            <span className="mb-1 block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)]">{t('articleEditor.quizMatchFixed')}</span>
             <div className="space-y-2">
               {fixed.map((item, idx) => (
                 <div key={idx} className="flex items-center gap-2">
@@ -174,7 +169,7 @@ export function QuizBlockEditor({
                       setFixed(idx, item.caption, order);
                       setMatch(idx, match[idx]?.caption ?? '', order);
                     }}
-                    className="w-12 shrink-0 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-2 py-2 text-sm text-center text-[var(--text)] focus:border-[var(--primary)] focus:outline-none"
+                    className="field-filled focus-ring w-12 shrink-0 text-center"
                     title={t('articleEditor.quizMatchOrder')}
                   />
                   <input
@@ -182,14 +177,14 @@ export function QuizBlockEditor({
                     value={item.caption}
                     onChange={(e) => setFixed(idx, e.target.value, item.order)}
                     placeholder={t('articleEditor.placeholderMatchFixed')}
-                    className="flex-1 min-w-0 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text)] focus:border-[var(--primary)] focus:outline-none"
+                    className="field-filled focus-ring min-w-0 w-auto flex-1"
                   />
                 </div>
               ))}
             </div>
           </div>
           <div>
-            <span className="mb-1 block text-xs font-medium text-[var(--textSecondary)]">{t('articleEditor.quizMatchOptions')}</span>
+            <span className="mb-1 block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)]">{t('articleEditor.quizMatchOptions')}</span>
             <div className="space-y-2">
               {match.map((item, idx) => (
                 <div key={idx} className="flex items-center gap-2">
@@ -198,10 +193,10 @@ export function QuizBlockEditor({
                     value={item.caption}
                     onChange={(e) => setMatch(idx, e.target.value, item.order)}
                     placeholder={t('articleEditor.placeholderMatchOption')}
-                    className="flex-1 min-w-0 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text)] focus:border-[var(--primary)] focus:outline-none"
+                    className="field-filled focus-ring min-w-0 w-auto flex-1"
                   />
                   {fixed.length > 1 && (
-                    <button type="button" onClick={() => removePair(idx)} className="shrink-0 rounded p-1.5 text-[var(--textSecondary)] hover:bg-[var(--errorSubtle)] hover:text-[var(--error)]" aria-label={t('articleEditor.ariaRemove')}>×</button>
+                    <button type="button" onClick={() => removePair(idx)} className="btn-icon shrink-0" aria-label={t('articleEditor.ariaRemove')}>×</button>
                   )}
                 </div>
               ))}
@@ -209,14 +204,14 @@ export function QuizBlockEditor({
           </div>
         </div>
         <div className="flex flex-wrap gap-2">
-          <button type="button" onClick={addPair} className="rounded border border-dashed border-[var(--border)] px-3 py-1 text-xs text-[var(--textSecondary)] hover:border-[var(--primary)] hover:text-[var(--text)]">
+          <button type="button" onClick={addPair} className="btn-tonal">
             + {t('articleEditor.quizAddPair')}
           </button>
-          <button type="button" onClick={() => onUpdate({ ...block, matchOptions: shuffleAnswers(match) })} className="rounded border border-[var(--border)] px-3 py-1 text-xs text-[var(--textSecondary)] hover:border-[var(--primary)] hover:text-[var(--text)]" title={t('articleEditor.quizShuffleAnswers')}>
+          <button type="button" onClick={() => onUpdate({ ...block, matchOptions: shuffleAnswers(match) })} className="btn-text" title={t('articleEditor.quizShuffleAnswers')}>
             {t('articleEditor.quizShuffleAnswers')}
           </button>
         </div>
-        <p className="text-xs text-[var(--textSecondary)]">{t('articleEditor.quizMatchHint')}</p>
+        <p className="text-xs text-[var(--md-sys-color-on-surface-variant)]">{t('articleEditor.quizMatchHint')}</p>
       </div>
     );
   };
@@ -233,18 +228,18 @@ export function QuizBlockEditor({
     >
       <div className="space-y-4">
         <div>
-          <label className="mb-1 block text-xs font-medium text-[var(--textSecondary)]">{t('articleEditor.quizQuestion')}</label>
+          <label className="mb-1 block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)]">{t('articleEditor.quizQuestion')}</label>
           <input
             type="text"
             value={block.question}
             onChange={(e) => setQuestion(e.target.value)}
             placeholder={t('articleEditor.placeholderQuizQuestion')}
-            className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text)] focus:border-[var(--primary)] focus:outline-none"
+            className="field-filled focus-ring"
           />
         </div>
 
         <div>
-          <label className="mb-1 block text-xs font-medium text-[var(--textSecondary)]">{t('articleEditor.quizRelevantBlockIds')}</label>
+          <label className="mb-1 block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)]">{t('articleEditor.quizRelevantBlockIds')}</label>
           <input
             type="text"
             value={(block.relevantBlockIds ?? []).join(', ')}
@@ -254,25 +249,23 @@ export function QuizBlockEditor({
               onUpdate({ ...block, relevantBlockIds: ids.length ? ids : undefined });
             }}
             placeholder={t('articleEditor.quizRelevantBlockIdsPlaceholder')}
-            className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text)] focus:border-[var(--primary)] focus:outline-none"
+            className="field-filled focus-ring"
           />
-          <p className="mt-1 text-xs text-[var(--textSecondary)]">{t('articleEditor.quizRelevantBlockIdsHint')}</p>
+          <p className="mt-1 text-xs text-[var(--md-sys-color-on-surface-variant)]">{t('articleEditor.quizRelevantBlockIdsHint')}</p>
         </div>
 
         <div>
-          <span className="mb-1 block text-xs font-medium text-[var(--textSecondary)]">{t('articleEditor.quizType')}</span>
-          <Select
+          <span className="mb-1 block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)]">{t('articleEditor.quizType')}</span>
+          <select
             value={block.quizType ?? 'radio'}
-            onChange={(v) => setQuizType(v as QuizType)}
-            options={[
-              { value: 'radio', label: t('articleEditor.quizTypeRadio') },
-              { value: 'checkbox', label: t('articleEditor.quizTypeCheckbox') },
-              { value: 'sort', label: t('articleEditor.quizTypeSort') },
-              { value: 'match', label: t('articleEditor.quizTypeMatch') },
-            ]}
-            variant="editor"
-            className="w-52"
-          />
+            onChange={(e) => setQuizType(e.target.value as QuizType)}
+            className="field-filled focus-ring w-52"
+          >
+            <option value="radio">{t('articleEditor.quizTypeRadio')}</option>
+            <option value="checkbox">{t('articleEditor.quizTypeCheckbox')}</option>
+            <option value="sort">{t('articleEditor.quizTypeSort')}</option>
+            <option value="match">{t('articleEditor.quizTypeMatch')}</option>
+          </select>
         </div>
 
         {(block.quizType === 'radio' || block.quizType === 'checkbox') && renderRadioCheckOptions()}

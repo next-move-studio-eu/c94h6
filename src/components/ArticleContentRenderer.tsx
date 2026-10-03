@@ -179,18 +179,26 @@ export default function ArticleContentRenderer({
       blockquote: ({ children, ...props }: React.HTMLAttributes<HTMLQuoteElement>) =>
         isDetail ? (
           <blockquote
-            className="pl-5 pr-4 py-3 my-6 border-l-4 rounded-r-lg italic"
+            className="my-6 rounded-xl px-5 py-3 italic"
             style={{
-              borderColor: cv('primary'),
-              backgroundColor: cv('primarySubtle'),
-              color: cv('text'),
+              backgroundColor: 'var(--md-sys-color-primary-container)',
+              color: 'var(--md-sys-color-on-primary-container)',
             }}
             {...props}
           >
             {children}
           </blockquote>
         ) : (
-          <blockquote className="border-l-4 border-[var(--primary)] pl-4 italic" {...props}>{children}</blockquote>
+          <blockquote
+            className="my-4 rounded-xl px-4 py-3 italic"
+            style={{
+              backgroundColor: 'var(--md-sys-color-primary-container)',
+              color: 'var(--md-sys-color-on-primary-container)',
+            }}
+            {...props}
+          >
+            {children}
+          </blockquote>
         ),
       code: ({ node, className: codeClassName, children, ...props }: any) => {
         const match = /language-(\w+)/.exec(codeClassName || '');
@@ -203,14 +211,8 @@ export default function ArticleContentRenderer({
 
           if (language === 'smiles') {
             return (
-              <div
-                className="my-6 rounded-xl overflow-hidden border"
-                style={{ borderColor: cv('codeBorder'), boxShadow: cv('shadowSm') }}
-              >
-                <div
-                  className="border-b px-4 py-2 text-xs font-semibold uppercase tracking-wider"
-                  style={{ borderColor: cv('codeBorder'), color: cv('textSecondary') }}
-                >
+              <div className="my-6 overflow-hidden rounded-xl surface-container-high">
+                <div className="surface-container-highest px-4 py-2 text-xs font-semibold uppercase tracking-wider text-[var(--md-sys-color-on-surface-variant)]">
                   <span>{label}</span>
                 </div>
                 <pre
@@ -224,18 +226,8 @@ export default function ArticleContentRenderer({
           }
 
           return (
-            <div
-              className="my-6 rounded-xl overflow-hidden border"
-              style={{ borderColor: cv('codeBorder'), boxShadow: cv('shadowSm') }}
-            >
-              <div
-                className="px-4 py-2 text-xs font-semibold uppercase tracking-wider border-b"
-                style={{
-                  backgroundColor: cv('surfaceHigh'),
-                  borderColor: cv('codeBorder'),
-                  color: cv('textSecondary'),
-                }}
-              >
+            <div className="my-6 overflow-hidden rounded-xl surface-container-high">
+              <div className="surface-container-highest px-4 py-2 text-xs font-semibold uppercase tracking-wider text-[var(--md-sys-color-on-surface-variant)]">
                 <span>{label}</span>
               </div>
               <SyntaxHighlighter
@@ -246,7 +238,7 @@ export default function ArticleContentRenderer({
                   padding: '1.5rem',
                   fontSize: '0.9rem',
                   lineHeight: '1.6',
-                  background: cv('codeBg'),
+                  background: 'var(--md-sys-color-surface-container)',
                   minWidth: 'min-content',
                 }}
                 {...props}
@@ -258,7 +250,7 @@ export default function ArticleContentRenderer({
         }
         return (
           <code
-            className={`px-1.5 py-0.5 rounded text-sm font-mono bg-[var(--primarySubtle)] text-[var(--primary)] ${codeClassName || ''}`}
+            className={`rounded bg-[var(--md-sys-color-primary-container)] px-1.5 py-0.5 font-mono text-sm text-[var(--md-sys-color-on-primary-container)] ${codeClassName || ''}`}
             {...props}
           >
             {children}
@@ -267,14 +259,10 @@ export default function ArticleContentRenderer({
       },
       pre: ({ children }: any) => <>{children}</>,
       table: ({ children, ...props }: any) => (
-        <div
-          className="my-8 rounded-xl overflow-hidden border max-w-full min-w-0"
-          style={{ borderColor: cv('border'), boxShadow: cv('shadowSm') }}
-        >
+        <div className="my-8 max-w-full min-w-0 overflow-hidden rounded-xl surface-container-low">
           <div className="overflow-x-auto">
             <table
               className={`min-w-full border-collapse ${props.className || ''}`}
-              style={{ backgroundColor: cv('surface') }}
               {...props}
             >
               {children}
@@ -283,28 +271,23 @@ export default function ArticleContentRenderer({
         </div>
       ),
       thead: ({ children, ...props }: any) => (
-        <thead style={{ backgroundColor: cv('surfaceHigh') }} {...props}>
+        <thead className="surface-container-highest" {...props}>
           {children}
         </thead>
       ),
       tbody: ({ children, ...props }: any) => (
-        <tbody style={{ color: cv('text') }} {...props}>
+        <tbody className="text-[var(--md-sys-color-on-surface)] [&>tr:nth-child(even)]:bg-[var(--md-sys-color-surface-container)]" {...props}>
           {children}
         </tbody>
       ),
       tr: ({ children, ...props }: any) => (
-        <tr
-          className="border-b"
-          style={{ borderColor: cv('divider') }}
-          {...props}
-        >
+        <tr {...props}>
           {children}
         </tr>
       ),
       th: ({ children, ...props }: any) => (
         <th
-          className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider border-r last:border-r-0"
-          style={{ color: cv('text'), borderColor: cv('border') }}
+          className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[var(--md-sys-color-on-surface)]"
           {...props}
         >
           {children}
@@ -312,8 +295,7 @@ export default function ArticleContentRenderer({
       ),
       td: ({ children, ...props }: any) => (
         <td
-          className="px-6 py-4 border-r last:border-r-0"
-          style={{ color: cv('text'), borderColor: cv('borderSubtle') }}
+          className="px-6 py-4 text-[var(--md-sys-color-on-surface)]"
           {...props}
         >
           {children}
@@ -550,15 +532,15 @@ export default function ArticleContentRenderer({
         return (
           <details
             key={index}
-            className="rounded border border-[var(--border)] bg-[var(--surfaceHigh)] overflow-hidden"
+            className="overflow-hidden rounded-xl surface-container-high"
           >
-            <summary className="cursor-pointer list-none p-3 text-sm text-[var(--textSecondary)] [&::-webkit-details-marker]:hidden [&::marker]:hidden">
+            <summary className="focus-ring cursor-pointer list-none p-3 text-sm text-[var(--md-sys-color-on-surface-variant)] [&::-webkit-details-marker]:hidden [&::marker]:hidden">
               <span className="select-none">
                 {t('articleEditor.blockUnknown')}: {typeValue}
               </span>
-              <span className="ml-1 inline-block text-[var(--textDisabled)]" aria-hidden>▾</span>
+              <span className="ml-1 inline-block text-[var(--md-sys-color-outline)]" aria-hidden>▾</span>
             </summary>
-            <pre className="border-t border-[var(--border)] bg-[var(--surface)] p-3 font-mono text-xs text-[var(--text)] whitespace-pre-wrap overflow-x-auto m-0">
+            <pre className="surface-container m-0 overflow-x-auto whitespace-pre-wrap p-3 font-mono text-xs">
               {prettyJson}
             </pre>
           </details>

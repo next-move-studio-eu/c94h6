@@ -22,23 +22,18 @@ export default function SlideshowRecorderStage({
       style={{ flex: '1 1 0%', minWidth: 320 }}
     >
       {title ? (
-        <h3 className="text-lg font-semibold text-text mb-0 flex items-center gap-2 flex-shrink-0">
-          <span className="w-1 h-5 rounded-full" style={{ backgroundColor: 'var(--primary)' }} />
+        <h3 className="text-lg font-semibold mb-0 flex items-center gap-2 flex-shrink-0">
+          <span className="w-1 h-5 rounded-full bg-primary" />
           {title}
         </h3>
       ) : null}
 
       <div
+        className="surface-container-highest rounded-xl overflow-hidden flex items-center justify-center"
         style={{
           width: '100%',
           flex: '1 1 0%',
           minHeight: 360,
-          borderRadius: 12,
-          overflow: 'hidden',
-          backgroundColor: 'var(--surfaceHigh)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
         }}
       >
         {displayImage ? (
@@ -55,7 +50,7 @@ export default function SlideshowRecorderStage({
             }}
           />
         ) : (
-          <span style={{ color: 'var(--textDisabled)' }}>{noImageLabel}</span>
+          <span className="text-on-surface-variant">{noImageLabel}</span>
         )}
       </div>
 

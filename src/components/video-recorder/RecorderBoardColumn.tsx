@@ -49,16 +49,7 @@ export default function RecorderBoardColumn({
             <motion.button
               type="button"
               onClick={() => controls.setLookingOnWhite((prev) => !prev)}
-              className="flex-shrink-0 p-2 rounded-lg transition-colors duration-150"
-              style={{ color: 'var(--textSecondary)' }}
-              onMouseEnter={(event) => {
-                (event.currentTarget as HTMLElement).style.backgroundColor = 'var(--hoverBg)';
-                (event.currentTarget as HTMLElement).style.color = 'var(--text)';
-              }}
-              onMouseLeave={(event) => {
-                (event.currentTarget as HTMLElement).style.backgroundColor = '';
-                (event.currentTarget as HTMLElement).style.color = 'var(--textSecondary)';
-              }}
+              className="btn-icon flex-shrink-0"
               title={rotateBoardLabel}
               aria-label={rotateBoardLabel}
               whileTap={{ scale: 0.98 }}
@@ -73,16 +64,7 @@ export default function RecorderBoardColumn({
             <motion.button
               type="button"
               onClick={controls.handleFullscreen}
-              className="flex-shrink-0 p-2 rounded-lg transition-colors duration-150"
-              style={{ color: 'var(--textSecondary)' }}
-              onMouseEnter={(event) => {
-                (event.currentTarget as HTMLElement).style.backgroundColor = 'var(--hoverBg)';
-                (event.currentTarget as HTMLElement).style.color = 'var(--text)';
-              }}
-              onMouseLeave={(event) => {
-                (event.currentTarget as HTMLElement).style.backgroundColor = '';
-                (event.currentTarget as HTMLElement).style.color = 'var(--textSecondary)';
-              }}
+              className="btn-icon flex-shrink-0"
               title={preview.videoPlayerTexts.enterFullscreen}
               aria-label={preview.videoPlayerTexts.enterFullscreen}
               whileTap={{ scale: 0.98 }}
@@ -96,14 +78,14 @@ export default function RecorderBoardColumn({
           <div className="flex flex-col gap-1.5 w-full">
             <motion.button
               onClick={controls.handleNewGame}
-              className="w-full px-3 py-1.5 text-sm bg-[var(--surfaceHigh)] text-[var(--text)] rounded hover:opacity-90 transition-opacity"
+              className="btn-tonal w-full"
               whileTap={{ scale: 0.99 }}
             >
               {newGameLabel}
             </motion.button>
             <motion.button
               onClick={() => controls.setIsCopyPopupOpen(true)}
-              className="w-full px-3 py-1.5 text-sm bg-[var(--surfaceHigh)] text-[var(--text)] rounded hover:opacity-90 transition-opacity"
+              className="btn-tonal w-full"
               whileTap={{ scale: 0.99 }}
             >
               {copyButtonLabel}

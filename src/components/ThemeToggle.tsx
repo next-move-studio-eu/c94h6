@@ -12,7 +12,7 @@ export default function ThemeToggle() {
     <button
       type="button"
       onClick={toggleMode}
-      className="relative p-2 rounded-full transition-colors hover:bg-editor-primary/10 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-editor-primary"
+      className="btn-icon-tonal relative shrink-0"
       aria-label={isDark ? t('themeToggle.switchToLight') : t('themeToggle.switchToDark')}
     >
       <motion.div
@@ -21,9 +21,9 @@ export default function ThemeToggle() {
         transition={{ type: 'spring', stiffness: 300, damping: 20 }}
       >
         {isDark ? (
-          <Moon className="w-5 h-5 text-editor-text" aria-hidden />
+          <Moon className="w-5 h-5" aria-hidden />
         ) : (
-          <Sun className="w-5 h-5 text-editor-text" aria-hidden />
+          <Sun className="w-5 h-5" aria-hidden />
         )}
       </motion.div>
     </button>

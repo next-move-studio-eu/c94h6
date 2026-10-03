@@ -146,40 +146,25 @@ export default function AudioRecorderPage() {
   };
 
   return (
-    <div
-      className="h-full overflow-hidden flex flex-col"
-      style={{ backgroundColor: 'var(--bg)' }}
-    >
+    <div className="h-full overflow-hidden flex flex-col surface">
       <motion.div
         className="flex gap-4 p-4 flex-1 min-h-0 items-start justify-center"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3 }}
       >
-        <div
-          className="flex-shrink-0 w-full max-w-md rounded-xl overflow-hidden p-4"
-          style={{
-            backgroundColor: 'var(--surface)',
-            boxShadow: 'var(--shadowSm)',
-          }}
-        >
-          <h2 className="text-lg font-semibold text-text flex items-center gap-2 mb-4">
-            <span
-              className="w-1 h-6 rounded-full"
-              style={{ backgroundColor: 'var(--primary)' }}
-            />
+        <div className="flex-shrink-0 w-full max-w-md rounded-xl overflow-hidden p-4 surface-container">
+          <h2 className="text-lg font-semibold flex items-center gap-2 mb-4">
+            <span className="w-1 h-6 rounded-full bg-primary" />
             {t('audioRecorderPage.recordingTitle')}
           </h2>
           <div className="flex flex-col gap-4">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-[var(--textSecondary)]">
+              <span className="text-sm text-on-surface-variant">
                 {t('audioRecorderPage.description')}
               </span>
               {(recordingState === 'recording' || recordingState === 'paused') && (
-                <div
-                  className="text-2xl font-mono font-bold"
-                  style={{ color: 'var(--primary)' }}
-                >
+                <div className="text-2xl font-mono font-bold text-primary">
                   {formatTime(elapsedTime)}
                 </div>
               )}
@@ -189,26 +174,7 @@ export default function AudioRecorderPage() {
                 <motion.button
                   onClick={handleStartRecording}
                   disabled={!isWebMSupported}
-                  className="px-4 py-2 rounded-lg text-sm font-semibold transition-colors duration-150"
-                  style={
-                    isWebMSupported
-                      ? { backgroundColor: 'var(--primary)', color: 'var(--onPrimary)' }
-                      : {
-                          backgroundColor: 'var(--surfaceHigh)',
-                          color: 'var(--textDisabled)',
-                          cursor: 'not-allowed',
-                        }
-                  }
-                  onMouseEnter={(e) => {
-                    if (isWebMSupported)
-                      (e.currentTarget as HTMLElement).style.backgroundColor =
-                        'var(--primaryHover)';
-                  }}
-                  onMouseLeave={(e) => {
-                    if (isWebMSupported)
-                      (e.currentTarget as HTMLElement).style.backgroundColor =
-                        'var(--primary)';
-                  }}
+                  className="btn-filled"
                   title={!isWebMSupported ? t('audioRecorderPage.webmNotSupportedTitle') : ''}
                   whileTap={isWebMSupported ? { scale: 0.98 } : {}}
                 >
@@ -219,36 +185,14 @@ export default function AudioRecorderPage() {
                 <>
                   <motion.button
                     onClick={handlePauseRecording}
-                    className="px-4 py-2 rounded-lg text-sm font-medium border transition-colors duration-150"
-                    style={{
-                      borderColor: 'var(--border)',
-                      color: 'var(--text)',
-                      backgroundColor: 'var(--surfaceHigh)',
-                    }}
-                    onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLElement).style.borderColor = 'var(--primary)';
-                      (e.currentTarget as HTMLElement).style.backgroundColor =
-                        'var(--primarySubtle)';
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.borderColor = 'var(--border)';
-                      (e.currentTarget as HTMLElement).style.backgroundColor =
-                        'var(--surfaceHigh)';
-                    }}
+                    className="btn-tonal"
                     whileTap={{ scale: 0.98 }}
                   >
                     {t('audioRecorderPage.pauseButton')}
                   </motion.button>
                   <motion.button
                     onClick={handleStopRecording}
-                    className="px-4 py-2 rounded-lg text-sm font-semibold transition-colors duration-150"
-                    style={{ backgroundColor: 'var(--error)', color: 'var(--onError)' }}
-                    onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLElement).style.opacity = '0.9';
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.opacity = '1';
-                    }}
+                    className="btn-filled !bg-error !text-on-error"
                     whileTap={{ scale: 0.98 }}
                   >
                     {t('audioRecorderPage.stopButton')}
@@ -259,33 +203,14 @@ export default function AudioRecorderPage() {
                 <>
                   <motion.button
                     onClick={handleResumeRecording}
-                    className="px-4 py-2 rounded-lg text-sm font-semibold transition-colors duration-150"
-                    style={{
-                      backgroundColor: 'var(--primary)',
-                      color: 'var(--onPrimary)',
-                    }}
-                    onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLElement).style.backgroundColor =
-                        'var(--primaryHover)';
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.backgroundColor =
-                        'var(--primary)';
-                    }}
+                    className="btn-filled"
                     whileTap={{ scale: 0.98 }}
                   >
                     {t('audioRecorderPage.resumeButton')}
                   </motion.button>
                   <motion.button
                     onClick={handleStopRecording}
-                    className="px-4 py-2 rounded-lg text-sm font-semibold transition-colors duration-150"
-                    style={{ backgroundColor: 'var(--error)', color: 'var(--onError)' }}
-                    onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLElement).style.opacity = '0.9';
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.opacity = '1';
-                    }}
+                    className="btn-filled !bg-error !text-on-error"
                     whileTap={{ scale: 0.98 }}
                   >
                     {t('audioRecorderPage.stopButton')}
@@ -294,42 +219,28 @@ export default function AudioRecorderPage() {
               )}
               <div className="ml-auto text-sm font-medium">
                 {recordingState === 'recording' && (
-                  <span
-                    className="animate-pulse"
-                    style={{ color: 'var(--error)' }}
-                  >
+                  <span className="animate-pulse text-error">
                     {t('audioRecorderPage.recordingStatus')}
                   </span>
                 )}
                 {recordingState === 'paused' && (
-                  <span style={{ color: 'var(--warning)' }}>
+                  <span className="text-warning">
                     {t('audioRecorderPage.pausedStatus')}
                   </span>
                 )}
                 {recordingState === 'idle' && (
-                  <span style={{ color: 'var(--textSecondary)' }}>
+                  <span className="text-on-surface-variant">
                     {t('audioRecorderPage.idleStatus')}
                   </span>
                 )}
               </div>
             </div>
             {!isWebMSupported && (
-              <div
-                className="flex-shrink-0 mt-4 pt-4 border-t"
-                style={{ borderColor: 'var(--divider)' }}
-              >
-                <div
-                  className="p-4 rounded-lg"
-                  style={{
-                    backgroundColor: 'var(--error)',
-                    color: 'var(--onError)',
-                  }}
-                >
-                  <div className="font-bold text-lg mb-2">
-                    {t('audioRecorderPage.unsupportedBrowser')}
-                  </div>
-                  <div className="text-sm opacity-95">{t('audioRecorderPage.webmNotSupported')}</div>
+              <div className="mt-4 p-4 rounded-xl bg-error-container text-on-error-container">
+                <div className="font-bold text-lg mb-2">
+                  {t('audioRecorderPage.unsupportedBrowser')}
                 </div>
+                <div className="text-sm">{t('audioRecorderPage.webmNotSupported')}</div>
               </div>
             )}
           </div>

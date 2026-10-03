@@ -429,8 +429,8 @@ export default function SlideshowRecorderPage() {
 
   return (
     <div
-      className="flex flex-col overflow-hidden"
-      style={{ height: 'calc(100vh - 4rem)', backgroundColor: 'var(--bg)' }}
+      className="flex flex-col overflow-hidden surface"
+      style={{ height: 'calc(100vh - 4rem)' }}
     >
       <motion.div
         className="flex flex-1 min-h-0 min-w-0 p-4"
@@ -438,13 +438,7 @@ export default function SlideshowRecorderPage() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3 }}
       >
-        <div
-          className="flex flex-1 min-h-0 min-w-0 gap-4 p-4 rounded-xl"
-          style={{
-            backgroundColor: 'var(--surface)',
-            boxShadow: 'var(--shadowSm)',
-          }}
-        >
+        <div className="flex flex-1 min-h-0 min-w-0 gap-4 p-4 rounded-xl surface-container-low">
             {appMode === 'recording' ? (
               <SlideshowRecorderImageSelector
                 images={images}
