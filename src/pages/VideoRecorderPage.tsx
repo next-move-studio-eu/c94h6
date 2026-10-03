@@ -991,7 +991,7 @@ export default function VideoRecorderPage() {
                 webmNotSupportedLabel={t('videoRecorderPage.webmNotSupported')}
               />
 
-              <div className="flex-shrink-0 flex flex-col gap-2">
+              <div className="flex-shrink-0 flex flex-col gap-2 rounded-xl p-3 surface-container-highest">
                 <div className="flex items-center gap-1 w-full">
                   <motion.button
                     type="button"

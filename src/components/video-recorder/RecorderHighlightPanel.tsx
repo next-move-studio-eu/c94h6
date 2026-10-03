@@ -172,7 +172,7 @@ function HighlightButton({ kind, label, colorValue, active, compact, onClick }: 
           color={colorValue}
         />
       )}
-      <span className={compact ? 'text-[9px] text-text leading-tight truncate w-full text-center' : 'text-[10px] text-text leading-tight'}>
+      <span className={`${compact ? 'text-[9px] leading-tight truncate w-full text-center' : 'text-[10px] leading-tight'} ${active ? 'text-on-secondary-container' : 'text-on-surface'}`}>
         {label}
       </span>
     </motion.button>

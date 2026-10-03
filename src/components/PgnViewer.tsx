@@ -484,14 +484,14 @@ const VariationPopover = ({
   return (
     <div
       ref={popoverRef}
-      className="variation-popover fixed z-[9999] bg-[var(--surface)] border border-[var(--primary)] rounded-lg shadow-lg p-2 min-w-[200px]"
+      className="variation-popover surface-container-high fixed z-[9999] rounded-lg border border-outline-variant p-2 shadow-lg min-w-[200px]"
       style={{
         top: `${position?.top ?? 0}px`,
         left: `${position?.left ?? 0}px`,
         visibility: position ? 'visible' : 'hidden',
       }}
     >
-      <div className="text-xs text-[var(--textSecondary)] mb-2 px-2">
+      <div className="mb-2 px-2 text-xs text-on-surface">
         {texts.selectMove || 'Select move:'}
       </div>
       <div className="space-y-1">
@@ -504,11 +504,11 @@ const VariationPopover = ({
                 onSelect(move);
                 onClose();
               }}
-              className="w-full text-left px-3 py-2 rounded hover:bg-[var(--primary)]/20 text-sm text-[var(--text)] transition-colors"
+              className="w-full rounded px-3 py-2 text-left text-sm text-on-surface transition-colors hover:bg-[var(--primary)]/20"
             >
               {displayMove}
               {index === 0 && main && variations.length > 0 && (
-                <span className="text-[var(--textSecondary)] ml-2 text-xs">
+                <span className="ml-2 text-xs text-on-surface">
                   {texts.main ? `(${texts.main})` : '(main)'}
                 </span>
               )}
@@ -1162,7 +1162,7 @@ const PgnViewer = forwardRef<PgnViewerRef, PgnViewerProps>(({
           />
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="w-full px-3 py-1.5 text-sm bg-[var(--surfaceHigh)] text-[var(--text)] rounded hover:opacity-90 transition-opacity"
+            className="btn-tonal w-full"
           >
             {texts.loadPgn || 'Load PGN'}
           </button>

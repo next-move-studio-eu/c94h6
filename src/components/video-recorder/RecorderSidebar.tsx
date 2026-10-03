@@ -209,20 +209,22 @@ function PgnPanel({
   onSelectionChange,
 }: PgnPanelProps) {
   return (
-    <ThemeProvider mode={mode}>
-      <PgnViewer
-        ref={pgnViewerRef as RefObject<PgnViewerRef>}
-        pgn={pgn}
-        showLoadButton={true}
-        onPositionChange={onPositionChange}
-        onPgnLoad={onPgnLoad}
-        initialSelection={pgnSelection}
-        onSelectionChange={onSelectionChange}
-        forwardSelectButtonRef={forwardSelectButtonRef}
-        texts={texts.pgnViewerTexts}
-        translateMove={translateSanMove}
-      />
-    </ThemeProvider>
+    <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-xl p-3 surface-container-highest">
+      <ThemeProvider mode={mode}>
+        <PgnViewer
+          ref={pgnViewerRef as RefObject<PgnViewerRef>}
+          pgn={pgn}
+          showLoadButton={true}
+          onPositionChange={onPositionChange}
+          onPgnLoad={onPgnLoad}
+          initialSelection={pgnSelection}
+          onSelectionChange={onSelectionChange}
+          forwardSelectButtonRef={forwardSelectButtonRef}
+          texts={texts.pgnViewerTexts}
+          translateMove={translateSanMove}
+        />
+      </ThemeProvider>
+    </div>
   );
 }
 
@@ -258,7 +260,7 @@ function AnalysisPanel({
   ];
 
   return (
-    <div className="flex-shrink-0 w-full space-y-3">
+    <div className="flex-shrink-0 w-full space-y-3 rounded-xl p-3 surface-container-highest">
       {state.showUciButton && (
         <LoadUciButton
           state={state}

@@ -116,7 +116,7 @@ function RadioCheckQuiz({ inputType, items, result, isSubmitting, onSubmit, subm
                 <span
                   className={`w-3.5 h-3.5 flex items-center justify-center transition-colors peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-0 ${isRadio ? 'rounded-full border-2' : 'rounded border-2'}`}
                   style={{
-                    borderColor: isChecked ? themeVar('primary') : themeVar('border'),
+                    borderColor: isChecked ? themeVar('primary') : 'var(--md-sys-color-outline)',
                     backgroundColor: isChecked ? themeVar('primary') : themeVar('bg'),
                     outlineColor: 'var(--md-sys-color-outline)',
                   }}

@@ -26,11 +26,7 @@ export function ContentImagesSection({
 }: ContentImagesSectionProps) {
   return (
     <div>
-      <SectionHeader
-        icon={Image}
-        title={t('articleEditor.contentImagesTitle')}
-        description={t('articleEditor.contentImagesFormatRequired')}
-      />
+      <SectionHeader icon={Image} title={t('articleEditor.contentImagesTitle')} />
       <input
         ref={inputRef}
         type="file"

@@ -28,11 +28,7 @@ export function ArticleVideosSection({
 }: ArticleVideosSectionProps) {
   return (
     <div>
-      <SectionHeader
-        icon={Video}
-        title={t('articleEditor.articleVideosTitle')}
-        description={t('articleEditor.articleVideosFormatRequired')}
-      />
+      <SectionHeader icon={Video} title={t('articleEditor.articleVideosTitle')} />
       <input
         ref={inputRef}
         type="file"

@@ -130,7 +130,7 @@ export default function HomePage() {
                     >
                       {script.name}
                       {copiedScript === script.id ? (
-                        <span className="text-editor-primary text-xs font-medium">{t('editor.home.copied')}</span>
+                        <span className="text-xs font-medium">{t('editor.home.copied')}</span>
                       ) : null}
                     </button>
                   ))}

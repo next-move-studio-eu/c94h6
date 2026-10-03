@@ -192,14 +192,14 @@ function getMarkdownComponents() {
       );
     },
     table: ({ children, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
-      <div className="overflow-x-auto my-8 rounded-xl surface-container-low">
+      <div className="overflow-x-auto my-8 rounded-xl surface-container-high">
         <table className="min-w-full border-collapse" {...props}>
           {children}
         </table>
       </div>
     ),
     thead: ({ children, ...props }: React.HTMLAttributes<HTMLTableSectionElement>) => (
-      <thead className="bg-surface-container-high" {...props}>
+      <thead className="bg-surface-container-highest" {...props}>
         {children}
       </thead>
     ),
@@ -209,7 +209,7 @@ function getMarkdownComponents() {
       </tbody>
     ),
     tr: ({ children, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
-      <tr className="even:bg-surface-container" {...props}>
+      <tr className="even:bg-surface-container-highest" {...props}>
         {children}
       </tr>
     ),

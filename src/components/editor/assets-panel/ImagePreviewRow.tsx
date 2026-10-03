@@ -32,7 +32,7 @@ export function ImagePreviewRow({ label, blob, onRemove, removeLabel }: ImagePre
       <span className="cursor-default">{label}</span>
       {hover && objectUrl && (
         <div
-          className="surface-container-lowest pointer-events-none fixed z-[100] rounded-lg p-0.5 shadow-lg"
+          className="surface-container-highest pointer-events-none fixed z-[100] rounded-lg p-0.5 shadow-lg"
           style={{
             width: POPUP_WIDTH,
             height: POPUP_HEIGHT,
@@ -52,7 +52,7 @@ export function ImagePreviewRow({ label, blob, onRemove, removeLabel }: ImagePre
         <button
           type="button"
           onClick={onRemove}
-          className="btn-text min-h-8 shrink-0 px-3 py-1 text-xs text-[var(--md-sys-color-error)]"
+          className="focus-ring inline-flex min-h-8 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent px-3 py-1 text-xs font-medium leading-tight text-error hover:bg-[color-mix(in_srgb,var(--md-sys-color-error)_8%,transparent)] active:bg-[color-mix(in_srgb,var(--md-sys-color-error)_12%,transparent)]"
         >
           {removeLabel}
         </button>

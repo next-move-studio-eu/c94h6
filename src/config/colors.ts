@@ -101,26 +101,35 @@ const SURFACE_CONTAINER_TONES: Partial<Record<MaterialRoleName, { light: number;
   'surface-container-highest': { light: 90, dark: 22 },
 };
 
+/** Last-move highlight hue. Warm gold, so it still reads on the cool squares. */
+const CHESS_SELECTED_HUE = 70;
+
 /**
- * Default-palette chess board (warm squares). Diagram colors, not a UI palette.
+ * Soft-indigo chess board, sampled from the scheme secondary palette.
+ * Tones are explicit so the light square stays lighter than the dark square in both themes.
+ * Dark mode steps the squares down and drops the frame below both.
  * Highlight fills are still derived in chessHighlightDerivation.ts.
  */
-const CHESS_BOARD = {
-  light: {
-    lightSquare: 'oklch(0.85 0.07 92)',
-    darkSquare: 'oklch(0.58 0.09 55)',
-    frame: 'oklch(0.7 0.06 88)',
-    boardLabel: 'oklch(0.3 0.07 70)',
-    selectedHue: 70,
-  },
-  dark: {
-    lightSquare: 'oklch(0.76 0.08 85)',
-    darkSquare: 'oklch(0.54 0.09 50)',
-    frame: 'oklch(0.4 0.07 48)',
-    boardLabel: 'oklch(0.94 0.03 48)',
-    selectedHue: 70,
-  },
-} as const;
+function chessBoardColors(scheme: SchemeTonalSpot, mode: ThemeMode) {
+  const square = (tone: number) => hexFromArgb(scheme.secondaryPalette.tone(tone));
+  const label = (tone: number) => hexFromArgb(scheme.neutralPalette.tone(tone));
+  if (mode === 'dark') {
+    return {
+      lightSquare: square(75),
+      darkSquare: square(45),
+      frame: square(30),
+      boardLabel: label(90),
+      selectedHue: CHESS_SELECTED_HUE,
+    };
+  }
+  return {
+    lightSquare: square(85),
+    darkSquare: square(50),
+    frame: square(70),
+    boardLabel: label(20),
+    selectedHue: CHESS_SELECTED_HUE,
+  };
+}
 
 const SHADOW = {
   light: {
@@ -183,7 +192,7 @@ export function buildThemeTokens(mode: ThemeMode): ThemeTokens {
   const isDark = mode === 'dark';
   const scheme = new SchemeTonalSpot(Hct.fromInt(SEED_ARGB), isDark, 0);
   const roles = schemeColors(scheme);
-  const chess = CHESS_BOARD[mode];
+  const chess = chessBoardColors(scheme, mode);
   const derived = buildDerivedChessOverlayColors(chess.lightSquare, chess.darkSquare, chess.selectedHue);
   const scrim = roles['md-sys-color-scrim'];
   const overlayAlpha = isDark ? 'a6' : '80';

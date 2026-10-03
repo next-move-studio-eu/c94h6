@@ -69,7 +69,7 @@ function AppShell() {
                 key={path}
                 to={path}
                 className={`text-sm ${
-                  location.pathname === path ? 'btn-filled' : 'btn-text'
+                  location.pathname === path ? 'btn-tonal' : 'btn-text'
                 }`}
               >
                 {t(labelKey)}

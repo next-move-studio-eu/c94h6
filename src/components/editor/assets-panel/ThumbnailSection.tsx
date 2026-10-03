@@ -22,11 +22,7 @@ export function ThumbnailSection({
 }: ThumbnailSectionProps) {
   return (
     <div>
-      <SectionHeader
-        icon={Image}
-        title={t('articleEditor.thumbnailTitle')}
-        description={t('articleEditor.thumbnailFormatRequired')}
-      />
+      <SectionHeader icon={Image} title={t('articleEditor.thumbnailTitle')} />
       <input
         ref={inputRef}
         type="file"

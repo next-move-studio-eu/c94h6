@@ -11,6 +11,8 @@ interface BlockWrapperProps {
   onRemove: () => void;
   canMoveUp: boolean;
   canMoveDown: boolean;
+  /** Optional control rendered before move and delete, used by the markdown insert menu. */
+  headerAction?: React.ReactNode;
   children: React.ReactNode;
 }
 
@@ -22,6 +24,7 @@ export default function BlockWrapper({
   onRemove,
   canMoveUp,
   canMoveDown,
+  headerAction,
   children,
 }: BlockWrapperProps) {
   const { t } = useTranslation(['articleBlocks', 'legacy']);
@@ -43,7 +46,7 @@ export default function BlockWrapper({
   };
 
   return (
-    <div className="surface-container-highest rounded-xl p-4">
+    <div className="surface-container-highest rounded-xl p-4" data-editor-block-id={block.id}>
       <div className="mb-3 flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <span className="text-xs font-medium uppercase tracking-wider text-[var(--md-sys-color-on-surface-variant)]">
@@ -63,7 +66,8 @@ export default function BlockWrapper({
             </button>
           </span>
         </div>
-        <div className="flex items-center gap-1">
+        <div className="flex shrink-0 items-center gap-1">
+          {headerAction}
           <button
             type="button"
             onClick={onMoveUp}

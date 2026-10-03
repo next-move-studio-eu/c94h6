@@ -44,7 +44,7 @@ export default function RecorderBoardColumn({
       <BoardSurface mode={mode} boardScale={board.isFullscreen ? board.boardScale : undefined} {...board} />
 
       {board.appMode === 'recording' && !board.isFullscreen && (
-        <>
+        <div className="flex w-full flex-col gap-2 rounded-xl p-3 surface-container-highest">
           <div className="flex items-center gap-1 w-full">
             <motion.button
               type="button"
@@ -91,7 +91,7 @@ export default function RecorderBoardColumn({
               {copyButtonLabel}
             </motion.button>
           </div>
-        </>
+        </div>
       )}
 
       {isPreview && (

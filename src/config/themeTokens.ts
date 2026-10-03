@@ -2,7 +2,8 @@ import type { DerivedChessOverlayTokens } from './chessHighlightDerivation';
 
 /**
  * Material 3 role names. CSS variables are `--md-sys-color-<name>`.
- * Chess overlays are derived in buildThemeTokens from fixed board squares.
+ * Chess squares are secondary-palette tones sampled per theme in buildThemeTokens.
+ * Chess overlays are derived there from those squares.
  * EU badge colors are merged from euBrandColors and are not seed colors.
  */
 export const MATERIAL_ROLE_NAMES = [
@@ -120,7 +121,7 @@ export type LegacyThemeAliases = {
   codeBorder: string;
 };
 
-/** Fixed chess-diagram colors. Not produced from the UI seed. */
+/** Chess-diagram colors sampled from the seed palettes in buildThemeTokens. */
 export type ChessContentColors = {
   lightSquare: string;
   darkSquare: string;

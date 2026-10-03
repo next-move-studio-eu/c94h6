@@ -28,11 +28,7 @@ export function ArticleAudiosSection({
 }: ArticleAudiosSectionProps) {
   return (
     <div>
-      <SectionHeader
-        icon={Mic}
-        title={t('articleEditor.articleAudiosTitle')}
-        description={t('articleEditor.articleAudiosFormatRequired')}
-      />
+      <SectionHeader icon={Mic} title={t('articleEditor.articleAudiosTitle')} />
       <input
         ref={inputRef}
         type="file"

@@ -9,16 +9,16 @@ Toto je jednoduchý editor zdrojového kódu pro váš obsah. Zaměřujeme se na
 - **Prezentace obrázků**
 - **Video v článku**
 - **Audio v článku**
-- **DOT diagram**
-- **Koláčový graf**
-- **Sloupcový graf**
 - **Kvíz**
-- **TTS**
-- **KaTeX**
-- **SMILES**
 - **Šachový diagram**
 - **Hra s enginem**
 - **Šachové video**
+- **DOT diagram**
+- **Koláčový graf**
+- **Sloupcový graf**
+- **TTS**
+- **KaTeX**
+- **SMILES**
 
 ## Formáty, které používáme
 
@@ -26,10 +26,10 @@ Toto je jednoduchý editor zdrojového kódu pro váš obsah. Zaměřujeme se na
 - **AVIF** — Obrázky
 - **AV1** — Video
 - **Opus** — Audio
+- **FEN** — Šachy
 - **DOT** — Diagramy
 - **LaTeX** — Matematika
 - **SMILES** — Chemie
-- **FEN** — Šachy
 
 V základu nepodporujeme JPG, PNG ani H.264, formáty, které všichni dobře známe, ale které už mají svá nejlepší léta za sebou. V editoru si můžete přidat libovolné položky do JSONu i soubory do ZIP složky a naučit svou prezentační vrstvu tato data správně přečíst.
 

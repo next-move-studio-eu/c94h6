@@ -296,4 +296,21 @@ body {
   .field-filled:focus:not(.focus-ring) {
     outline: none;
   }
+
+  /* Split button: full outer corners, 4px inner corners, 2px gap. Filled or tonal. */
+  .split-button {
+    display: inline-flex;
+    align-items: stretch;
+    flex-shrink: 0;
+    gap: 2px;
+  }
+
+  .split-button > .split-button-leading {
+    border-radius: 999px 0.25rem 0.25rem 999px;
+  }
+
+  .split-button > .split-button-trailing {
+    border-radius: 0.25rem 999px 999px 0.25rem;
+    padding-inline: 0.75rem;
+  }
 }

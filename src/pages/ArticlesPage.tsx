@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useMemo, useCallback, type SetStateAction } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect, useMemo, useCallback, type SetStateAction } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -8,23 +8,8 @@ import {
   SaveAll,
   Eye,
   Edit3,
-  Type,
-  ListChecks,
-  Image as ImageIcon,
-  SquarePlay,
-  Video as VideoIcon,
-  Presentation,
-  Swords,
   LayoutList,
   CodeXml,
-  Puzzle,
-  Workflow,
-  Sigma,
-  PieChart,
-  BarChart2,
-  Mic,
-  Music,
-  FlaskConical,
   WandSparkles,
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -34,6 +19,7 @@ import {
   createBlockId,
   type EditorState,
   type EditorBlock,
+  type MarkdownBlock,
   type ArticleLanguage,
 } from '../types/articleEditor';
 import { buildArticleZip, parseArticleZip } from '../utils/articleZip';
@@ -62,6 +48,8 @@ import { AuthProvider } from '../contexts/AuthContext';
 import { useArticleEditorAutosave } from '../hooks/useArticleEditorAutosave';
 import { useArticleSession } from '../contexts/ArticleSessionContext';
 import AssetsPanel from '../components/editor/AssetsPanel';
+import { AppendBlockSplitButton, type AddableBlockType } from '../components/editor/AddBlockMenu';
+import type { MarkdownInsertPlacement } from '../utils/markdownInsert';
 import ArticleEditorPreview from '../components/ArticleEditorPreview';
 import {
   MarkdownBlockEditor,
@@ -441,29 +429,86 @@ export default function ArticlesPage() {
     return () => window.removeEventListener('keydown', onKey);
   }, [handleSave, handleSaveAs]);
 
-  const addBlock = (type: EditorBlock['type']) => {
-    const block = createDefaultBlock(type);
-    if (type === 'photo' && numberedImageIds.length > 0) {
-      (block as { imageId: number }).imageId = numberedImageIds[0];
+  const scrollBlockIdRef = useRef<string | null>(null);
+
+  const createPreparedBlock = (type: AddableBlockType): EditorBlock => {
+    let block = createDefaultBlock(type);
+    if (block.type === 'photo' && numberedImageIds.length > 0) {
+      block = { ...block, imageId: numberedImageIds[0] };
+    } else if (block.type === 'articleVideo' && articleVideoIds.length > 0) {
+      block = { ...block, videoId: String(articleVideoIds[0]) };
+    } else if (block.type === 'articleAudio' && articleAudioIds.length > 0) {
+      block = { ...block, audioId: String(articleAudioIds[0]) };
     }
-    if (type === 'articleVideo' && articleVideoIds.length > 0) {
-      (block as { videoId: string }).videoId = String(articleVideoIds[0]);
-    }
-    if (type === 'articleAudio' && articleAudioIds.length > 0) {
-      (block as { audioId: string }).audioId = String(articleAudioIds[0]);
-    }
-    setState((s) => {
-      const contentItem = blockToContentItem(block);
-      const newId = createBlockId();
-      const newBlock = { ...block, id: newId };
-      return {
-        ...s,
-        content: [...s.content, contentItem],
-        blockIds: [...s.blockIds, newId],
-        blocks: [...s.blocks, newBlock],
-      };
+    return { ...block, id: createBlockId() };
+  };
+
+  const addBlock = (type: AddableBlockType) => {
+    const newBlock = createPreparedBlock(type);
+    scrollBlockIdRef.current = newBlock.id;
+    setState((current) => ({
+      ...current,
+      content: [...current.content, blockToContentItem(newBlock)],
+      blockIds: [...current.blockIds, newBlock.id],
+      blocks: [...current.blocks, newBlock],
+    }));
+  };
+
+  const insertAtMarkdownCaret = (index: number, type: AddableBlockType, plan: MarkdownInsertPlacement) => {
+    const newBlock = createPreparedBlock(type);
+    const suffixBlock: MarkdownBlock | null =
+      plan.action === 'between'
+        ? (() => {
+            const created = createDefaultBlock('markdown');
+            return created.type === 'markdown'
+              ? { ...created, id: createBlockId(), content: plan.after }
+              : { id: createBlockId(), type: 'markdown', content: plan.after };
+          })()
+        : null;
+    scrollBlockIdRef.current = newBlock.id;
+    setState((current) => {
+      const existing = current.blocks[index];
+      if (!existing || existing.type !== 'markdown') return current;
+      const content = [...current.content];
+      const blockIds = [...current.blockIds];
+      const blocks = [...current.blocks];
+      if (plan.action === 'before') {
+        const markdownBlock: MarkdownBlock = { ...existing, content: plan.markdown };
+        content.splice(index, 1, blockToContentItem(newBlock), blockToContentItem(markdownBlock));
+        blockIds.splice(index, 1, newBlock.id, markdownBlock.id);
+        blocks.splice(index, 1, newBlock, markdownBlock);
+      } else if (plan.action === 'after') {
+        const markdownBlock: MarkdownBlock = { ...existing, content: plan.markdown };
+        content.splice(index, 1, blockToContentItem(markdownBlock), blockToContentItem(newBlock));
+        blockIds.splice(index, 1, markdownBlock.id, newBlock.id);
+        blocks.splice(index, 1, markdownBlock, newBlock);
+      } else if (suffixBlock) {
+        const prefix: MarkdownBlock = { ...existing, content: plan.before };
+        content.splice(
+          index,
+          1,
+          blockToContentItem(prefix),
+          blockToContentItem(newBlock),
+          blockToContentItem(suffixBlock),
+        );
+        blockIds.splice(index, 1, prefix.id, newBlock.id, suffixBlock.id);
+        blocks.splice(index, 1, prefix, newBlock, suffixBlock);
+      } else {
+        return current;
+      }
+      return { ...current, content, blockIds, blocks };
     });
   };
+
+  useLayoutEffect(() => {
+    const id = scrollBlockIdRef.current;
+    if (!id) return;
+    const escaped = typeof CSS !== 'undefined' && typeof CSS.escape === 'function' ? CSS.escape(id) : id;
+    const element = document.querySelector(`[data-editor-block-id="${escaped}"]`);
+    if (!element) return;
+    scrollBlockIdRef.current = null;
+    element.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }, [state.blocks]);
 
   const updateBlock = (index: number, block: EditorBlock) => {
     setState((s) => {
@@ -759,40 +804,8 @@ export default function ArticlesPage() {
                     </div>
                   ) : (
                     <div key="blocks" className="flex min-h-0 flex-1 flex-col overflow-y-auto p-4 scrollbar-theme">
-                      <div className="mb-4 flex flex-wrap gap-2 flex-shrink-0">
-                        <span className="mr-2 self-center text-xs font-medium text-[var(--md-sys-color-on-surface-variant)]">
-                          {t('articlesPage.add')}
-                        </span>
-                        {(
-                          [
-                            ['markdown', 'articleEditor.blockMarkdown', Type],
-                            ['photo', 'articlesPage.blockImage', ImageIcon],
-                            ['articleVideo', 'articleEditor.blockArticleVideo', VideoIcon],
-                            ['articleAudio', 'articleEditor.blockArticleAudio', Music],
-                            ['accordion', 'articlesPage.blockAccordion', ListChecks],
-                            ['quiz', 'articlesPage.blockQuiz', Puzzle],
-                            ['slideshow', 'articlesPage.blockSlideshow', Presentation],
-                            ['tts', 'articleEditor.blockTts', Mic],
-                            ['katex', 'articleEditor.blockKatex', Sigma],
-                            ['dot', 'articlesPage.blockDot', Workflow],
-                            ['pie', 'articlesPage.blockPie', PieChart],
-                            ['bar', 'articlesPage.blockBar', BarChart2],
-                            ['smiles', 'articleEditor.blockSmiles', FlaskConical],
-                            ['chessDiagram', 'articlesPage.blockChessDiagram', Swords],
-                            ['video', 'articlesPage.blockVideo', SquarePlay],
-                            ['playEngine', 'articlesPage.blockPlayEngine', Swords],
-                          ] as [string, string, typeof Type][]
-                        ).map(([type, labelKey, Icon]) => (
-                          <button
-                            key={type}
-                            type="button"
-                            onClick={() => addBlock(type as EditorBlock['type'])}
-                            className="btn-tonal min-h-8 rounded-lg px-3 py-1 text-xs"
-                          >
-                            <Icon className="h-3.5 w-3.5" />
-                            {t(labelKey)}
-                          </button>
-                        ))}
+                      <div className="mb-4 flex-shrink-0">
+                        <AppendBlockSplitButton onAppend={addBlock} />
                       </div>
                       <div className="space-y-6 pb-8">
                         {state.blocks.length === 0 && (
@@ -817,7 +830,14 @@ export default function ArticlesPage() {
                           };
                           switch (block.type) {
                             case 'markdown':
-                              return <MarkdownBlockEditor key={block.id} block={block} {...common} />;
+                              return (
+                                <MarkdownBlockEditor
+                                  key={block.id}
+                                  block={block}
+                                  {...common}
+                                  onInsertAtCaret={(type, insertPlan) => insertAtMarkdownCaret(index, type, insertPlan)}
+                                />
+                              );
                             case 'accordion':
                               return <AccordionBlockEditor key={block.id} block={block} {...common} />;
                             case 'chessDiagram':

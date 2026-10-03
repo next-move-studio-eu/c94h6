@@ -7,8 +7,6 @@ import React, { useMemo } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { useTheme } from '../contexts/ThemeContext';
 import { ThemeProvider } from '../contexts/ThemeContext';
 import { useTranslation } from 'react-i18next';
@@ -58,6 +56,26 @@ import type { ArticleSection } from '../types/articleEditor';
 export type RenderVariant = 'preview' | 'detail';
 
 const cv = (token: string) => `var(--${token})`;
+
+/** Token colors only. The frame supplies surface-container-high; no second background. */
+const articleCodeStyle: Record<string, React.CSSProperties> = {
+  'pre[class*="language-"]': {
+    color: 'var(--md-sys-color-on-surface)',
+    background: 'transparent',
+  },
+  'code[class*="language-"]': {
+    color: 'var(--md-sys-color-on-surface)',
+    background: 'transparent',
+  },
+  comment: { color: 'var(--md-sys-color-on-surface-variant)' },
+  prolog: { color: 'var(--md-sys-color-on-surface-variant)' },
+  doctype: { color: 'var(--md-sys-color-on-surface-variant)' },
+  cdata: { color: 'var(--md-sys-color-on-surface-variant)' },
+  keyword: { color: 'var(--md-sys-color-primary)' },
+  string: { color: 'var(--md-sys-color-tertiary)' },
+  char: { color: 'var(--md-sys-color-tertiary)' },
+  number: { color: 'var(--md-sys-color-tertiary)' },
+};
 
 interface ArticleContentRendererProps {
   content: ArticleContent;
@@ -232,13 +250,14 @@ export default function ArticleContentRenderer({
               </div>
               <SyntaxHighlighter
                 language={language}
-                style={mode === 'dark' ? vscDarkPlus : oneLight}
+                style={articleCodeStyle}
                 customStyle={{
                   margin: 0,
                   padding: '1.5rem',
                   fontSize: '0.9rem',
                   lineHeight: '1.6',
-                  background: 'var(--md-sys-color-surface-container)',
+                  background: 'transparent',
+                  color: 'var(--md-sys-color-on-surface)',
                   minWidth: 'min-content',
                 }}
                 {...props}
@@ -259,7 +278,7 @@ export default function ArticleContentRenderer({
       },
       pre: ({ children }: any) => <>{children}</>,
       table: ({ children, ...props }: any) => (
-        <div className="my-8 max-w-full min-w-0 overflow-hidden rounded-xl surface-container-low">
+        <div className="my-8 max-w-full min-w-0 overflow-hidden rounded-xl surface-container-high">
           <div className="overflow-x-auto">
             <table
               className={`min-w-full border-collapse ${props.className || ''}`}
@@ -276,7 +295,7 @@ export default function ArticleContentRenderer({
         </thead>
       ),
       tbody: ({ children, ...props }: any) => (
-        <tbody className="text-[var(--md-sys-color-on-surface)] [&>tr:nth-child(even)]:bg-[var(--md-sys-color-surface-container)]" {...props}>
+        <tbody className="text-[var(--md-sys-color-on-surface)] [&>tr:nth-child(even)]:bg-surface-container-highest" {...props}>
           {children}
         </tbody>
       ),
@@ -302,7 +321,7 @@ export default function ArticleContentRenderer({
         </td>
       ),
     };
-  }, [variant, mode, t]);
+  }, [variant, t]);
 
   const renderItem = (item: ContentItem, index: number): React.ReactNode => {
     switch (item.type) {
